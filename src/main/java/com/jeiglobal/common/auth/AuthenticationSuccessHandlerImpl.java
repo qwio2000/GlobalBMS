@@ -32,6 +32,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
+	@Value("${serverurl.hongkong}")
+	private String hongkongUrl;
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
@@ -41,16 +44,19 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		addAuthCookie(response, authentication);
 		String retUrl = request.getParameter("returl");
 		if(retUrl == null || retUrl.isEmpty()){
-			if("JA".equalsIgnoreCase(member.getEmpKeyLvCD())){
-				response.sendRedirect(request.getContextPath()+"/ja/centers");
-			}else if("FA".equalsIgnoreCase(member.getEmpKeyLvCD())){
-				response.sendRedirect(request.getContextPath()+"/fa/members");
-			}else if("MA".equalsIgnoreCase(member.getEmpKeyLvCD())){
-				response.sendRedirect(request.getContextPath()+"/fa/members");
+			if("08".equals(member.getJisaCD())){
+				if("JA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+					response.sendRedirect(hongkongUrl+"/ja/centers");
+				}else if("FA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+					response.sendRedirect(hongkongUrl+"/fa/members");
+				}else if("MA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+					response.sendRedirect(hongkongUrl+"/fa/members");
+				}
 			}
 			return;
+		}else{
+			response.sendRedirect(hongkongUrl+retUrl);
 		}
-		response.sendRedirect(retUrl);
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.util.*;
@@ -26,6 +27,9 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 	
 	private String loginFormPath;
 	
+	@Value("${serverurl.globalbms}")
+	private String globalbmsUrl;
+	
 	@Override
 	public void commence(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException authException)
@@ -36,9 +40,9 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 		String redirectUrl = UrlUtils.buildRequestUrl(request);
 		String encodedUrl = response.encodeRedirectURL(redirectUrl);
 		if("/".equals(encodedUrl)){
-			response.sendRedirect(request.getContextPath()+loginFormPath);
+			response.sendRedirect(globalbmsUrl+loginFormPath);
 		}else{
-			response.sendRedirect(request.getContextPath()+loginFormPath+"?returl="+encodedUrl);
+			response.sendRedirect(globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
 		}
 	}
 

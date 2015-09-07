@@ -11,7 +11,7 @@ import com.jeiglobal.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = GlobalBmsApplication.class)
 @WebAppConfiguration
-public class HongkongProjectApplicationTests {
+public class GlobalBMSApplicationTests {
 
 	@Test
 	public void contextLoads() {

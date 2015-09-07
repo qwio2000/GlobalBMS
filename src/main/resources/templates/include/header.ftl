@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="loginInfo" type="com.jeiglobal.domain.auth.LoginInfo" -->
+<#-- @ftlvariable name="hongkongUrl" type="java.lang.String" -->
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <html lang="ko">

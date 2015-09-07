@@ -28,7 +28,10 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 	
 	@Autowired
 	private AuthoritiesService authoritiesService;
-
+	
+	@Value("${serverurl.globalbms}")
+	private String globalbmsUrl;
+	
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
@@ -43,7 +46,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 		cookie1.setMaxAge(0);
 		response.addCookie(cookie1);
 		
-		response.sendRedirect(request.getContextPath()+"/login");
+		response.sendRedirect(globalbmsUrl+"/login");
 	}
 
 }

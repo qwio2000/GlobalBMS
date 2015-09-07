@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="loginInfo" type="com.jeiglobal.domain.auth.LoginInfo" -->
+<#-- @ftlvariable name="hongkongUrl" type="java.lang.String" -->
 <#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <html>
@@ -27,11 +28,11 @@
 	<#if loginInfo??>
 		<#assign permLevel = loginInfo.empKeyLvCD?lower_case>
 		<#if permLevel == "fa">
-			<#assign url = '/' + permLevel + '/members'/>
+			<#assign url = hongkongUrl + '/' + permLevel + '/members'/>
 		<#elseif permLevel == "ja">
-			<#assign url = '/' + permLevel + '/centers'/>
+			<#assign url = hongkongUrl + '/' + permLevel + '/centers'/>
 		<#elseif permLevel == "ma">
-			<#assign url = '/fa/members'/>
+			<#assign url = hongkongUrl + '/fa/members'/>
 		</#if>
 	</#if>
 		<!-- container -->

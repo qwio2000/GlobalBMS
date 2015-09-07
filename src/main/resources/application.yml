@@ -12,6 +12,11 @@ spring:
         
 server:
     port: 8081
+    
+serverurl:
+     hongkong: http://localhost:8080
+     globalbms: http://localhost:8081
+         
 ---
 spring.profiles: develop
 
@@ -26,9 +31,11 @@ uploadpath:
 spring:
     resources:
         cache-period:31556926
+        
+serverurl:
+     hongkong: http://devhk.jei-global.com
+     globalbms: http://devbms.jei-global.com
 
-server:
-    port: 8081
 ---
 spring.profiles: product
 
@@ -43,6 +50,3 @@ uploadpath:
 spring:
     resources:
         cache-period:31556926
-        
-server:
-    port: 8081

@@ -19,7 +19,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management' 
 apply plugin: 'war'
 
-mainClassName = "com.jeiglobal.hk.HongkongProjectApplication"
+mainClassName = "com.jeiglobal.GlobalBmsApplication"
 
 war {
 	baseName = 'globalBMS'

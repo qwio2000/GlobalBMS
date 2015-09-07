@@ -33,7 +33,7 @@
 			</Pattern>
 		</encoder>
 	</appender>
-    <logger name="com.jeiglobal.hk" level="debug"/>
+    <logger name="com.jeiglobal" level="debug"/>
     <root level="info">
         <appender-ref ref="ROLLING"/>
         <appender-ref ref="STDOUT" />

@@ -1,0 +1,72 @@
+buildscript {
+
+	ext {
+		springBootVersion = '1.2.5.RELEASE'
+	}
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'war'
+
+mainClassName = "com.jeiglobal.hk.HongkongProjectApplication"
+
+war {
+	baseName = 'globalBMS'
+	version = '0.0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-freemarker:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework:spring-jdbc:4.1.7.RELEASE")
+    compile("org.apache.tomcat:tomcat-dbcp:7.0.47")
+    compile files('lib/sqljdbc4-4.1.jar')
+    compile("mysql:mysql-connector-java:5.1.36")
+    compile("org.mybatis:mybatis:3.3.0")
+    compile("org.mybatis:mybatis-spring:1.2.3")
+    compile("org.projectlombok:lombok:1.16.6")
+    compile("org.codehaus.janino:janino:2.7.8")
+    compile("javax.servlet.jsp:jsp-api:2.2")
+    compile("commons-lang:commons-lang:2.6")
+    compile("net.sf.ehcache:ehcache:2.10.0")
+    compile("com.navercorp.lucy:lucy-xss:1.6.3")
+    compile("com.navercorp.lucy:lucy-xss-servlet:2.0.0")
+    
+    
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("junit:junit")
+}
+
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}

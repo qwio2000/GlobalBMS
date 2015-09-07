@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<if condition='property("os.name").contains("Linux")'>
+		<then>
+			<property name="directory" value="/home/log"/>
+		</then>
+		<else>
+			<property name="directory" value="C:/log"/>
+		</else>
+	</if>
+	
+	<appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+   		<file>${directory}/jeiglobal_hk/jeiglobal_hk.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily LOGBACK_HOME은 os 시스템 프로퍼티에 작성 -->
+            <fileNamePattern>${directory}/jeiglobal_hk/jeiglobal_hk_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>
+            	%d{yyyy-MM-dd HH:mm} %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+    <logger name="com.jeiglobal.hk" level="debug"/>
+    <root level="info">
+        <appender-ref ref="ROLLING"/>
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -1,0 +1,9 @@
+db:
+    mysqlDriverClassName: com.mysql.jdbc.Driver
+    mysqlUrl: jdbc:mysql://192.1.27.209:3306/globalbiz
+    mysqlUsername: devadmin
+    mysqlPassword: smart2012)*@&mydb
+    mssqlDriverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    mssqlUrl: jdbc:sqlserver://192.1.27.245:1433;DatabaseName=JEIGLOBAL;
+    mssqlUsername: sa
+    mssqlPassword: "16658202"

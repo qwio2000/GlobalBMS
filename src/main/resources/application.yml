@@ -1,0 +1,39 @@
+#default        
+multipart:
+    maxFileSize: 5120KB
+    maxRequestSize: 10240KB
+    
+uploadpath:
+        announcements: C:\upload\jeiglobal\hk\announcements
+        
+spring:
+    resources:
+        cache-period:31556926
+---
+spring.profiles: develop
+
+#develop        
+multipart:
+    maxFileSize: 5120KB
+    maxRequestSize: 10240KB
+    
+uploadpath:
+        announcements: /home/devhk/upload/announcements
+        
+spring:
+    resources:
+        cache-period:31556926
+---
+spring.profiles: product
+
+#product
+multipart:
+    maxFileSize: 5120KB
+    maxRequestSize: 10240KB
+    
+uploadpath:
+        announcements: /home/devhk/upload/announcements
+        
+spring:
+    resources:
+        cache-period:31556926

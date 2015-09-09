@@ -45,4 +45,10 @@ public class HomeController {
 	@RequestMapping("favicon.ico")
     @ResponseBody
     void favicon() {}
+	
+	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/community","/ma/leads","/ma/jisalogin","/ma/membersearch","/ma/manageproduct"})
+	public String getLayoutPage(){
+		LOGGER.debug("Getting BMS Layout Page");
+		return "common/layout";
+	}
 }

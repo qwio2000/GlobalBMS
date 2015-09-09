@@ -6,6 +6,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.web.filter.*;
 import org.springframework.web.servlet.config.annotation.*;
 
+import com.jeiglobal.common.*;
 import com.jeiglobal.utils.*;
 import com.navercorp.lucy.security.xss.servletfilter.*;
 
@@ -74,6 +75,22 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/public/img/**")
 		.addResourceLocations("/public/img/")
 		.setCachePeriod(31556926);
+	}
+	
+	/**
+	 * 메뉴 인터셉터 Bean 설정
+	 * @return
+	 */
+	@Bean
+	public MenuIntercepter menuIntercepter(){
+		return new MenuIntercepter();
+	}
+	
+	//Interceptor 등록
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// TODO Auto-generated method stub
+		registry.addInterceptor(menuIntercepter()).addPathPatterns("/**").excludePathPatterns("","/","/login","/public/**","/error","/favicon.ico");
 	}
 	
 	

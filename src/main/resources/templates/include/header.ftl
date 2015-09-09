@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>${title?default('HongKong')}</title>
+<title>${title?default('JEI-GLOBAL BMS')}</title>
 <link rel="stylesheet" type="text/css" href="/public/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/public/css/layout_center.css" />
 <link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />

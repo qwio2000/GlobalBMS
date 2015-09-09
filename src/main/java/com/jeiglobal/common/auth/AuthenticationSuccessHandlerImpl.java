@@ -49,13 +49,19 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 					response.sendRedirect(hongkongUrl+"/ja/centers");
 				}else if("FA".equalsIgnoreCase(member.getEmpKeyLvCD())){
 					response.sendRedirect(hongkongUrl+"/fa/members");
-				}else if("MA".equalsIgnoreCase(member.getEmpKeyLvCD())){
-					response.sendRedirect(hongkongUrl+"/fa/members");
+				}
+			}else if("00".equals(member.getJisaCD())){
+				if("MA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+					response.sendRedirect(request.getContextPath()+"/ma/records");
 				}
 			}
 			return;
 		}else{
-			response.sendRedirect(hongkongUrl+retUrl);
+			if("08".equals(member.getJisaCD())){
+				response.sendRedirect(hongkongUrl+retUrl);
+			}else if("00".equals(member.getJisaCD())){
+				response.sendRedirect(request.getContextPath()+retUrl);
+			}
 		}
 	}
 	
@@ -68,7 +74,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		String authId = member.getMemberId();
 		String authKey = standrdPasswordEncoder.encode(authId);
 		authoritiesService.updateEncodeCookieById(authId,authKey);
-		
 		try {
 			Cookie cookie = new Cookie("AUTHKey",URLEncoder.encode(authKey,"utf-8"));
 			cookie.setPath("/");

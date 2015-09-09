@@ -32,7 +32,7 @@
 		<#elseif permLevel == "ja">
 			<#assign url = hongkongUrl + '/' + permLevel + '/centers'/>
 		<#elseif permLevel == "ma">
-			<#assign url = hongkongUrl + '/fa/members'/>
+			<#assign url = '/' + permLevel + '/records'/>
 		</#if>
 	</#if>
 		<!-- container -->

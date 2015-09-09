@@ -2,7 +2,7 @@ package com.jeiglobal.repository.common.auth;
 
 import java.util.*;
 
-import org.springframework.cache.annotation.*;
+//import org.springframework.cache.annotation.*;
 
 import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.repository.common.*;
@@ -25,7 +25,7 @@ public interface AuthoritiesRepository {
 	public List<Authority> findPermissionById(String memberId);
 	
 	//현재 menuCache라는 이름으로 저장된 캐시들을 모두 삭제
-	@CacheEvict(value="menuCache", allEntries=true)
+//	@CacheEvict(value="menuCache", allEntries=true)
 	public void updateEncodeCookieById(Map<String, Object> map);
 
 	public long countMemberByIdAndEncodeCookie(Map<String, Object> map);

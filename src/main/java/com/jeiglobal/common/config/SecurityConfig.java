@@ -55,7 +55,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 				.csrf().disable()
 				.authorizeRequests()
-				.antMatchers("/login","/").permitAll()
+				.antMatchers("/login","/","/**").permitAll()
 				.antMatchers("/adminManager/**").hasAuthority("SUPERADMIN")
 				.anyRequest().authenticated()
 			.and()

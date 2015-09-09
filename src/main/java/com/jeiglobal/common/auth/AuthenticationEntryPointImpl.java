@@ -38,10 +38,14 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 			setLoginFormPath("/login");
 		}
 		String redirectUrl = UrlUtils.buildRequestUrl(request);
+		System.out.println("redirectUrl : "+redirectUrl);
 		String encodedUrl = response.encodeRedirectURL(redirectUrl);
+		System.out.println("encodedUrl : "+encodedUrl);
 		if("/".equals(encodedUrl)){
+			System.out.println("URL : "+globalbmsUrl+loginFormPath);
 			response.sendRedirect(globalbmsUrl+loginFormPath);
 		}else{
+			System.out.println("URL : "+globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
 			response.sendRedirect(globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
 		}
 	}

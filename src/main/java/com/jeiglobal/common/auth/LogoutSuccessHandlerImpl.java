@@ -39,11 +39,13 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 		Cookie cookie = new Cookie("AUTHId","");
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
+		cookie.setDomain(".jei-global.com");
 		response.addCookie(cookie);
 		
 		Cookie cookie1 = new Cookie("AUTHKey","");
 		cookie1.setPath("/");
 		cookie1.setMaxAge(0);
+		cookie1.setDomain(".jei-global.com");
 		response.addCookie(cookie1);
 
 		response.sendRedirect(globalbmsUrl);

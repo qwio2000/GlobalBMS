@@ -5,13 +5,11 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.util.*;
 import org.springframework.stereotype.*;
-
 /**
  * 
  * 클래스명 : AuthenticationEntryPointImpl.java
@@ -27,8 +25,6 @@ import org.springframework.stereotype.*;
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationEntryPointImpl.class);
-	
 	private String loginFormPath;
 	
 	@Value("${serverurl.globalbms}")
@@ -42,14 +38,10 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 			setLoginFormPath("/login");
 		}
 		String redirectUrl = UrlUtils.buildRequestUrl(request);
-		LOGGER.debug("redirectUrl : {}", redirectUrl);
 		String encodedUrl = response.encodeRedirectURL(redirectUrl);
-		LOGGER.debug("encodedUrl : {}", encodedUrl);
 		if("/".equals(encodedUrl)){
-			LOGGER.debug("URL : {}", globalbmsUrl+loginFormPath);
 			response.sendRedirect(globalbmsUrl+loginFormPath);
 		}else{
-			LOGGER.debug("URL : {}", globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
 			response.sendRedirect(globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
 		}
 	}

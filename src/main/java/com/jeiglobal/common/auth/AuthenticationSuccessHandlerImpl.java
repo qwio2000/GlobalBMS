@@ -77,10 +77,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		try {
 			Cookie cookie = new Cookie("AUTHKey",URLEncoder.encode(authKey,"utf-8"));
 			cookie.setPath("/");
+			cookie.setDomain(".jei-global.com");
 			response.addCookie(cookie);
 			
 			Cookie cookie1 = new Cookie("AUTHId",URLEncoder.encode(authId,"utf-8"));
 			cookie1.setPath("/");
+			cookie1.setDomain(".jei-global.com");
 			response.addCookie(cookie1);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);

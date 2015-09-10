@@ -52,7 +52,6 @@ public class AuthoritiesService {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberId", memberId);
 		map.put("encodeCookie", encodeCookie);
-		
 		authoritiesRepository.updateEncodeCookieById(map);
 	}
 	

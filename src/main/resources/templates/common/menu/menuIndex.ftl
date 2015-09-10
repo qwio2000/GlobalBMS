@@ -25,7 +25,7 @@
 	<!-- header -->
 	<div id="header">
 		<div class="content">
-			<h1 class="logo"><a href="/"><img src="/public/img/common/logo_header.gif" alt="재능Global" /></a></h1>
+			<h1 class="logo"><a href="/ma/records"><img src="/public/img/common/logo_header.gif" alt="재능Global" /></a></h1>
 			<div class="login-info">
 				<dl>
 				</dl>

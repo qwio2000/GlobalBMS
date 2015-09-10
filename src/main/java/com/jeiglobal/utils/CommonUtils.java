@@ -1,6 +1,10 @@
 package com.jeiglobal.utils;
 
+import java.io.*;
+import java.net.*;
 import java.util.*;
+
+import javax.servlet.http.*;
 
 
 /**
@@ -31,5 +35,38 @@ public class CommonUtils {
 	 */
 	public static String getFileName(String originalFilename) {
 		return UUID.randomUUID().toString() + "." + getExtension(originalFilename);
+	}
+	
+	/**
+	 * @param authId
+	 * @param authKey
+	 * @param response void
+	 */
+	public static void addCookie(String cookieName, String cookieValue, String cookieDomain,
+			HttpServletResponse response) {
+		try {
+			Cookie cookie = new Cookie(cookieName,URLEncoder.encode(cookieValue,"utf-8"));
+			cookie.setPath("/");
+			if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
+				cookie.setDomain(cookieDomain);
+			}
+			response.addCookie(cookie);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * @param CookieName
+	 * @param response void
+	 */
+	public static void removeCookie(String cookieName, String cookieDomain, HttpServletResponse response) {
+		Cookie cookie = new Cookie(cookieName,"");
+		cookie.setPath("/");
+		cookie.setMaxAge(0);
+		if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
+			cookie.setDomain(cookieDomain);
+		}
+		response.addCookie(cookie);
 	}
 }

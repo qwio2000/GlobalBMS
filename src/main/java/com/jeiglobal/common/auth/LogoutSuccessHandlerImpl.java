@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.logout.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.service.common.auth.*;
+import com.jeiglobal.utils.*;
 /**
  * 
  * 클래스명 : LogoutSuccessHandlerImpl.java
@@ -39,21 +40,10 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		Cookie cookie = new Cookie("AUTHId","");
-		cookie.setPath("/");
-		cookie.setMaxAge(0);
-		if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
-			cookie.setDomain(cookieDomain);
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			CommonUtils.removeCookie(cookie.getName(), cookieDomain, response);
 		}
-		response.addCookie(cookie);
-		
-		Cookie cookie1 = new Cookie("AUTHKey","");
-		cookie1.setPath("/");
-		cookie1.setMaxAge(0);
-		if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
-			cookie1.setDomain(cookieDomain);
-		}
-		response.addCookie(cookie1);
 
 		response.sendRedirect(globalbmsUrl);
 		

@@ -1,6 +1,7 @@
 package com.jeiglobal.common.auth;
 
 import java.io.*;
+import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -40,9 +41,11 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			CommonUtils.removeCookie(cookie.getName(), cookieDomain, response);
+		if(request.getCookies() != null && request.getCookies().length > 0){
+			List<Cookie> cookies = Arrays.asList(request.getCookies());
+			for (Cookie cookie : cookies) {
+				CommonUtils.removeCookie(cookie.getName(), cookieDomain, response);
+			}
 		}
 
 		response.sendRedirect(globalbmsUrl);

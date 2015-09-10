@@ -39,6 +39,7 @@ public class HomeController {
 		LOGGER.debug("### Return Url : {}", returl);
 		return "common/login";
 	}
+	
 	/**
 	 * favicon.ico 요청 시 No Mapping Log 방지하기 위해 만듬 
 	 */
@@ -46,7 +47,7 @@ public class HomeController {
     @ResponseBody
     void favicon() {}
 	
-	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/community","/ma/leads","/ma/jisalogin","/ma/membersearch","/ma/manageproduct"})
+	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/community","/ma/leads","/ma/membersearch","/ma/manageproduct"})
 	public String getLayoutPage(){
 		LOGGER.debug("Getting BMS Layout Page");
 		return "common/layout";

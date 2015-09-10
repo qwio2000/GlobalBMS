@@ -17,6 +17,8 @@ serverurl:
      hongkong: http://localhost:8080
      globalbms: http://localhost:8081
          
+cookieShare:
+     domain: localhost
 ---
 spring.profiles: develop
 
@@ -35,6 +37,9 @@ spring:
 serverurl:
      hongkong: http://devhk.jei-global.com
      globalbms: http://devbms.jei-global.com
+     
+cookieShare:
+     domain: .jei-global.com
 
 ---
 spring.profiles: product
@@ -50,3 +55,6 @@ uploadpath:
 spring:
     resources:
         cache-period:31556926
+        
+cookieShare:
+     domain: .jei-global.com

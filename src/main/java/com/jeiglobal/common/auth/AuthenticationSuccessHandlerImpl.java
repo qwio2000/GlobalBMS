@@ -34,6 +34,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	
 	@Value("${serverurl.hongkong}")
 	private String hongkongUrl;
+
+	@Value("${cookieShare.domain}")
+	private String cookieDomain;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
@@ -68,7 +71,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	
 	private void addAuthCookie(HttpServletResponse response,Authentication authentication){
 		LoginInfo member = (LoginInfo)authentication.getPrincipal();
-		
 		StandardPasswordEncoder standrdPasswordEncoder = new StandardPasswordEncoder();
 		
 		String authId = member.getMemberId();
@@ -77,12 +79,16 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		try {
 			Cookie cookie = new Cookie("AUTHKey",URLEncoder.encode(authKey,"utf-8"));
 			cookie.setPath("/");
-			cookie.setDomain(".jei-global.com");
+			if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
+				cookie.setDomain(cookieDomain);
+			}
 			response.addCookie(cookie);
 			
 			Cookie cookie1 = new Cookie("AUTHId",URLEncoder.encode(authId,"utf-8"));
 			cookie1.setPath("/");
-			cookie1.setDomain(".jei-global.com");
+			if(!"localhost".contains(cookieDomain)){
+				cookie1.setDomain(cookieDomain);
+			}
 			response.addCookie(cookie1);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);

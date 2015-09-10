@@ -32,6 +32,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 	@Value("${serverurl.globalbms}")
 	private String globalbmsUrl;
 	
+	@Value("${cookieShare.domain}")
+	private String cookieDomain;
+	
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
@@ -39,13 +42,17 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 		Cookie cookie = new Cookie("AUTHId","");
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
-		cookie.setDomain(".jei-global.com");
+		if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
+			cookie.setDomain(cookieDomain);
+		}
 		response.addCookie(cookie);
 		
 		Cookie cookie1 = new Cookie("AUTHKey","");
 		cookie1.setPath("/");
 		cookie1.setMaxAge(0);
-		cookie1.setDomain(".jei-global.com");
+		if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
+			cookie1.setDomain(cookieDomain);
+		}
 		response.addCookie(cookie1);
 
 		response.sendRedirect(globalbmsUrl);

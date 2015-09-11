@@ -65,9 +65,8 @@
 							<option value="MD">영파</option>
 						</select>
 						<select id="viewModeDepMngCD">
-							<option value="A">관리자</option>
-							<option value="F">원장</option>
-							<option value="T">선생님</option>
+							<option value="U0">관리자</option>
+							<option value="U1">스태프</option>
 						</select>
 						<input type="button" onclick="$.searchMenu();"value="검색"/>
 					</div>

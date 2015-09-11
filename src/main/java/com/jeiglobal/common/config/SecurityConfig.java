@@ -56,7 +56,6 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.authorizeRequests()
 				.antMatchers("/login","/").permitAll()
-				.antMatchers("/adminManager/**").hasAuthority("SUPERADMIN")
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()

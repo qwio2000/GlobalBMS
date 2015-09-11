@@ -3,34 +3,38 @@
 <mapper namespace="com.jeiglobal.repository.common.menu.MenuRepository">
 	
 	<select id="findOneByMParentIdx" parameterType="long" resultType="com.jeiglobal.domain.menu.GlobalMenu">
-		SELECT * FROM globalbiz.GlobalMenu WHERE mParentIdx = #{mIdx} ORDER BY mParentIdx,mSort Limit 1
+		SELECT * 
+		FROM globalbiz.MenuInfo 
+		WHERE mParentIdx = #{mIdx} 
+		ORDER BY mParentIdx,mSort Limit 1
 	</select>
 	
 	<select id="findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD" parameterType="hashMap" resultType="com.jeiglobal.domain.menu.GlobalMenu">
-		SELECT * FROM globalbiz.GlobalMenu 
+		SELECT * 
+		FROM globalbiz.MenuInfo 
 		WHERE mParentIdx = #{mIdx} AND mJisaCD = #{mJisaCD}
-		AND mEmpKeyLvCD = #{mEmpKeyLvCD} AND mDepMngCD = #{mDepMngCD} AND mUseState = #{mUseState}
+			AND mUserType = #{mUserType} AND mUserLevel = #{mUserLevel} AND mStatusCD = #{mStatusCD}
 		ORDER BY mParentIdx,mSort
 	</select>
 	
 	<select id="findByMIdx" parameterType="long" resultType="com.jeiglobal.domain.menu.GlobalMenu">
-		SELECT * FROM globalbiz.GlobalMenu WHERE mIdx = #{mIdx} Limit 1
+		SELECT * FROM globalbiz.MenuInfo WHERE mIdx = #{mIdx} Limit 1
 	</select>
 	
 	<update id="updateMHasChildrenByMidx" parameterType="hashMap">
-		UPDATE globalbiz.GlobalMenu SET mHasChildren = #{mHasChildren} WHERE mIdx = #{mIdx}
+		UPDATE globalbiz.MenuInfo SET mHasChildren = #{mHasChildren} WHERE mIdx = #{mIdx}
 	</update>
 	
 	<select id="findOneByMParentOrderByMOrderDESC" parameterType="long" resultType="com.jeiglobal.domain.menu.GlobalMenu">
-		SELECT * FROM globalbiz.GlobalMenu WHERE mParentIdx = #{mIdx} ORDER BY mSort DESC Limit 1
+		SELECT * FROM globalbiz.MenuInfo WHERE mParentIdx = #{mIdx} ORDER BY mSort DESC Limit 1
 	</select>
 	
 	<insert id="insertGlobalMenu" parameterType="com.jeiglobal.domain.menu.GlobalMenu">
-		INSERT INTO globalbiz.GlobalMenu(mParentIdx,mJisaCD,mEmpKeyLvCD,mDepMngCD,mMenuName,mMenuLink,mAntPattern
-		,mCon,mSort,mMenuCode,mHasChildren,mDepth,m1,m2,m3,m4,m5,m6,m7,m8,m9,mRegDate,mUpdate,mUseState)
-		VALUES(#{mParentIdx},#{mJisaCD},#{mEmpKeyLvCD},#{mDepMngCD},#{mMenuName},#{mMenuLink},#{mAntPattern}
+		INSERT INTO globalbiz.MenuInfo(mParentIdx,mJisaCD,mUserType,mUserLevel,mMenuName,mMenuLink,mAntPattern
+		,mCon,mSort,mMenuCode,mHasChildren,mDepth,m1,m2,m3,m4,m5,m6,m7,m8,m9,regDate, regID, updDate, updID, mStatusCD)
+		VALUES(#{mParentIdx},#{mJisaCD},#{mUserType},#{mUserLevel},#{mMenuName},#{mMenuLink},#{mAntPattern}
 		,#{mCon},#{mSort},#{mMenuCode},#{mHasChildren},#{mDepth},#{m1},#{m2},#{m3}
-		,#{m4},#{m5},#{m6},#{m7},#{m8},#{m9},#{mRegDate},#{mUpdate},#{mUseState})
+		,#{m4},#{m5},#{m6},#{m7},#{m8},#{m9},#{regDate},#{regID},#{updDate},#{updID},#{mStatusCD})
 	</insert>
 		
 	<select id="selectLastId" resultType="long">
@@ -38,7 +42,7 @@
 	</select>
 	
 	<update id="updateMDepthByMIdx" parameterType="hashMap">
-		UPDATE globalbiz.GlobalMenu SET
+		UPDATE globalbiz.MenuInfo SET
 			<if test="mDepth == 1">
 				m1 = #{mIdx}
 			</if>
@@ -70,23 +74,23 @@
 	</update>
 	
 	<select id="countMIdxByMParentIdx" parameterType="long" resultType="long">
-		SELECT count(mIdx) FROM globalbiz.GlobalMenu WHERE mParentIdx = #{mIdx}
+		SELECT count(mIdx) FROM globalbiz.MenuInfo WHERE mParentIdx = #{mIdx}
 	</select>
 	
 	<select id="selectMParentIdxByMIdx" parameterType="long" resultType="long">
-		SELECT mParentIdx FROM globalbiz.GlobalMenu WHERE mIdx = #{mIdx} limit 1
+		SELECT mParentIdx FROM globalbiz.MenuInfo WHERE mIdx = #{mIdx} limit 1
 	</select>
 	
 	<delete id="deleteGlobalMenuByMidx" parameterType="long">
-		DELETE FROM globalbiz.GlobalMenu WHERE mIdx = #{mIdx}
+		DELETE FROM globalbiz.MenuInfo WHERE mIdx = #{mIdx}
 	</delete>
 	
 	<select id="selectMDepthByMIdx" parameterType="long" resultType="int">
-		SELECT mDepth FROM globalbiz.GlobalMenu WHERE mIdx = #{mIdx} limit 1
+		SELECT mDepth FROM globalbiz.MenuInfo WHERE mIdx = #{mIdx} limit 1
 	</select>
 	
 	<select id="findByMDepth" parameterType="hashMap" resultType="com.jeiglobal.domain.menu.GlobalMenu">
-		SELECT * FROM globalbiz.GlobalMenu WHERE
+		SELECT * FROM globalbiz.MenuInfo WHERE
 			<if test="mDepth == 1">
 				m1 = #{mIdx}
 			</if>
@@ -118,18 +122,18 @@
 	</select>
 	
 	<update id="updateGlobalMenuByMIdx" parameterType="com.jeiglobal.domain.menu.GlobalMenu">
-			UPDATE globalbiz.GlobalMenu SET
+			UPDATE globalbiz.MenuInfo SET
 			<if test="mParentIdx != null">
 				mParentIdx = #{mParentIdx},
 			</if>
 			<if test="mJisaCD != null">
 				mJisaCD = #{mJisaCD},
 			</if>
-			<if test="mEmpKeyLvCD != null">
-				mEmpKeyLvCD = #{mEmpKeyLvCD},
+			<if test="mUserType != null">
+				mUserType = #{mUserType},
 			</if>
-			<if test="mDepMngCD != null">
-				mDepMngCD = #{mDepMngCD},
+			<if test="mUserLevel != null">
+				mUserLevel = #{mUserLevel},
 			</if>
 			<if test="mMenuName != null">
 				mMenuName = #{mMenuName},
@@ -185,25 +189,25 @@
 			<if test="m9 != null">
 				m9 = #{m9},
 			</if>
-			<if test="mRegDate != null">
-				mRegDate = #{mRegDate},
+			<if test="regDate != null">
+				regDate = #{regDate},
 			</if>
-			<if test="mUpdate != null">
-				mUpdate = #{mUpdate},
+			<if test="updDate != null">
+				updDate = #{updDate},
 			</if>
-			<if test="mUseState != null">
-				mUseState = #{mUseState},
+			<if test="mStatusCD != null">
+				mStatusCD = #{mStatusCD},
 			</if>
 			mIdx = #{mIdx}
 			WHERE mIdx = #{mIdx}
 	</update>
 	
 	<update id="updateMSortByMIdx" parameterType="hashMap">
-		UPDATE globalbiz.GlobalMenu SET mSort = #{mSort} WHERE mIdx = #{mIdx}
+		UPDATE globalbiz.MenuInfo SET mSort = #{mSort} WHERE mIdx = #{mIdx}
 	</update>
 	
 	<select id="findByMParentIdx" parameterType="long" resultType="com.jeiglobal.domain.menu.GlobalMenu">
-		SELECT * FROM globalbiz.GlobalMenu WHERE mParentIdx = #{mIdx} ORDER BY mSort ASC
+		SELECT * FROM globalbiz.MenuInfo WHERE mParentIdx = #{mIdx} ORDER BY mSort ASC
 	</select>
 	
 </mapper>

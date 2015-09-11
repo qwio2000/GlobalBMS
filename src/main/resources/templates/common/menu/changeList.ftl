@@ -13,7 +13,7 @@
 
 		$("#sortsave").on('click',function() {
 			var lan = $("#sortable").sortable('toArray');
-			var url = "/adminManager/menuChange";
+			var url = "/ma/managemenu/menuChange";
 			$.ajax({
 				url:url,
 				type:"POST",

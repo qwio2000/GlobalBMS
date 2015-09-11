@@ -28,7 +28,7 @@
 			<#list 1..cnt-1 as i>
 					<li>
 					<span>
-						<#if 0 == menuList[i].MUseState?number>
+						<#if 0 == menuList[i].MStatusCD?number>
 							<del>${menuList[i].MMenuName }</del>			
 						<#else>
 							${menuList[i].MMenuName}

@@ -9,7 +9,6 @@ import javax.servlet.http.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
-import org.springframework.security.core.authority.*;
 import org.springframework.security.core.context.*;
 import org.springframework.security.web.context.*;
 import org.springframework.stereotype.*;
@@ -61,19 +60,11 @@ public class SecurityContextRepositoryImpl implements SecurityContextRepository{
 				long cnt = authoritiesService.countMemberByIdAndEncodeCookie(userName, encodeCookie);
 				
 				if(cnt == 1){
-					List<GrantedAuthority> authorities = new ArrayList<>();
-					
-					List<Authority> memberAuthories = authoritiesService.findPermissionById(userName);
-					
-					for(int i = 0; i < memberAuthories.size(); i++){
-						authorities.add(new SimpleGrantedAuthority(memberAuthories.get(i).getAuthority()));
-					}
-					
 					LoginInfo member = authoritiesService.findMemberById(userName);
-					member.setMemberPassword("");
+					member.setUserPasswd("");
 					member.setEncodeCookie("");
 					
-					Authentication authentication = new UsernamePasswordAuthenticationToken(member,"",authorities);
+					Authentication authentication = new UsernamePasswordAuthenticationToken(member,"",null);
 					ctx.setAuthentication(authentication);
 				}
 			}

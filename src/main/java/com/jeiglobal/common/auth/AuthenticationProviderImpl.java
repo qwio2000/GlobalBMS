@@ -1,11 +1,8 @@
 package com.jeiglobal.common.auth;
 
-import java.util.*;
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
-import org.springframework.security.core.authority.*;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.*;
 
@@ -47,25 +44,12 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 		
 		String inputPass = authoritiesService.selectEncryptPassWord(authToken.getCredentials().toString());
 		
-		if(!matchPassword(loginInfo.getMemberPassword(),inputPass)){
+		if(!matchPassword(loginInfo.getUserPasswd(),inputPass)){
 			throw new BadCredentialsException("계정ID와 비밀번호가 맞지않습니다.");
 		}
 		
-		List<GrantedAuthority> authorities = getAuthorities(loginInfo.getMemberId());
-		return new UsernamePasswordAuthenticationToken(new LoginInfo(loginInfo.getMemberId(),loginInfo.getMemberPassword()
-				,loginInfo.getMemberEnabled(),loginInfo.getJisaCD(),loginInfo.getDepid1(),loginInfo.getDepid2(),loginInfo.getEmpKey(),loginInfo.getEmpName(),loginInfo.getEmpKeyLvCD(),loginInfo.getDepMngCD(),loginInfo.getEncodeCookie()),null,authorities);
-	}
-
-	private List<GrantedAuthority> getAuthorities(String memberId) {
-		List<Authority> perms = authoritiesService.findPermissionById(memberId);
-		if (perms == null)
-			return Collections.emptyList();
-
-		List<GrantedAuthority> authorities = new ArrayList<>(perms.size());
-		for (Authority perm : perms) {
-			authorities.add(new SimpleGrantedAuthority(perm.getAuthority()));
-		}
-		return authorities;
+		return new UsernamePasswordAuthenticationToken(new LoginInfo(loginInfo.getUserId(), loginInfo.getUserPasswd(), loginInfo.getUserFirstName(), loginInfo.getUserLastName(), loginInfo.getStatusCD(), loginInfo.getJisaCD(), loginInfo.getDeptCD(), loginInfo.getDeptName(), loginInfo.getEmpKey(), loginInfo.getUserType(), loginInfo.getUserLevel(), loginInfo.getEncodeCookie())
+				,null, null);
 	}
 	
 	private boolean matchPassword(String memberPassword, Object credentials) {

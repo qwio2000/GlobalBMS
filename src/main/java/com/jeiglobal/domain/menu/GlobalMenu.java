@@ -20,8 +20,8 @@ public class GlobalMenu {
 	private Long mIdx;
 	private Long mParentIdx;
 	private String mJisaCD;
-	private String mEmpKeyLvCD;
-	private String mDepMngCD;
+	private String mUserType;
+	private String mUserLevel;
 	private String mMenuName;
 	private String mMenuLink;
 	private String mAntPattern;
@@ -39,7 +39,10 @@ public class GlobalMenu {
 	private Long m7;
 	private Long m8;
 	private Long m9;
-	private Timestamp mRegDate;
-	private Timestamp mUpdate;
-	private String mUseState;
+	private Timestamp regDate;
+	private String regID;
+	private Timestamp updDate;
+	private String updID;
+	private String mStatusCD;
+	private String mAuthType;
 }

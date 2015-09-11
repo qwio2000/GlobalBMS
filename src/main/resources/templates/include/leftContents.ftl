@@ -1,4 +1,4 @@
-<p class="msg2"> <strong><@security.authentication property="principal.empName" ></@security.authentication></strong>님 환영합니다.</p>
+<p class="msg2"> <strong><@security.authentication property="principal.userFirstName" /><@security.authentication property="principal.userLastName" /></strong>님 환영합니다.</p>
 <div class="mb-state">
 	<h3><img src="/public/img/today/tit_mb_state.gif" alt="센터현황" /></h3>
 	<a href="#none" class="more"><img src="/public/img/common/icon_more.gif" alt="더보기" /></a>

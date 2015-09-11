@@ -26,7 +26,7 @@
 		</div>
 		<!-- //header -->
 	<#if loginInfo??>
-		<#assign permLevel = loginInfo.empKeyLvCD?lower_case>
+		<#assign permLevel = loginInfo.userType?lower_case>
 		<#if permLevel == "fa">
 			<#assign url = hongkongUrl + '/' + permLevel + '/members'/>
 		<#elseif permLevel == "ja">

@@ -6,6 +6,7 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.domain.menu.*;
 import com.jeiglobal.service.common.menu.*;
 
@@ -21,7 +22,7 @@ import com.jeiglobal.service.common.menu.*;
  * 메뉴 처리 컨트롤러
  */
 @Controller
-@RequestMapping(value="/adminManager")
+@RequestMapping(value="/ma/managemenu")
 public class MenuController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
@@ -38,17 +39,17 @@ public class MenuController {
 	
 	@RequestMapping(value="/menuList")
 	public String menuList(Model model,@RequestParam("mJisaCD") String mJisaCD
-			,@RequestParam("mEmpKeyLvCD") String mEmpKeyLvCD,@RequestParam("mDepMngCD") String mDepMngCD){
+			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel){
 		LOGGER.debug("Getting MenuList Page");
-		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mEmpKeyLvCD,mDepMngCD,"1"));
+		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1"));
 		return "common/menu/menuList";
 	}
 	
 	@RequestMapping(value="/menuContent")
 	public String content(Model model,@RequestParam("mJisaCD") String mJisaCD
-			,@RequestParam("mEmpKeyLvCD") String mEmpKeyLvCD,@RequestParam("mDepMngCD") String mDepMngCD) {
+			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel) {
 		LOGGER.debug("Getting MenuContent Page");
-		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mEmpKeyLvCD,mDepMngCD,"1"));
+		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1"));
 		return "common/menu/content";
 	}
 	
@@ -61,9 +62,11 @@ public class MenuController {
 	
 	@RequestMapping(value="/menuSave.json",method=RequestMethod.POST,produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String menuSave(GlobalMenu globalMenu){
+	public String menuSave(GlobalMenu globalMenu, @ModelAttribute(value="loginInfo")LoginInfo loginInfo){
 		LOGGER.debug("Created Menu : {}",globalMenu.getMMenuName());
 		String msg = "";
+		globalMenu.setRegID(loginInfo.getUserId());
+		globalMenu.setUpdID(loginInfo.getUserId());
 		msg = menuService.create(globalMenu);		
 		return msg;
 	}

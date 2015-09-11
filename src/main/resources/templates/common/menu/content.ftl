@@ -50,7 +50,7 @@
 	<tr>
 		<td>계층</td>
 		<td>
-			<select id="mEmpKeyLvCD" name="mEmpKeyLvCD">
+			<select id="mUserType" name="mUserType">
 				<option value="MA">본사</option>
 				<option value="JA">지사</option>
 				<option value="FA">교육원</option>
@@ -61,17 +61,16 @@
 	<tr>
 		<td>권한등급</td>
 		<td>
-			<select id="mDepMngCD" name="mDepMngCD">
-				<option value="A">전체관리자</option>
-				<option value="F">원장</option>
-				<option value="T">교사</option>
+			<select id="mUserLevel" name="mUserLevel">
+				<option value="U0">관리자</option>
+				<option value="U1">스태프</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td>사용여부</td>
 		<td>
-			<select id="mUseState" name="mUseState">
+			<select id="mStatusCD" name="mStatusCD">
 				<option value="1">사용</option>
 				<option value="0">미사용</option>
 			</select>

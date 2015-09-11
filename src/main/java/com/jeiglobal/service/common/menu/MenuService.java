@@ -28,9 +28,9 @@ public class MenuService {
 	@Autowired
 	private MenuRepository menuRepository;
 	
-	public List<GlobalMenu> menuList(long mIdx,String mJisaCD,String mEmpKeyLvCD,String mDepMngCD,String mUseState){
+	public List<GlobalMenu> menuList(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD){
 		List<GlobalMenu> gmList = new ArrayList<GlobalMenu>();
-		gmList.addAll(searchCnt(mIdx,mJisaCD,mEmpKeyLvCD,mDepMngCD,mUseState));
+		gmList.addAll(searchCnt(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD));
 		return gmList;
 	}
 	
@@ -45,8 +45,8 @@ public class MenuService {
 
 		Date date = new Date();
 		Timestamp nowDate = new Timestamp(date.getTime());
-		gmMenu.setMRegDate(nowDate); // 현재 날짜
-		gmMenu.setMUpdate(nowDate);
+		gmMenu.setRegDate(nowDate); // 현재 날짜
+		gmMenu.setUpdDate(nowDate);
 		
 		jei = findByMIdx(gmMenu.getMParentIdx());
 		
@@ -161,7 +161,7 @@ public class MenuService {
 		GlobalMenu childjm = new GlobalMenu();
 		GlobalMenu jParent = new GlobalMenu();
 		Date date = new Date();
-		gmMenu.setMUpdate(new Timestamp(date.getTime())); // 업데이트 현재 날짜
+		gmMenu.setUpdDate(new Timestamp(date.getTime())); // 업데이트 현재 날짜
 		
 		long parentMIdx = menuRepository.selectMParentIdxByMIdx(gmMenu.getMIdx());
 		
@@ -362,7 +362,7 @@ public class MenuService {
 		menuRepository.updateMSortByMIdx(map);
 	}
 	
-	private List<GlobalMenu> searchCnt(long mIdx,String mJisaCD,String mEmpKeyLvCD,String mDepMngCD,String mUseState){
+	private List<GlobalMenu> searchCnt(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD){
 		List<GlobalMenu> gmMenuList = new ArrayList<GlobalMenu>();
 		List<GlobalMenu> gmList = new ArrayList<GlobalMenu>();
 		if (mIdx == 0) {
@@ -370,10 +370,10 @@ public class MenuService {
 			
 			if(ji != null){
 				gmList.add(ji);//ROOT
-				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mEmpKeyLvCD,mDepMngCD,mUseState));//HeaderMenu
+				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mUserType,mUserLevel,mStatusCD));//HeaderMenu
 			}
 		} else {
-			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mEmpKeyLvCD,mDepMngCD,mUseState);
+			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD);
 			if(gmMenuList != null){
 				int cnt = gmMenuList.size();
 				
@@ -384,7 +384,7 @@ public class MenuService {
 						gmList.add(gm);
 					}else if("1".equals(gm.getMHasChildren())){
 						gmList.add(gm);
-						gmList.addAll(searchCnt(gm.getMIdx(),mJisaCD, mEmpKeyLvCD, mDepMngCD,mUseState));//해당 메뉴의 자식 메뉴 리스트
+						gmList.addAll(searchCnt(gm.getMIdx(),mJisaCD, mUserType, mUserLevel,mStatusCD));//해당 메뉴의 자식 메뉴 리스트
 					}
 				}
 			}
@@ -402,13 +402,13 @@ public class MenuService {
 		return menuRepository.findOneByMParentIdx(mIdx);
 	}
 	
-	private List<GlobalMenu> findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(long mIdx,String mJisaCD,String mEmpKeyLvCD,String mDepMngCD,String mUseState){
+	private List<GlobalMenu> findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD){
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mIdx",mIdx);
 		map.put("mJisaCD",mJisaCD);
-		map.put("mEmpKeyLvCD",mEmpKeyLvCD);
-		map.put("mDepMngCD",mDepMngCD);
-		map.put("mUseState",mUseState);
+		map.put("mUserType",mUserType);
+		map.put("mUserLevel",mUserLevel);
+		map.put("mStatusCD",mStatusCD);
 		
 		List<GlobalMenu> gmMenuList = menuRepository.findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(map);
 		

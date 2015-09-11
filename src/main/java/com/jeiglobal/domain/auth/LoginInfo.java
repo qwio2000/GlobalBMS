@@ -14,15 +14,16 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 public class LoginInfo {
-	private String memberId;
-	private String memberPassword;
-	private String memberEnabled;
+	private String userId;
+	private String userPasswd;
+	private String userFirstName;
+	private String userLastName;
+	private String statusCD;
 	private String jisaCD;
-	private String depid1;
-	private String depid2;
+	private String deptCD;
+	private String deptName;
 	private String empKey;
-	private String empName;
-	private String empKeyLvCD;
-	private String depMngCD;
+	private String userType;
+	private String userLevel;
 	private String encodeCookie;
 }

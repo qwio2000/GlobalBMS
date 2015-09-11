@@ -3,7 +3,7 @@ $(function() {
 		var jeinow = new Date(); 
 		var time = jeinow.getTime(); 
 		// parameter 정의
-		var jeiadmin_url = "/adminManager";
+		var jeiadmin_url = "/ma/managemenu";
 		
 		// 함수 정의 
     	$.extend ({
@@ -11,35 +11,35 @@ $(function() {
 			// 좌측 메뉴 load
     		menu_list_load:function() {
     			var mJisaCD = $("#viewModeJisaCD").val();
-    			var mEmpKeyLvCD = $("#viewModeEmpKeyLvCD").val();
-    			var mDepMngCD = $("#viewModeDepMngCD").val();
-    			$("#menu_list").load(jeiadmin_url + "/menuList?mJisaCD="+mJisaCD+"&mEmpKeyLvCD="+mEmpKeyLvCD+"&mDepMngCD="+mDepMngCD+"&"+time);
+    			var mUserType = $("#viewModeEmpKeyLvCD").val();
+    			var mUserLevel = $("#viewModeDepMngCD").val();
+    			$("#menu_list").load(jeiadmin_url + "/menuList?mJisaCD="+mJisaCD+"&mUserType="+mUserType+"&mUserLevel="+mUserLevel+"&"+time);
     		},
     		// 우측 내용 load
     		menu_content_load:function() {
     			var mJisaCD = $("#viewModeJisaCD").val();
-    			var mEmpKeyLvCD = $("#viewModeEmpKeyLvCD").val();
-    			var mDepMngCD = $("#viewModeDepMngCD").val();
-    			$("#menu_content").load(jeiadmin_url + "/menuContent?mJisaCD="+mJisaCD+"&mEmpKeyLvCD="+mEmpKeyLvCD+"&mDepMngCD="+mDepMngCD+"&"+time,function(){
+    			var mUserType = $("#viewModeEmpKeyLvCD").val();
+    			var mUserLevel = $("#viewModeDepMngCD").val();
+    			$("#menu_content").load(jeiadmin_url + "/menuContent?mJisaCD="+mJisaCD+"&mUserType="+mUserType+"&mUserLevel="+mUserLevel+"&"+time,function(){
     				$("#mJisaCD").val(mJisaCD);
-    				$("#mEmpKeyLvCD").val(mEmpKeyLvCD);
-    				$("#mDepMngCD").val(mDepMngCD);
+    				$("#mUserType").val(mUserType);
+    				$("#mUserLevel").val(mUserLevel);
     			});
     		},
     		//좌측 그림에서 추가아이콘 눌렀을때
     		menu_add:function(mid) {
     			var mJisaCD = $("#viewModeJisaCD").val();
-    			var mEmpKeyLvCD = $("#viewModeEmpKeyLvCD").val();
-    			var mDepMngCD = $("#viewModeDepMngCD").val();
-    			$("#menu_content").load(jeiadmin_url + "/menuContent?mJisaCD="+mJisaCD+"&mEmpKeyLvCD="+mEmpKeyLvCD+"&mDepMngCD="+mDepMngCD+"&"+time,function(){
+    			var mUserType = $("#viewModeEmpKeyLvCD").val();
+    			var mUserLevel = $("#viewModeDepMngCD").val();
+    			$("#menu_content").load(jeiadmin_url + "/menuContent?mJisaCD="+mJisaCD+"&mUserType="+mUserType+"&mUserLevel="+mUserLevel+"&"+time,function(){
     				$("#mParentIdx").val(mid);
         			$("#mIdx").val("");
     				$("#mMenuName").val("");
     				$("#mMenuCode").val("");
     				$("#mJisaCD").val(mJisaCD);
-    				$("#mEmpKeyLvCD").val(mEmpKeyLvCD);
-    				$("#mDepMngCD").val(mDepMngCD);
-    				$("#mUseState").val("1");
+    				$("#mUserType").val(mUserType);
+    				$("#mUserLevel").val(mUserLevel);
+    				$("#mStatusCD").val("1");
     				$("#mMenuLink").val("");
     				$("#mAntPattern").val("");
     				$("#mCon").val("");
@@ -74,9 +74,9 @@ $(function() {
     		//좌측 그림에서 수정아이콘 눌렀을때
     		menu_modify:function(mid) {
     			var mJisaCD = $("#viewModeJisaCD").val();
-    			var mEmpKeyLvCD = $("#viewModeEmpKeyLvCD").val();
-    			var mDepMngCD = $("#viewModeDepMngCD").val();
-    			$("#menu_content").load(jeiadmin_url + "/menuContent?mJisaCD="+mJisaCD+"&mEmpKeyLvCD="+mEmpKeyLvCD+"&mDepMngCD="+mDepMngCD+"&"+time,function(){
+    			var mUserType = $("#viewModeEmpKeyLvCD").val();
+    			var mUserLevel = $("#viewModeDepMngCD").val();
+    			$("#menu_content").load(jeiadmin_url + "/menuContent?mJisaCD="+mJisaCD+"&mUserType="+mUserType+"&mUserLevel="+mUserLevel+"&"+time,function(){
     				$.ajax({
             			url: jeiadmin_url+"/menuContent/"+mid,
             			type: "GET",
@@ -91,9 +91,9 @@ $(function() {
             				$("#mMenuName").val(JsonData.mmenuName);
             				$("#mMenuCode").val(JsonData.mmenuCode);
             				$("#mJisaCD").val(JsonData.mjisaCD);
-            				$("#mEmpKeyLvCD").val(JsonData.mempKeyLvCD);
-            				$("#mDepMngCD").val(JsonData.mdepMngCD);
-            				$("#mUseState").val(JsonData.museState);
+            				$("#mUserType").val(JsonData.muserType);
+            				$("#mUserLevel").val(JsonData.muserLevel);
+            				$("#mStatusCD").val(JsonData.mstatusCD);
             				$("#mMenuLink").val(JsonData.mmenuLink);
             				$("#mAntPattern").val(JsonData.mantPattern);
             				$("#mCon").val(JsonData.mcon);

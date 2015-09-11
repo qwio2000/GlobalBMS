@@ -1,5 +1,7 @@
 package com.jeiglobal.domain.auth;
 
+import java.sql.*;
+
 import lombok.*;
 /**
  * 
@@ -15,6 +17,14 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Authority {
-	private String memberId;
-	private String authority;
+	private String userId;
+	private Long mIdx;
+	private String userName;
+	private String jisaCD;
+	private String deptCD;
+	private String deptName;
+	private Timestamp regDate;
+	private String regID;
+	private Timestamp updDate;
+	private String updID;
 }

@@ -43,12 +43,12 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 		SecurityContext context = hsscr.loadContext(hrrh);
 		Authentication authentication = context.getAuthentication();
 		LoginInfo loginInfo = (LoginInfo) authentication.getPrincipal();
-		
+		LOGGER.debug("loginUser : {}", loginInfo);
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String currentUrl = request.getRequestURI();
-		List<GlobalMenu> menuList = menuService.menuList(0,loginInfo.getJisaCD(),loginInfo.getEmpKeyLvCD(),loginInfo.getDepMngCD(),"1");
+		List<GlobalMenu> menuList = menuService.menuList(0,loginInfo.getJisaCD(),loginInfo.getUserType(),loginInfo.getUserLevel(),"1");
 		List<GlobalMenu> leftMenuList = new ArrayList<GlobalMenu>();
 		List<GlobalMenu> headerMenuList = new ArrayList<GlobalMenu>();
 		if(menuList == null){
@@ -122,7 +122,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					}
 				}
 				if(t){
-					LOGGER.debug("관리자 권한 Login User = {}", loginInfo.getMemberId());
+					LOGGER.debug("관리자 권한 Login User = {}", loginInfo.getUserId());
 					return true;
 				}else{
 					PrintWriter writer = response.getWriter();

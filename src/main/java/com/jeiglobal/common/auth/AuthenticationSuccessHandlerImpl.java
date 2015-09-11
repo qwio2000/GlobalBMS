@@ -48,13 +48,13 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		String retUrl = request.getParameter("returl");
 		if(retUrl == null || retUrl.isEmpty()){
 			if("08".equals(member.getJisaCD())){
-				if("JA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+				if("JA".equalsIgnoreCase(member.getUserType())){
 					response.sendRedirect(hongkongUrl+"/ja/centers");
-				}else if("FA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+				}else if("FA".equalsIgnoreCase(member.getUserType())){
 					response.sendRedirect(hongkongUrl+"/fa/members");
 				}
 			}else if("00".equals(member.getJisaCD())){
-				if("MA".equalsIgnoreCase(member.getEmpKeyLvCD())){
+				if("MA".equalsIgnoreCase(member.getUserType())){
 					response.sendRedirect(request.getContextPath()+"/ma/records");
 				}
 			}
@@ -73,7 +73,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		LoginInfo member = (LoginInfo)authentication.getPrincipal();
 		StandardPasswordEncoder standrdPasswordEncoder = new StandardPasswordEncoder();
 		
-		String authId = member.getMemberId();
+		String authId = member.getUserId();
 		String authKey = standrdPasswordEncoder.encode(authId);
 		authoritiesService.updateEncodeCookieById(authId,authKey);
 		try {

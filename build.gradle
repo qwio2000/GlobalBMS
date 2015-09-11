@@ -52,6 +52,7 @@ dependencies {
     compile("net.sf.ehcache:ehcache:2.10.0")
     compile("com.navercorp.lucy:lucy-xss:1.6.3")
     compile("com.navercorp.lucy:lucy-xss-servlet:2.0.0")
+    compile("eu.bitwalker:UserAgentUtils:1.17")
     
     
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

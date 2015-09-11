@@ -43,7 +43,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		LoginInfo member = (LoginInfo)authentication.getPrincipal();
-				
+		authoritiesService.updateLoginInfo(member.getUserId(), request);
+		authoritiesService.insertLoginHis(member, request);
+		//TODO UserLoginHis 테이블 => 로그인 히스토리 쌓기
 		addAuthCookie(response, authentication);
 		String retUrl = request.getParameter("returl");
 		if(retUrl == null || retUrl.isEmpty()){

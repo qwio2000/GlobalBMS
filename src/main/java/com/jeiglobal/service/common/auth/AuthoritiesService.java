@@ -2,11 +2,15 @@ package com.jeiglobal.service.common.auth;
 
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.repository.common.auth.*;
+
+import eu.bitwalker.useragentutils.*;
 /**
  * 
  * 클래스명 : AuthoritiesService.java
@@ -60,6 +64,34 @@ public class AuthoritiesService {
 		map.put("memberId", memberId);
 		map.put("encodeCookie", encodeCookie);
 		return authoritiesRepository.countMemberByIdAndEncodeCookie(map);
+	}
+
+	/**
+	 * @param userId void
+	 * @param request 
+	 */
+	public void updateLoginInfo(String userId, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String ip = request.getRemoteAddr();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userId", userId);
+		map.put("ip", ip);
+		authoritiesRepository.updateLoginInfo(map);
+	}
+
+	/**
+	 * @param member
+	 * @param request void
+	 */
+	public void insertLoginHis(LoginInfo member, HttpServletRequest request) {
+		String ip = request.getRemoteAddr();
+		UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+		String browserInfo = userAgent.getBrowser().getName() + " " + userAgent.getBrowserVersion();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("loginInfo", member);
+		map.put("ip", ip);
+		map.put("browserInfo", browserInfo);
+		authoritiesRepository.insertLoginHis(map);
 	}
 	
 }

@@ -25,4 +25,8 @@ public interface AuthoritiesRepository {
 	public void updateEncodeCookieById(Map<String, Object> map);
 
 	public long countMemberByIdAndEncodeCookie(Map<String, Object> map);
+
+	public void updateLoginInfo(Map<String, Object> map);
+
+	public void insertLoginHis(Map<String, Object> map);
 }

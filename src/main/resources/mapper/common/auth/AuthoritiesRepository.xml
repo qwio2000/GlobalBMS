@@ -18,4 +18,13 @@
 	<select id="countMemberByIdAndEncodeCookie" parameterType="hashMap" resultType="long">
 		SELECT count(userId) FROM globalbiz.Users WHERE userId = #{memberId} AND encodeCookie = #{encodeCookie}
 	</select>
+	
+	<update id="updateLoginInfo" parameterType="hashMap">
+		UPDATE globalbiz.Users SET latestLoginDate = NOW(), latestLoginIp = #{ip} WHERE userId = #{userId}
+	</update>
+	
+	<insert id="insertLoginHis" parameterType="hashMap">
+		INSERT INTO globalbiz.UsersLoginHis(userId, jisaCD, deptCD, userIp, userAgent, regDate) 
+		VALUES(#{loginInfo.userId},#{loginInfo.jisaCD}, #{loginInfo.deptCD}, #{ip}, #{browserInfo}, NOW())
+	</insert>
 </mapper>

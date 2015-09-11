@@ -1,5 +1,7 @@
 package com.jeiglobal.controller;
 
+import java.util.*;
+
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -32,8 +34,17 @@ public class MenuController {
 	
 	
 	@RequestMapping(value="/menuIndex")
-	public String menuIndex(){
+	public String menuIndex(Model model){
 		LOGGER.debug("Getting MenuIndex Page");
+		List<String> headerCss = new ArrayList<>();
+		headerCss.add("jquery.treeview");
+		headerCss.add("menu");
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("jquery.form.stylishSelect");
+		headerScript.add("jquery.treeview");
+		headerScript.add("globalmenu");
+		model.addAttribute("headerCss", headerCss);
+		model.addAttribute("headerScript", headerScript);
 		return "common/menu/menuIndex";
 	}
 	
@@ -89,9 +100,10 @@ public class MenuController {
 	
 	@RequestMapping(value="/menuUpdate.json",method=RequestMethod.POST,produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String menuUpdate(GlobalMenu globalMenu){
+	public String menuUpdate(GlobalMenu globalMenu, @ModelAttribute(value="loginInfo")LoginInfo loginInfo){
 		LOGGER.debug("Updated Menu : {}", globalMenu.getMMenuName());
 		String msg = "";
+		globalMenu.setUpdID(loginInfo.getUserId());
 		msg = menuService.update(globalMenu);	
 		return msg;
 	}

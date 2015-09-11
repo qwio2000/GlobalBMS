@@ -369,8 +369,8 @@ public class MenuService {
 			GlobalMenu ji = findOneByMParentIdx(mIdx);
 			
 			if(ji != null){
-				gmList.add(ji);
-				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mEmpKeyLvCD,mDepMngCD,mUseState));
+				gmList.add(ji);//ROOT
+				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mEmpKeyLvCD,mDepMngCD,mUseState));//HeaderMenu
 			}
 		} else {
 			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mEmpKeyLvCD,mDepMngCD,mUseState);
@@ -384,7 +384,7 @@ public class MenuService {
 						gmList.add(gm);
 					}else if("1".equals(gm.getMHasChildren())){
 						gmList.add(gm);
-						gmList.addAll(searchCnt(gm.getMIdx(),mJisaCD, mEmpKeyLvCD, mDepMngCD,mUseState));
+						gmList.addAll(searchCnt(gm.getMIdx(),mJisaCD, mEmpKeyLvCD, mDepMngCD,mUseState));//해당 메뉴의 자식 메뉴 리스트
 					}
 				}
 			}

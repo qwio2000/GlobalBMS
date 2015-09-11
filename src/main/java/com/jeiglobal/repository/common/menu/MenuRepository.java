@@ -15,8 +15,6 @@ import com.jeiglobal.repository.common.*;
  * Mysql 메뉴 관련 Repository
  * src/main/resource/mapper/menu/MenuRepository.xml
  */
-//ehCache 적용, 로그인 처리가 성공적으로 된 경우 기존 캐시 삭제
-//@Cacheable(value="menuCache")
 @PrimaryRepositoryAnnoInterface
 public interface MenuRepository {
 	

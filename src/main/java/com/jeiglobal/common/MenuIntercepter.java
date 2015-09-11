@@ -86,6 +86,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 						Integer.parseInt(arg0.getMMenuCode()) > Integer.parseInt(arg1.getMMenuCode()) ? 1:0;
 				}
 			});
+			
 			int menuCodeCnt = menuCode.length();
 			
 			if(!menuCode.isEmpty()){

@@ -37,13 +37,12 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		// TODO Auto-generated method stub
 		HttpSessionSecurityContextRepository hsscr = new HttpSessionSecurityContextRepository();
 		HttpRequestResponseHolder hrrh = new HttpRequestResponseHolder(request, response);
 		SecurityContext context = hsscr.loadContext(hrrh);
 		Authentication authentication = context.getAuthentication();
 		LoginInfo loginInfo = (LoginInfo) authentication.getPrincipal();
-		LOGGER.debug("loginUser : {}", loginInfo);
+		
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		

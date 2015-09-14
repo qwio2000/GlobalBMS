@@ -2,7 +2,8 @@ package com.jeiglobal.controller;
 
 import java.util.*;
 
-import org.slf4j.*;
+import lombok.extern.slf4j.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
@@ -23,19 +24,17 @@ import com.jeiglobal.service.common.menu.*;
  * 
  * 메뉴 처리 컨트롤러
  */
+@Slf4j
 @Controller
 @RequestMapping(value="/ma/managemenu")
 public class MenuController {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
-	
 	@Autowired
 	private MenuService menuService;
 	
-	
 	@RequestMapping(value="/menuIndex")
 	public String menuIndex(Model model){
-		LOGGER.debug("Getting MenuIndex Page");
+		log.debug("Getting MenuIndex Page");
 		List<String> headerCss = new ArrayList<>();
 		headerCss.add("jquery.treeview");
 		headerCss.add("menu");
@@ -51,22 +50,22 @@ public class MenuController {
 	@RequestMapping(value="/menuList")
 	public String menuList(Model model,@RequestParam("mJisaCD") String mJisaCD
 			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel){
-		LOGGER.debug("Getting MenuList Page");
-		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1"));
+		log.debug("Getting MenuList Page");
+		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1","all"));
 		return "common/menu/menuList";
 	}
 	
 	@RequestMapping(value="/menuContent")
 	public String content(Model model,@RequestParam("mJisaCD") String mJisaCD
 			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel) {
-		LOGGER.debug("Getting MenuContent Page");
-		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1"));
+		log.debug("Getting MenuContent Page");
+		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1","all"));
 		return "common/menu/content";
 	}
 	
 	@RequestMapping(value="/menuChange/{mIdx}",method=RequestMethod.GET)
 	public String menuChangeList(Model model,@PathVariable long mIdx){
-		LOGGER.debug("Getting MenuChangeList Page");
+		log.debug("Getting MenuChangeList Page");
 		model.addAttribute("menuList",menuService.changeList(mIdx));
 		return "common/menu/changeList";
 	}
@@ -74,7 +73,7 @@ public class MenuController {
 	@RequestMapping(value="/menuSave.json",method=RequestMethod.POST,produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public String menuSave(GlobalMenu globalMenu, @ModelAttribute(value="loginInfo")LoginInfo loginInfo){
-		LOGGER.debug("Created Menu : {}",globalMenu.getMMenuName());
+		log.debug("Created Menu : {}",globalMenu.getMMenuName());
 		String msg = "";
 		globalMenu.setRegID(loginInfo.getUserId());
 		globalMenu.setUpdID(loginInfo.getUserId());
@@ -85,7 +84,7 @@ public class MenuController {
 	@RequestMapping(value="/menuDelete/{mIdx}",method=RequestMethod.DELETE,produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public String menuDelete(@PathVariable long mIdx){
-		LOGGER.debug("Deleted Menu : Idx = {}",mIdx);
+		log.debug("Deleted Menu : Idx = {}",mIdx);
 		String msg = "";
 		msg = menuService.delete(mIdx);		
 		return msg;
@@ -94,14 +93,14 @@ public class MenuController {
 	@RequestMapping(value="/menuContent/{mIdx}",method=RequestMethod.GET,produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public GlobalMenu menuReadOne(@PathVariable long mIdx){
-		LOGGER.debug("Getting Menu Info : Idx = {}",mIdx);
+		log.debug("Getting Menu Info : Idx = {}",mIdx);
 		return menuService.readOne(mIdx);
 	}
 	
 	@RequestMapping(value="/menuUpdate.json",method=RequestMethod.POST,produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public String menuUpdate(GlobalMenu globalMenu, @ModelAttribute(value="loginInfo")LoginInfo loginInfo){
-		LOGGER.debug("Updated Menu : {}", globalMenu.getMMenuName());
+		log.debug("Updated Menu : {}", globalMenu.getMMenuName());
 		String msg = "";
 		globalMenu.setUpdID(loginInfo.getUserId());
 		msg = menuService.update(globalMenu);	
@@ -111,7 +110,7 @@ public class MenuController {
 	@RequestMapping(value="/menuChange",method=RequestMethod.POST,produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public String menuChange(String lan){
-		LOGGER.debug("Menu Changed : {}",lan);
+		log.debug("Menu Changed : {}",lan);
 		String msg = "";
 		msg = menuService.change(lan);	
 		return msg;

@@ -2,7 +2,8 @@ package com.jeiglobal.controller.jisaLogin;
 
 import javax.servlet.http.*;
 
-import org.slf4j.*;
+import lombok.extern.slf4j.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.web.context.*;
 import org.springframework.stereotype.*;
@@ -21,11 +22,10 @@ import com.jeiglobal.service.jisaLogin.*;
  * 
  * HomeController
  */
+@Slf4j
 @Controller
 public class JisaLoginController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(JisaLoginController.class);
-	
 	@Autowired
 	private JisaLoginService jisaLoginService;
 	
@@ -34,7 +34,7 @@ public class JisaLoginController {
 	
 	@RequestMapping(value="/ma/jisalogin")
 	public String getJisaLoginPage(){
-		LOGGER.debug("Getting Jisa Login Page");
+		log.debug("Getting Jisa Login Page");
 		return "jisaLogin/index";
 	}
 	
@@ -59,7 +59,7 @@ public class JisaLoginController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			Model model){
-		LOGGER.debug("BMS : {} ===> JA : {} Login",AuthId, memberId);
+		log.debug("BMS : {} ===> JA : {} Login",AuthId, memberId);
 		jisaLoginService.addBackupCookies(AuthId, AuthKey, response);
 		jisaLoginService.addJACookies(memberId, response);
 		HttpSessionSecurityContextRepository hsscr = new HttpSessionSecurityContextRepository();

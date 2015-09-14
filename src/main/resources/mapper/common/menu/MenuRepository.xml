@@ -11,9 +11,13 @@
 	
 	<select id="findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD" parameterType="hashMap" resultType="com.jeiglobal.domain.menu.GlobalMenu">
 		SELECT * 
-		FROM globalbiz.MenuInfo 
+		FROM globalbiz.MenuInfo AS a
+		LEFT JOIN globalbiz.MenuAuthority AS b ON a.mIdx = b.mIdx
 		WHERE mParentIdx = #{mIdx} AND mJisaCD = #{mJisaCD}
-			AND mUserType = #{mUserType} AND mUserLevel = #{mUserLevel} AND mStatusCD = #{mStatusCD}
+			AND mUserType = #{mUserType} AND mUserLevel = #{mUserLevel} AND mStatusCD = #{mStatusCD} 
+		<if test="userId != 'all'">
+			AND (a.mAuthType = 0 OR (a.mAuthType = 1 AND b.userId = #{userId}))
+		</if>
 		ORDER BY mParentIdx,mSort
 	</select>
 	

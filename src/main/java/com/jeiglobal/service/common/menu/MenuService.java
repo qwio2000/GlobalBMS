@@ -28,9 +28,9 @@ public class MenuService {
 	@Autowired
 	private MenuRepository menuRepository;
 	
-	public List<GlobalMenu> menuList(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD){
+	public List<GlobalMenu> menuList(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD, String userId){
 		List<GlobalMenu> gmList = new ArrayList<GlobalMenu>();
-		gmList.addAll(searchCnt(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD));
+		gmList.addAll(searchCnt(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD, userId));
 		return gmList;
 	}
 	
@@ -362,7 +362,7 @@ public class MenuService {
 		menuRepository.updateMSortByMIdx(map);
 	}
 	
-	private List<GlobalMenu> searchCnt(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD){
+	private List<GlobalMenu> searchCnt(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD, String userId){
 		List<GlobalMenu> gmMenuList = new ArrayList<GlobalMenu>();
 		List<GlobalMenu> gmList = new ArrayList<GlobalMenu>();
 		if (mIdx == 0) {
@@ -370,10 +370,10 @@ public class MenuService {
 			
 			if(ji != null){
 				gmList.add(ji);//ROOT
-				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mUserType,mUserLevel,mStatusCD));//HeaderMenu
+				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mUserType,mUserLevel,mStatusCD, userId));//HeaderMenu
 			}
 		} else {
-			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD);
+			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD, userId);
 			if(gmMenuList != null){
 				int cnt = gmMenuList.size();
 				
@@ -384,7 +384,7 @@ public class MenuService {
 						gmList.add(gm);
 					}else if("1".equals(gm.getMHasChildren())){
 						gmList.add(gm);
-						gmList.addAll(searchCnt(gm.getMIdx(),mJisaCD, mUserType, mUserLevel,mStatusCD));//해당 메뉴의 자식 메뉴 리스트
+						gmList.addAll(searchCnt(gm.getMIdx(),mJisaCD, mUserType, mUserLevel,mStatusCD, userId));//해당 메뉴의 자식 메뉴 리스트
 					}
 				}
 			}
@@ -402,14 +402,14 @@ public class MenuService {
 		return menuRepository.findOneByMParentIdx(mIdx);
 	}
 	
-	private List<GlobalMenu> findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD){
+	private List<GlobalMenu> findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD, String userId){
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mIdx",mIdx);
 		map.put("mJisaCD",mJisaCD);
 		map.put("mUserType",mUserType);
 		map.put("mUserLevel",mUserLevel);
 		map.put("mStatusCD",mStatusCD);
-		
+		map.put("userId", userId);
 		List<GlobalMenu> gmMenuList = menuRepository.findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(map);
 		
 		return gmMenuList;

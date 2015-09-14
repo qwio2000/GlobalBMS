@@ -6,7 +6,8 @@ import java.util.*;
 
 import javax.servlet.http.*;
 
-import org.slf4j.*;
+import lombok.extern.slf4j.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.context.*;
@@ -27,12 +28,11 @@ import com.jeiglobal.service.common.menu.*;
  * 
  * 컨트롤러에 가기 전 메뉴에 관련된 정보를 처리하는 인터셉터
  */
+@Slf4j
 public class MenuIntercepter extends HandlerInterceptorAdapter{
 	
 	@Autowired
 	private MenuService menuService;
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(MenuIntercepter.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
@@ -47,7 +47,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String currentUrl = request.getRequestURI();
-		List<GlobalMenu> menuList = menuService.menuList(0,loginInfo.getJisaCD(),loginInfo.getUserType(),loginInfo.getUserLevel(),"1");
+		List<GlobalMenu> menuList = menuService.menuList(0,loginInfo.getJisaCD(),loginInfo.getUserType(),loginInfo.getUserLevel(),"1", loginInfo.getUserId());
 		List<GlobalMenu> leftMenuList = new ArrayList<GlobalMenu>();
 		List<GlobalMenu> headerMenuList = new ArrayList<GlobalMenu>();
 		if(menuList == null){
@@ -112,7 +112,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					}
 				}
 			}else{
-				LOGGER.debug("Invalid Url : {}", currentUrl);
+				log.debug("Invalid Url : {}", currentUrl);
 				
 				boolean t = false;
 				for (GrantedAuthority globalMenu : authentication.getAuthorities()) {
@@ -121,7 +121,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					}
 				}
 				if(t){
-					LOGGER.debug("관리자 권한 Login User = {}", loginInfo.getUserId());
+					log.debug("관리자 권한 Login User = {}", loginInfo.getUserId());
 					return true;
 				}else{
 					PrintWriter writer = response.getWriter();

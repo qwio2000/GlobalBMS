@@ -1,6 +1,7 @@
 package com.jeiglobal.controller;
 
-import org.slf4j.*;
+import lombok.extern.slf4j.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
@@ -18,10 +19,10 @@ import com.jeiglobal.utils.*;
  * 
  * HomeController
  */
+@Slf4j
 @Controller
 public class HomeController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
 	private MessageSourceAccessor messageSource;// message 사용
 
@@ -31,12 +32,12 @@ public class HomeController {
 			@RequestParam(value="returl", required=false) String returl) {
 		if(error != null) {
     		model.addAttribute("error",error);
-    		LOGGER.debug("Getting login page, error={}", error);
+    		log.debug("Getting login page, error={}", error);
     	}else{
-    		LOGGER.debug("Getting Login Page");
+    		log.debug("Getting Login Page");
     	}
 		model.addAttribute("returl", returl);
-		LOGGER.debug("### Return Url : {}", returl);
+		log.debug("### Return Url : {}", returl);
 		return "common/login";
 	}
 	
@@ -49,7 +50,7 @@ public class HomeController {
 	
 	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/community","/ma/leads","/ma/membersearch","/ma/manageproduct"})
 	public String getLayoutPage(){
-		LOGGER.debug("Getting BMS Layout Page");
+		log.debug("Getting BMS Layout Page");
 		return "common/layout";
 	}
 }

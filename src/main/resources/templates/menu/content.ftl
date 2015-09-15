@@ -40,10 +40,9 @@
 		<td>
 			<select  id="mJisaCD" name="mJisaCD">
 				<option value="00">본사</option>
-				<option value="03">북경</option>
-				<option value="06">호주</option>
-				<option value="07">뉴질랜드</option>
-				<option value="08">홍콩</option>
+				<#list jisaCDs as jisaCD>
+					<option value="${jisaCD.dtlCD }">${jisaCD.dtlCDNM }</option>
+				</#list>
 			</select>
 		</td>
 	</tr>
@@ -51,10 +50,9 @@
 		<td>계층</td>
 		<td>
 			<select id="mUserType" name="mUserType">
-				<option value="MA">본사</option>
-				<option value="JA">지사</option>
-				<option value="FA">교육원</option>
-				<option value="MD">영파</option>
+				<#list userTypes as userType>
+					<option value="${userType.dtlCD }">${userType.dtlCDNM }</option>
+				</#list>
 			</select>
 		</td>
 	</tr>
@@ -62,8 +60,9 @@
 		<td>권한등급</td>
 		<td>
 			<select id="mUserLevel" name="mUserLevel">
-				<option value="U0">관리자</option>
-				<option value="U1">스태프</option>
+				<#list userLevels as userLevel>
+					<option value="${userLevel.dtlCD }">${userLevel.dtlCDNM }</option>
+				</#list>
 			</select>
 		</td>
 	</tr>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeiglobal.repository.CommonRepository">
+	<select id="findCodeDtl" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeDtl">
+		SELECT *
+		FROM globalbiz.CodeDtl
+		WHERE mstCD = #{mstCD} AND dtlCD = #{dtlCD} AND jisaCD = #{jisaCD} AND useYN = 'Y'
+	</select>
+	<select id="findCodeDtls" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeDtl">
+		SELECT *
+		FROM globalbiz.CodeDtl
+		WHERE mstCD = #{mstCD} AND jisaCD = #{jisaCD} AND useYN = 'Y'
+		ORDER BY sortVal1
+	</select>
+</mapper>

@@ -1,4 +1,4 @@
-package com.jeiglobal.service.common.menu;
+package com.jeiglobal.service.menu;
 
 
 import java.sql.*;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
 import com.jeiglobal.domain.menu.*;
-import com.jeiglobal.repository.common.menu.*;
+import com.jeiglobal.repository.menu.*;
 
 /**
  * 

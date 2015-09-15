@@ -14,7 +14,7 @@ import org.springframework.security.web.context.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
-import com.jeiglobal.service.common.auth.*;
+import com.jeiglobal.service.auth.*;
 
 /**
  * 
@@ -74,7 +74,6 @@ public class SecurityContextRepositoryImpl implements SecurityContextRepository{
 
 	@Override
 	public boolean containsContext(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		return contextRep.containsContext(request);
 	}
 	
@@ -82,7 +81,6 @@ public class SecurityContextRepositoryImpl implements SecurityContextRepository{
 	@Override
 	public void saveContext(SecurityContext context,
 			HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		contextRep.saveContext(ctx, request, response);
 	}
 	

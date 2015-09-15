@@ -1,9 +1,9 @@
-package com.jeiglobal.repository.common.auth;
+package com.jeiglobal.repository.auth;
 
 import java.util.*;
 
 import com.jeiglobal.domain.auth.*;
-import com.jeiglobal.repository.common.*;
+import com.jeiglobal.repository.*;
 
 /**
  * 

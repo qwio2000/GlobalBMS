@@ -1,6 +1,7 @@
-package com.jeiglobal.repository.common.auth;
+package com.jeiglobal.repository.auth;
 
-import com.jeiglobal.repository.common.*;
+import com.jeiglobal.repository.*;
+
 
 /**
  * 

@@ -23,20 +23,19 @@
 					<div>보기모드
 						<select id="viewModeJisaCD">
 							<option value="00">본사</option>
-							<option value="03">북경</option>
-							<option value="06">호주</option>
-							<option value="07">뉴질랜드</option>
-							<option value="08">홍콩</option>
+							<#list jisaCDs as jisaCD>
+								<option value="${jisaCD.dtlCD }">${jisaCD.dtlCDNM }</option>
+							</#list>
 						</select>
 						<select id="viewModeEmpKeyLvCD">
-							<option value="MA">본사</option>
-							<option value="JA">지사</option>
-							<option value="FA">가맹점</option>
-							<option value="MD">영파</option>
+							<#list userTypes as userType>
+								<option value="${userType.dtlCD }">${userType.dtlCDNM }</option>
+							</#list>
 						</select>
 						<select id="viewModeDepMngCD">
-							<option value="U0">관리자</option>
-							<option value="U1">스태프</option>
+							<#list userLevels as userLevel>
+								<option value="${userLevel.dtlCD }">${userLevel.dtlCDNM }</option>
+							</#list>
 						</select>
 						<input type="button" onclick="$.searchMenu();"value="검색"/>
 					</div>

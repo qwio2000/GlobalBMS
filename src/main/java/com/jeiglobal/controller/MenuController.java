@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.domain.menu.*;
-import com.jeiglobal.service.common.menu.*;
+import com.jeiglobal.service.*;
+import com.jeiglobal.service.menu.*;
 
 
 /**
@@ -32,6 +33,9 @@ public class MenuController {
 	@Autowired
 	private MenuService menuService;
 	
+	@Autowired
+	private CommonService commonService;
+	
 	@RequestMapping(value="/menuIndex")
 	public String menuIndex(Model model){
 		log.debug("Getting MenuIndex Page");
@@ -44,7 +48,10 @@ public class MenuController {
 		headerScript.add("globalmenu");
 		model.addAttribute("headerCss", headerCss);
 		model.addAttribute("headerScript", headerScript);
-		return "common/menu/menuIndex";
+		model.addAttribute("jisaCDs", commonService.getCodeDtls("0001", "08"));
+		model.addAttribute("userTypes", commonService.getCodeDtls("0400", "08"));
+		model.addAttribute("userLevels", commonService.getCodeDtls("0401", "08"));
+		return "menu/menuIndex";
 	}
 	
 	@RequestMapping(value="/menuList")
@@ -52,7 +59,7 @@ public class MenuController {
 			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel){
 		log.debug("Getting MenuList Page");
 		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1","all"));
-		return "common/menu/menuList";
+		return "menu/menuList";
 	}
 	
 	@RequestMapping(value="/menuContent")
@@ -60,14 +67,17 @@ public class MenuController {
 			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel) {
 		log.debug("Getting MenuContent Page");
 		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1","all"));
-		return "common/menu/content";
+		model.addAttribute("jisaCDs", commonService.getCodeDtls("0001", "08"));
+		model.addAttribute("userTypes", commonService.getCodeDtls("0400", "08"));
+		model.addAttribute("userLevels", commonService.getCodeDtls("0401", "08"));
+		return "menu/content";
 	}
 	
 	@RequestMapping(value="/menuChange/{mIdx}",method=RequestMethod.GET)
 	public String menuChangeList(Model model,@PathVariable long mIdx){
 		log.debug("Getting MenuChangeList Page");
 		model.addAttribute("menuList",menuService.changeList(mIdx));
-		return "common/menu/changeList";
+		return "menu/changeList";
 	}
 	
 	@RequestMapping(value="/menuSave.json",method=RequestMethod.POST,produces="application/json;charset=UTF-8;")

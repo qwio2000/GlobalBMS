@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
-import com.jeiglobal.service.common.auth.*;
+import com.jeiglobal.service.auth.*;
 /**
  * 
  * 클래스명 : AuthenticationProviderImpl.java

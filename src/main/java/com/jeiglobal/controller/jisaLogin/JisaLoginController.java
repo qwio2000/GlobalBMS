@@ -59,7 +59,7 @@ public class JisaLoginController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			Model model){
-		log.debug("BMS : {} ===> JA : {} Login",AuthId, memberId);
+		log.debug("BMS : {} ===> JA : {} Login", AuthId, memberId);
 		jisaLoginService.addBackupCookies(AuthId, AuthKey, response);
 		jisaLoginService.addJACookies(memberId, response);
 		HttpSessionSecurityContextRepository hsscr = new HttpSessionSecurityContextRepository();

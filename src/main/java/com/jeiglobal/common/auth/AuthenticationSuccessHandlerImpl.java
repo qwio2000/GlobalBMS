@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
-import com.jeiglobal.service.common.auth.*;
+import com.jeiglobal.service.auth.*;
 /**
  * 
  * 클래스명 : AuthenticationSuccessHandlerImpl.java
@@ -45,7 +45,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		LoginInfo member = (LoginInfo)authentication.getPrincipal();
 		authoritiesService.updateLoginInfo(member.getUserId(), request);
 		authoritiesService.insertLoginHis(member, request);
-		//TODO UserLoginHis 테이블 => 로그인 히스토리 쌓기
 		addAuthCookie(response, authentication);
 		String retUrl = request.getParameter("returl");
 		if(retUrl == null || retUrl.isEmpty()){

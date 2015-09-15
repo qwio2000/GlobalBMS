@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jeiglobal.repository.common.auth.AuthoritiesRepository">
+<mapper namespace="com.jeiglobal.repository.auth.AuthoritiesRepository">
 	<select id="findMemberById" parameterType="java.lang.String" resultType="com.jeiglobal.domain.auth.LoginInfo">
 		SELECT userId, userPasswd, statusCD, deptCD, deptName, empKey, userFirstName, userLastName, jisaCD, userType, userLevel, encodeCookie 
 		FROM globalbiz.Users 

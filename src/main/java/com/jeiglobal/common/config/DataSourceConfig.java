@@ -12,7 +12,7 @@ import org.springframework.core.io.support.*;
 import org.springframework.jdbc.datasource.*;
 import org.springframework.transaction.*;
 
-import com.jeiglobal.repository.common.*;
+import com.jeiglobal.repository.*;
 
 /**
  * 

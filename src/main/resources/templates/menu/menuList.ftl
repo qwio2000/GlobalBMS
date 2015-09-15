@@ -31,7 +31,7 @@
 						<#if 0 == menuList[i].MStatusCD?number>
 							<del>${menuList[i].MMenuName }</del>			
 						<#else>
-							${menuList[i].MMenuName}
+							<a onclick='$.menu_modify("${menuList[i].MIdx}");' style='cursor:pointer'>${menuList[i].MMenuName}</a>
 						</#if>
 					</span>
 					&nbsp;<a onclick='$.menu_modify("${menuList[i].MIdx}");' style='cursor:pointer'><img src='/public/img/menu/icons_modify.gif'></a>

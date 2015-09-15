@@ -1,9 +1,9 @@
-package com.jeiglobal.repository.common.menu;
+package com.jeiglobal.repository.menu;
 
 import java.util.*;
 
 import com.jeiglobal.domain.menu.*;
-import com.jeiglobal.repository.common.*;
+import com.jeiglobal.repository.*;
 /**
  * 
  * 인터페이스명 : MenuRepository.java

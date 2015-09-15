@@ -1,4 +1,4 @@
-package com.jeiglobal.service.common.auth;
+package com.jeiglobal.service.auth;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
-import com.jeiglobal.repository.common.auth.*;
+import com.jeiglobal.repository.auth.*;
 
 import eu.bitwalker.useragentutils.*;
 /**
@@ -71,7 +71,6 @@ public class AuthoritiesService {
 	 * @param request 
 	 */
 	public void updateLoginInfo(String userId, HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		String ip = request.getRemoteAddr();
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userId", userId);

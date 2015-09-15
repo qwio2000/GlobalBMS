@@ -1,4 +1,4 @@
-package com.jeiglobal.repository.common;
+package com.jeiglobal.repository;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;

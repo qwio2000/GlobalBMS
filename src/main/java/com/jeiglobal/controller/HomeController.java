@@ -38,7 +38,7 @@ public class HomeController {
     	}
 		model.addAttribute("returl", returl);
 		log.debug("### Return Url : {}", returl);
-		return "common/login";
+		return "login";
 	}
 	
 	/**
@@ -51,6 +51,6 @@ public class HomeController {
 	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/community","/ma/leads","/ma/membersearch","/ma/manageproduct"})
 	public String getLayoutPage(){
 		log.debug("Getting BMS Layout Page");
-		return "common/layout";
+		return "layout";
 	}
 }

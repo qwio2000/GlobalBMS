@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 
-import com.jeiglobal.service.common.auth.*;
+import com.jeiglobal.service.auth.*;
 import com.jeiglobal.utils.*;
 
 /**
@@ -16,7 +16,7 @@ import com.jeiglobal.utils.*;
  *
  * 작성자 : 전승엽(IT지원팀)
  * 
- * 설명
+ * 본사 -> 지사 로그인을 처리할 때 사용하는 서비스
  */
 @Service
 public class JisaLoginService {
@@ -43,7 +43,6 @@ public class JisaLoginService {
 	 * @param response void
 	 */
 	public void addJACookies(String memberId, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		StandardPasswordEncoder standrdPasswordEncoder = new StandardPasswordEncoder();
 		String authKey = standrdPasswordEncoder.encode(memberId);
 		authoritiesService.updateEncodeCookieById(memberId, authKey);

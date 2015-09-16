@@ -7,6 +7,7 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.jeiglobal.service.auth.*;
 import com.jeiglobal.utils.*;
 
 /**
@@ -25,6 +26,9 @@ public class HomeController {
 
 	@Autowired
 	private MessageSourceAccessor messageSource;// message 사용
+	
+	@Autowired
+	private AuthoritiesService service;
 
 	@RequestMapping(value={"/","/login"})
 	public String getLoginPage(Model model, 
@@ -48,9 +52,10 @@ public class HomeController {
     @ResponseBody
     void favicon() {}
 	
-	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/community","/ma/leads","/ma/membersearch","/ma/manageproduct"})
+	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/leads","/ma/community","/ma/membersearch","/ma/manageproduct"})
 	public String getLayoutPage(){
 		log.debug("Getting BMS Layout Page");
 		return "layout";
 	}
+	
 }

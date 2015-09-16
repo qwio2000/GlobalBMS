@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
@@ -27,7 +28,7 @@ public class AuthoritiesService {
 	private AuthoritiesRepository authoritiesRepository;
 	
 	@Autowired
-	private MssqlRepository mssqlRepository;
+	private BCryptPasswordEncoder encoder;
 	
 	public LoginInfo findMemberById(String memberId){
 		return authoritiesRepository.findMemberById(memberId);
@@ -35,16 +36,6 @@ public class AuthoritiesService {
 
 	public List<Authority> findPermissionById(String memberId){
 		return authoritiesRepository.findPermissionById(memberId);
-	}
-	
-	/**
-	 * 디비에 MSSQL SHA256으로 암호화된 값으로 저장 되어 있기 때문에 비교를 위해서 
-	 * 사용자가 입력한 비밀번호를 MSSQL에서 암호화 한 값으로 변환
-	 * @param password
-	 * @return String
-	 */
-	public String selectEncryptPassWord(String password){
-		return mssqlRepository.selectEncryptPassWord(password);
 	}
 	
 	/**
@@ -92,5 +83,5 @@ public class AuthoritiesService {
 		map.put("browserInfo", browserInfo);
 		authoritiesRepository.insertLoginHis(map);
 	}
-	
+
 }

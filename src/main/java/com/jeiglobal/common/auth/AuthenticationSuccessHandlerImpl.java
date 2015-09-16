@@ -1,7 +1,6 @@
 package com.jeiglobal.common.auth;
 
 import java.io.*;
-import java.net.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

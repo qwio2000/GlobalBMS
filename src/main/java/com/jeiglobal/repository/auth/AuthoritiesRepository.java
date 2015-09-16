@@ -29,4 +29,5 @@ public interface AuthoritiesRepository {
 	public void updateLoginInfo(Map<String, Object> map);
 
 	public void insertLoginHis(Map<String, Object> map);
+
 }

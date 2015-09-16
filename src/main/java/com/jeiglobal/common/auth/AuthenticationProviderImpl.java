@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.userdetails.*;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
@@ -32,6 +33,9 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
@@ -41,21 +45,14 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 		if(loginInfo == null){
 			throw new UsernameNotFoundException(authToken.getName());
 		}
-		
-		String inputPass = authoritiesService.selectEncryptPassWord(authToken.getCredentials().toString());
-		
-		if(!matchPassword(loginInfo.getUserPasswd(),inputPass)){
-			throw new BadCredentialsException("계정ID와 비밀번호가 맞지않습니다.");
+		if(!passwordEncoder.matches(authToken.getCredentials().toString(), loginInfo.getUserPasswd())){
+			throw new BadCredentialsException("비밀번호가 맞지않습니다.");
 		}
 		
 		return new UsernamePasswordAuthenticationToken(new LoginInfo(loginInfo.getUserId(), loginInfo.getUserPasswd(), loginInfo.getUserFstName(), loginInfo.getUserLstName(), loginInfo.getStatusCD(), loginInfo.getJisaCD(), loginInfo.getDeptCD(), loginInfo.getDeptName(), loginInfo.getEmpKey(), loginInfo.getUserType(), loginInfo.getUserLevel(), loginInfo.getEncodeCookie())
 				,null, null);
 	}
 	
-	private boolean matchPassword(String memberPassword, Object credentials) {
-		return memberPassword.equals(credentials);
-	}
-
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);

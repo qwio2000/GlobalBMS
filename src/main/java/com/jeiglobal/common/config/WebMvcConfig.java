@@ -3,6 +3,7 @@ package com.jeiglobal.common.config;
 import org.springframework.boot.context.embedded.*;
 import org.springframework.context.*;
 import org.springframework.context.annotation.*;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.web.filter.*;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -91,5 +92,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 		registry.addInterceptor(menuIntercepter()).addPathPatterns("/**").excludePathPatterns("","/","/login","/public/**","/error","/favicon.ico");
 	}
 	
+	@Bean
+	public BCryptPasswordEncoder setBCryptPasswordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
 	
 }

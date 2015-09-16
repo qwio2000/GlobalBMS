@@ -14,6 +14,7 @@ import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.service.auth.*;
+import com.jeiglobal.utils.*;
 /**
  * 
  * 클래스명 : AuthenticationSuccessHandlerImpl.java
@@ -76,23 +77,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		
 		String authId = member.getUserId();
 		String authKey = standrdPasswordEncoder.encode(authId);
+		
 		authoritiesService.updateEncodeCookieById(authId,authKey);
-		try {
-			Cookie cookie = new Cookie("AUTHKey",URLEncoder.encode(authKey,"utf-8"));
-			cookie.setPath("/");
-			if(!"localhost".contains(cookieDomain)){//localhost는 적용 안됨,
-				cookie.setDomain(cookieDomain);
-			}
-			response.addCookie(cookie);
-			
-			Cookie cookie1 = new Cookie("AUTHId",URLEncoder.encode(authId,"utf-8"));
-			cookie1.setPath("/");
-			if(!"localhost".contains(cookieDomain)){
-				cookie1.setDomain(cookieDomain);
-			}
-			response.addCookie(cookie1);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
+		CommonUtils.addCookie("AUTHKey", authKey, cookieDomain, response);
+		CommonUtils.addCookie("AUTHId", authId, cookieDomain, response);
 	}
 }

@@ -48,13 +48,9 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 		
 		String currentUrl = request.getRequestURI();
 		List<GlobalMenu> menuList = menuService.menuList(0,loginInfo.getJisaCD(),loginInfo.getUserType(),loginInfo.getUserLevel(),"1", loginInfo.getUserId());
-		List<GlobalMenu> leftMenuList = new ArrayList<GlobalMenu>();
 		List<GlobalMenu> headerMenuList = new ArrayList<GlobalMenu>();
+		List<List<GlobalMenu>> menus = new ArrayList<List<GlobalMenu>>();
 		if(menuList == null){
-			if(authentication.getAuthorities().contains("SUPERADMIN")){
-				return true;
-			}
-			
 			return false;
 		}else{
 			String menuCode = "";
@@ -105,36 +101,29 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					menuFourCode =  menuCode.substring(0,7);
 				}	
 				
-				for (GlobalMenu globalMenu : menuList) {
-					String menuCodeTemp = globalMenu.getMMenuCode();
-					if(!menuCodeTemp.isEmpty() && menuCodeTemp.startsWith(menuFirstCode)){
-						leftMenuList.add(globalMenu);
+				for (int i = 0; i < headerMenuList.size(); i++) {
+					List<GlobalMenu> tempMenuList = new ArrayList<GlobalMenu>();
+					tempMenuList.add(headerMenuList.get(i));
+					for (GlobalMenu menu : menuList) {
+						if(headerMenuList.get(i).getMIdx() == menu.getMParentIdx()){
+							tempMenuList.add(menu);
+						}
 					}
+					menus.add(tempMenuList);
 				}
 			}else{
 				log.debug("Invalid Url : {}", currentUrl);
 				
-				boolean t = false;
-				for (GrantedAuthority globalMenu : authentication.getAuthorities()) {
-					if("SUPERADMIN".equals(globalMenu.getAuthority())){
-						t = true;
-					}
-				}
-				if(t){
-					log.debug("관리자 권한 Login User = {}", loginInfo.getUserId());
-					return true;
-				}else{
-					PrintWriter writer = response.getWriter();
-					response.setContentType("text/html;charset=UTF-8");
-					String scriptMessage = "<script language='javascript'>alert('";
-					scriptMessage += "유효한 URL이 아닙니다.');";
-					scriptMessage += "history.back();</script>";
-					writer.write(scriptMessage);
-				}
+				PrintWriter writer = response.getWriter();
+				response.setContentType("text/html;charset=UTF-8");
+				String scriptMessage = "<script language='javascript'>alert('";
+				scriptMessage += "유효한 URL이 아닙니다.');";
+				scriptMessage += "history.back();</script>";
+				writer.write(scriptMessage);
 				return false;
 			}
+			request.setAttribute("menuMap",menus);
 			request.setAttribute("headerMenuList",headerMenuList);
-			request.setAttribute("leftMenuList",leftMenuList);
 			request.setAttribute("menuCode",menuCode);
 			request.setAttribute("menuFirstCode",menuFirstCode);
 			request.setAttribute("menuTwoCode",menuTwoCode);

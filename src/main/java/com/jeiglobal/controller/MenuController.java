@@ -43,8 +43,8 @@ public class MenuController {
 		headerCss.add("jquery.treeview");
 		headerCss.add("menu");
 		List<String> headerScript = new ArrayList<>();
-		headerScript.add("jquery.form.stylishSelect");
-		headerScript.add("jquery.treeview");
+		headerScript.add("/common/jquery.form.stylishSelect");
+		headerScript.add("/common/jquery.treeview");
 		headerScript.add("globalmenu");
 		model.addAttribute("headerCss", headerCss);
 		model.addAttribute("headerScript", headerScript);

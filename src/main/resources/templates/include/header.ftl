@@ -1,29 +1,32 @@
+<#setting locale="en_US">
 <#-- @ftlvariable name="loginInfo" type="com.jeiglobal.domain.auth.LoginInfo" -->
 <#-- @ftlvariable name="hongkongUrl" type="java.lang.String" -->
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
+<!--[if IE 7]><html lang="ko" class="ie7"><![endif]-->
+<!--[if IE 8]><html lang="ko" class="ie8"><![endif]-->
 <html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>${title?default('JEI-GLOBAL BMS')}</title>
-<link rel="stylesheet" type="text/css" href="/public/css/common.css" />
-<link rel="stylesheet" type="text/css" href="/public/css/layout_center.css" />
-<link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
-<#if headerCss?has_content>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>${title?default('JEI-GLOBAL') }</title>
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
+	<#if headerCss?has_content>
 	<#list headerCss as css>
 		<link rel="stylesheet" type="text/css" href="/public/css/${css}.css" />
 	</#list>
-</#if>
-<script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="/public/js/jquery-ui.1.11.4.min.js"></script>
-<script type="text/javascript" src="/public/js/handlebars-3.0.3-min.js"></script>
-<script type="text/javascript" src="/public/js/common.js"></script>
-<#if headerScript?has_content>
+	</#if>
+	<script type="text/javascript" src="/public/js/common/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/common/handlebars-3.0.3-min.js"></script>
+	<script type="text/javascript" src="/public/js/common/common.js"></script>
+	<script type="text/javascript" src="/public/js/common/jquery-ui.1.11.4.min.js"></script>
+	<#if headerScript?has_content>
 	<#list headerScript as script>
 		<script type="text/javascript" src="/public/js/${script}.js"></script>
 	</#list>
 </#if>
 </head>
+<body>
+	<div class="wrap">
+		<#include "/include/headerMenu.ftl">

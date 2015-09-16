@@ -22,7 +22,6 @@
 	<div id="loginWrapper">
 		<!-- header -->
 		<div id="header">
-			<h1><a href="#"><img src="/public/img/login/logo.gif" alt="재능Global" /></a></h1>
 		</div>
 		<!-- //header -->
 	<#if loginInfo??>
@@ -37,20 +36,14 @@
 	</#if>
 		<!-- container -->
 		<div id="loginContainer">
-		<h2><img src="/public/img/login/h2_login.gif" alt="로그인" /><@security.authorize access="isAuthenticated()">&nbsp;&nbsp;<@security.authentication property="principal.empKey" /> 님 환영합니다. <a style="float:right;" href="${url }"><img style="width:100px;height:50px;" src="/public/img/btn_go.gif"/></a></@security.authorize></h2>
+		<h2><@security.authorize access="isAuthenticated()">&nbsp;&nbsp;<@security.authentication property="principal.empKey" /> 님 환영합니다. <a style="float:right;" href="${url }">GO!</a></@security.authorize></h2>
 			<form name="loginFrm" id="loginFrm" method="post" action="/loginCheck" style="margin:0px;">
 				<div class="login-box">
 				<@security.authorize access="! isAuthenticated()">
 					<dl>
-						<dt><img src="/public/img/login/tit_fc_login.gif" alt="재능 Global" /></dt>
 					</dl>
 						<fieldset>
 							<legend>JEI GLOBAL</legend>
-<!-- 							<p> -->
-<!-- 								<input type="radio" name="loginLang" value="E" checked="checked" id="EnglishId" /><label for="EnglishId">English</label> -->
-<!-- 								<input type="radio" name="loginLang" value="K" id="koreanId"/><label for="koreanId">Korean</label> -->
-<!-- 								<input type="radio" name="loginLang" value="C" id="ChineseId" /><label for="ChineseId">Chinese</label> -->
-<!-- 							</p> -->
 							<div>
 								<p><input type="text" placeholder="아이디" name="memberId" maxlength="10" /></p>
 								<p><input type="password" placeholder="비밀번호"  name="memberPassword" maxlength="100"/></p>
@@ -63,7 +56,7 @@
 						</fieldset>
 				</@security.authorize>
 				<@security.authorize access="isAuthenticated()">
-					<a href="/logout"><img src="/public/img/btn_logout.png"/></a>
+					<a href="/logout">로그아웃!</a>
 				</@security.authorize>
 					<input type="hidden" name="returl" value="${returl?default('')}" />
 				</div>

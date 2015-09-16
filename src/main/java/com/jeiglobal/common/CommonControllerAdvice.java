@@ -30,4 +30,5 @@ public class CommonControllerAdvice {
 	public String getHongkongUrl(){
 		return hongkongUrl;
 	}
+
 }

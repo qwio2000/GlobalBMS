@@ -34,7 +34,7 @@ import com.jeiglobal.utils.*;
 @Controller
 public class ErrorHandler implements ErrorController {
 
-	private final String ERROR_VIEW_PATH = "/common/error/";
+	private final String ERROR_VIEW_PATH = "/error/";
 	private String errorPath;
 	private ErrorAttributes errorAttributes;
 	private MessageSourceAccessor messageSourceAccessor;

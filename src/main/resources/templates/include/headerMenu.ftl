@@ -1,9 +1,11 @@
 <div class="headerWrap">
 	<div class="header">
-		<div class="logout"><strong>Logout</strong></div>
-		<h1><img src="/public/img/logo.png" alt="JEI Corporate HQ(JEI Korea)" /><span>${loginInfo.deptName }(${loginInfo.userFirstName }${loginInfo.userLastName?default('') })</span></h1>
-		<#assign today = .now>
-		<span class="utilInfo">Server Time : ${today?string.medium_short} <br>System Week #2[9/6, 15-9, 12/15]</span>
+		<a href="/logout"/><div class="logout"><strong>Logout</strong></div></a>
+		<h1>
+			<a href="/ma/records"><img src="/public/img/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>
+			<span>${loginInfo.deptName }(${loginInfo.userFstName }${loginInfo.userLstName?default('') })</span>
+		</h1>
+		<span class="utilInfo">Server Time : ${.now?string.medium_short} <br>System Week #2[9/6, 15-9, 12/15]</span>
 <!-- 		<span class="utilInfo">Server Time : Sep 6, 2015 10:07 PM <br>System Week #2[9/6, 15-9, 12/15]</span> -->
 		<ul class="gnb">
 			<#list menuMap as menuList>

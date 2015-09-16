@@ -16,8 +16,8 @@ import lombok.*;
 public class LoginInfo {
 	private String userId;
 	private String userPasswd;
-	private String userFirstName;
-	private String userLastName;
+	private String userFstName;
+	private String userLstName;
 	private String statusCD;
 	private String jisaCD;
 	private String deptCD;

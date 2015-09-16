@@ -48,7 +48,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 			throw new BadCredentialsException("계정ID와 비밀번호가 맞지않습니다.");
 		}
 		
-		return new UsernamePasswordAuthenticationToken(new LoginInfo(loginInfo.getUserId(), loginInfo.getUserPasswd(), loginInfo.getUserFirstName(), loginInfo.getUserLastName(), loginInfo.getStatusCD(), loginInfo.getJisaCD(), loginInfo.getDeptCD(), loginInfo.getDeptName(), loginInfo.getEmpKey(), loginInfo.getUserType(), loginInfo.getUserLevel(), loginInfo.getEncodeCookie())
+		return new UsernamePasswordAuthenticationToken(new LoginInfo(loginInfo.getUserId(), loginInfo.getUserPasswd(), loginInfo.getUserFstName(), loginInfo.getUserLstName(), loginInfo.getStatusCD(), loginInfo.getJisaCD(), loginInfo.getDeptCD(), loginInfo.getDeptName(), loginInfo.getEmpKey(), loginInfo.getUserType(), loginInfo.getUserLevel(), loginInfo.getEncodeCookie())
 				,null, null);
 	}
 	

@@ -20,6 +20,15 @@ public class CommonControllerAdvice {
 	
 	@Value("${serverurl.hongkong}")
 	private String hongkongUrl;
+
+	@Value("${filePath.img}")
+	private String imgPath;
+	
+	@Value("${filePath.css}")
+	private String cssPath;
+	
+	@Value("${filePath.js}")
+	private String jsPath;
 	
 	@ModelAttribute("loginInfo")
 	public LoginInfo getLoginInfo(Authentication authentication){
@@ -30,5 +39,11 @@ public class CommonControllerAdvice {
 	public String getHongkongUrl(){
 		return hongkongUrl;
 	}
+	@ModelAttribute("imgPath")
+	public String getImgPath(){return imgPath;}
+	@ModelAttribute("cssPath")
+	public String getCssPath(){return cssPath;}
+	@ModelAttribute("jsPath")
+	public String getJsPath(){return jsPath;}
 
 }

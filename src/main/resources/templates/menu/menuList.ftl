@@ -18,10 +18,10 @@
 		<#assign depth = 1>
 		<#assign deptemp = 0>
 		<ul id='tree'>ROOT&nbsp;
-			<a onclick='$.menu_add(1);' style='cursor:pointer'><img src='/public/img/menu/icons_insert.gif'></a>
+			<a onclick='$.menu_add(1);' style='cursor:pointer'><img src='${imgPath }/menu/icons_insert.gif'></a>
 			&nbsp;
 			<#if cnt gt 1 >
-			<a onclick='$.menu_change(1);' style='cursor:pointer'><img src='/public/img/menu/icons_sort.gif'></a>
+			<a onclick='$.menu_change(1);' style='cursor:pointer'><img src='${imgPath }/menu/icons_sort.gif'></a>
 			</#if>
 			<ul>
 			<#if cnt gt 1>
@@ -34,11 +34,11 @@
 							<a onclick='$.menu_modify("${menuList[i].MIdx}");' style='cursor:pointer'>${menuList[i].MMenuName}</a>
 						</#if>
 					</span>
-					&nbsp;<a onclick='$.menu_modify("${menuList[i].MIdx}");' style='cursor:pointer'><img src='/public/img/menu/icons_modify.gif'></a>
-					&nbsp;<a onclick='$.menu_add("${menuList[i].MIdx}");' style='cursor:pointer'><img src='/public/img/menu/icons_insert.gif'></a>
-					&nbsp;<a onclick='$.menu_delete("${menuList[i].MIdx}");' style='cursor:pointer'><img src='/public/img/menu/icons_delete.gif'></a>
+					&nbsp;<a onclick='$.menu_modify("${menuList[i].MIdx}");' style='cursor:pointer'><img src='${imgPath }/menu/icons_modify.gif'></a>
+					&nbsp;<a onclick='$.menu_add("${menuList[i].MIdx}");' style='cursor:pointer'><img src='${imgPath }/menu/icons_insert.gif'></a>
+					&nbsp;<a onclick='$.menu_delete("${menuList[i].MIdx}");' style='cursor:pointer'><img src='${imgPath }/menu/icons_delete.gif'></a>
 					<#if 1 == menuList[i].MHasChildren?number>
-						&nbsp;<a onclick='$.menu_change("${menuList[i].MIdx}");' style='cursor:pointer'><img src='/public/img/menu/icons_sort.gif'></a>
+						&nbsp;<a onclick='$.menu_change("${menuList[i].MIdx}");' style='cursor:pointer'><img src='${imgPath }/menu/icons_sort.gif'></a>
 						<ul>
 						<#assign depth = depth + 1>
 					<#else>

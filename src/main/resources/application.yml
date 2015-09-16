@@ -19,6 +19,11 @@ serverurl:
          
 cookieShare:
      domain: localhost
+     
+filePath:
+     img: /public/img
+     js: /public/js
+     css: /public/css
 ---
 spring.profiles: develop
 

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${title?default('JEI-GLOBAL')}</title>
-<link rel="stylesheet" href="/public/css/common.css">
+<link rel="stylesheet" href="${cssPath }/common.css">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body id="login">

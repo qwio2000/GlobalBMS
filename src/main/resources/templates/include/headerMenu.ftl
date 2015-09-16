@@ -2,7 +2,7 @@
 	<div class="header">
 		<a href="/logout"/><div class="logout"><strong>Logout</strong></div></a>
 		<h1>
-			<a href="/ma/records"><img src="/public/img/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>
+			<a href="/ma/records"><img src="${imgPath }/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>
 			<span>${loginInfo.deptName }(${loginInfo.userFstName }${loginInfo.userLstName?default('') })</span>
 		</h1>
 		<span class="utilInfo">Server Time : ${.now?string.medium_short} <br>System Week #2[9/6, 15-9, 12/15]</span>

@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jeiglobal.repository.auth.AuthoritiesRepository">
 	<select id="findMemberById" parameterType="java.lang.String" resultType="com.jeiglobal.domain.auth.LoginInfo">
-		SELECT userId, userPasswd, statusCD, deptCD, deptName, empKey, userFstName, userLstName, jisaCD, userType, userLevel, encodeCookie 
-		FROM globalbiz.Users 
-		WHERE userId = #{memberId} AND statusCD = '1'
+		SELECT a.userId, a.userPasswd, a.statusCD, a.deptCD, a.deptName, a.empKey, a.userFstName, a.userLstName, a.jisaCD, a.userType, a.userLevel, a.encodeCookie, b.stateCD 
+		FROM globalbiz.Users AS a
+		LEFT JOIN globalbiz.ViewsDeptMstAct AS b ON a.deptCD = b.deptCD
+		WHERE a.userId = #{memberId} AND a.statusCD = '1'
 	</select>
 	
 	<select id="findPermissionById" parameterType="java.lang.String" resultType="com.jeiglobal.domain.auth.Authority">

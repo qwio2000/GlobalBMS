@@ -26,4 +26,5 @@ public class LoginInfo {
 	private String userType;
 	private String userLevel;
 	private String encodeCookie;
+	private String stateCD;
 }

@@ -48,9 +48,9 @@ public class MenuController {
 		headerScript.add("globalmenu");
 		model.addAttribute("headerCss", headerCss);
 		model.addAttribute("headerScript", headerScript);
-		model.addAttribute("jisaCDs", commonService.getCodeDtls("0001", "08"));
-		model.addAttribute("userTypes", commonService.getCodeDtls("0400", "08"));
-		model.addAttribute("userLevels", commonService.getCodeDtls("0401", "08"));
+		model.addAttribute("jisaCDs", commonService.getCodeDtls("0001", "08", 1, "Y"));
+		model.addAttribute("userTypes", commonService.getCodeDtls("0400", "08", 1, "Y"));
+		model.addAttribute("userLevels", commonService.getCodeDtls("0401", "08", 1, "Y"));
 		return "menu/menuIndex";
 	}
 	
@@ -67,9 +67,9 @@ public class MenuController {
 			,@RequestParam("mUserType") String mUserType,@RequestParam("mUserLevel") String mUserLevel) {
 		log.debug("Getting MenuContent Page");
 		model.addAttribute("menuList",menuService.menuList(0,mJisaCD,mUserType,mUserLevel,"1","all"));
-		model.addAttribute("jisaCDs", commonService.getCodeDtls("0001", "08"));
-		model.addAttribute("userTypes", commonService.getCodeDtls("0400", "08"));
-		model.addAttribute("userLevels", commonService.getCodeDtls("0401", "08"));
+		model.addAttribute("jisaCDs", commonService.getCodeDtls("0001", "08", 1, "Y"));
+		model.addAttribute("userTypes", commonService.getCodeDtls("0400", "08", 1, "Y"));
+		model.addAttribute("userLevels", commonService.getCodeDtls("0401", "08", 1, "Y"));
 		return "menu/content";
 	}
 	

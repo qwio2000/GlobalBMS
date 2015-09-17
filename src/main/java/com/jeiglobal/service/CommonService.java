@@ -46,10 +46,12 @@ public class CommonService {
 	 * @param jisaCD
 	 * @return List<CodeDtl>
 	 */
-	public List<CodeDtl> getCodeDtls(String mstCD, String jisaCD){
+	public List<CodeDtl> getCodeDtls(String mstCD, String jisaCD, int sortVal, String useVal){
 		param.clear();
 		param.put("mstCD", mstCD);
 		param.put("jisaCD", jisaCD);
+		param.put("sortVal", sortVal);
+		param.put("useVal", useVal);
 		return commonRepository.findCodeDtls(param);
 	}
 	

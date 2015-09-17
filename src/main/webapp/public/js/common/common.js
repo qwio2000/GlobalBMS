@@ -1,14 +1,25 @@
 $(function(){
 	$(".gnb>li>a").hover(function(){
 		$(".gnb>li>a").removeClass('on');
-		if($('.gnbsub').is(':visible')){
+//		if($('.gnbsub').is(':visible')){
 			$(this).addClass('on').children().addClass('on');
-		}
+//		}
 	});
 
 
-	$(".gnbsub").mouseleave(function(){
-		$(this).prev().removeClass('on').children().removeClass('on');
+//	$(".gnbsub").mouseleave(function(){
+//		$(this).prev().removeClass('on').children().removeClass('on');
+//	});
+	$(".gnb").mouseleave(function(){
+		var menuFirstCode = $('#menuFirstCode').val();
+		$('.gnb>li>a').removeClass('on').children().removeClass('on');
+		if(menuFirstCode != ''){
+			$('.gnb>li>a').each(function(index){
+				if(index+1 == menuFirstCode){
+					$(this).addClass('on').children().addClass('on');
+				}
+			});
+		}
 	});
 	
 	$.extend({

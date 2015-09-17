@@ -9,7 +9,23 @@
 	<select id="findCodeDtls" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeDtl">
 		SELECT *
 		FROM globalbiz.CodeDtl
-		WHERE mstCD = #{mstCD} AND jisaCD = #{jisaCD} AND useYN = 'Y'
-		ORDER BY sortVal1
+		WHERE mstCD = #{mstCD} AND jisaCD = #{jisaCD}
+		<if test="useVal != null and useVal == 'Y'.toString()">
+			AND useYN = #{useVal}
+		</if> 
+		<choose>
+			<when test="sortVal == 1">
+				ORDER BY sortVal1 
+			</when>
+			<when test="sortVal == 2">
+				ORDER BY sortVal2 
+			</when>
+			<when test="sortVal == 3">
+				ORDER BY sortVal3 
+			</when>
+			<otherwise>
+				ORDER BY dtlCD
+			</otherwise>
+		</choose>
 	</select>
 </mapper>

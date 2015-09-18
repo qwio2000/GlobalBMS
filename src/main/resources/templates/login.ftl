@@ -27,11 +27,11 @@
 	<#if loginInfo??>
 		<#assign permLevel = loginInfo.userType?lower_case>
 		<#if permLevel == "fa">
-			<#assign url = hongkongUrl + '/' + permLevel + '/members'/>
+			<#assign url = hongkongUrl + '/' + permLevel/>
 		<#elseif permLevel == "ja">
-			<#assign url = hongkongUrl + '/' + permLevel + '/centers'/>
+			<#assign url = hongkongUrl + '/' + permLevel/>
 		<#elseif permLevel == "ma">
-			<#assign url = '/' + permLevel + '/records'/>
+			<#assign url = '/' + permLevel/>
 		</#if>
 	</#if>
 		<!-- container -->

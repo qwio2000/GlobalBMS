@@ -89,7 +89,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	//Interceptor 등록
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(menuIntercepter()).addPathPatterns("/**").excludePathPatterns("","/","/login","/public/**","/error","/favicon.ico");
+		registry.addInterceptor(menuIntercepter()).addPathPatterns("/**")
+			.excludePathPatterns("","/","/login","/public/**","/error","/favicon.ico");
 	}
 	
 	@Bean

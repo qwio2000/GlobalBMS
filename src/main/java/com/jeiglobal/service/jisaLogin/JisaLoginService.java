@@ -1,11 +1,14 @@
 package com.jeiglobal.service.jisaLogin;
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 
+import com.jeiglobal.repository.jisaLogin.*;
 import com.jeiglobal.service.auth.*;
 import com.jeiglobal.utils.*;
 
@@ -26,6 +29,9 @@ public class JisaLoginService {
 	
 	@Autowired
 	private AuthoritiesService authoritiesService;
+	
+	@Autowired
+	private JisaLoginRepository jisaLoginRepository;
 	
 	/** 쿠키 백업
 	 * @param authId
@@ -48,6 +54,13 @@ public class JisaLoginService {
 		authoritiesService.updateEncodeCookieById(memberId, authKey);
 		CommonUtils.addCookie("AUTHKey", authKey, cookieDomain, response);
 		CommonUtils.addCookie("AUTHId", memberId, cookieDomain, response);
+	}
+
+	/**
+	 * @return List<Map<String,Object>>
+	 */
+	public List<Map<String, Object>> getJisaLogins() {
+		return jisaLoginRepository.findJisaLogins();
 	}
 
 }

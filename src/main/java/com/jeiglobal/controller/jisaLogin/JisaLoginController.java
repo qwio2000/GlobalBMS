@@ -1,5 +1,7 @@
 package com.jeiglobal.controller.jisaLogin;
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
 import lombok.extern.slf4j.*;
@@ -33,8 +35,10 @@ public class JisaLoginController {
 	private String hongkongUrl;
 	
 	@RequestMapping(value="/ma/jisalogin")
-	public String getJisaLoginPage(){
+	public String getJisaLoginPage(Model model){
+		List<Map<String, Object>> jisaLogins = jisaLoginService.getJisaLogins();
 		log.debug("Getting Jisa Login Page");
+		model.addAttribute("jisaLogins", jisaLogins);
 		return "jisaLogin/index";
 	}
 	
@@ -66,7 +70,7 @@ public class JisaLoginController {
 		HttpRequestResponseHolder hrrh = new HttpRequestResponseHolder(request, response);
 		hsscr.loadContext(hrrh).setAuthentication(null);//기존 Authentication에 저장된 객체 제거
 		model.asMap().clear();//ModelAttribute parameter 제거
-		return "redirect:"+hongkongUrl+"/ja/centers";
+		return "redirect:"+hongkongUrl+"/ja";
 	}
 	
 }

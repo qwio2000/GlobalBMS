@@ -84,7 +84,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 			
 			int menuCodeCnt = menuCode.length();
 			
-			if(!menuCode.isEmpty()){
+			if(!menuCode.isEmpty() || "/ma".equalsIgnoreCase(currentUrl)){
 				if(menuCodeCnt == 1){
 					menuFirstCode = menuCode.substring(0,1);
 				}else if(menuCodeCnt == 3){
@@ -94,7 +94,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					menuFirstCode = menuCode.substring(0,1);
 					menuTwoCode = menuCode.substring(0,3);
 					menuThreeCode =  menuCode.substring(0,5);
-				}else{
+				}else if(menuCodeCnt == 7){
 					menuFirstCode = menuCode.substring(0,1);
 					menuTwoCode = menuCode.substring(0,3);
 					menuThreeCode =  menuCode.substring(0,5);

@@ -1,34 +1,45 @@
 <#include "/include/header.ftl">
 <div class="content">
-	<table style="width:50%;border: 0;margin-top: 50px;">
-		<colgroup>
-			<col width="50%">
-			<col width="50%">
-		</colgroup>
-		<thead>
-			<tr>
-				<th>구분</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody id=mainContent>
-			<tr>
-				<td>홍콩</td>
-				<td><a href="/ma/jisalogin/login?memberId=daekim">Login</a></td>
-			</tr>
-			<tr>
-				<td>북경</td>
-				<td><a href="#">Login</a></td>
-			</tr>
-			<tr>
-				<td>호주</td>
-				<td><a href="#">Login</a></td>
-			</tr>
-			<tr>
-				<td>뉴질랜드</td>
-				<td><a href="#">Login</a></td>
-			</tr>
-		</tbody>
-	</table>
+	<h2 class="conTit">지사 로그인</h2>
+	<div class="tbl01" style="width: 50%;">
+		<table>
+			<colgroup>
+				<col width="33%">
+				<col width="33%">
+				<col width="34%">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>구분</th>
+					<th>지사장</th>
+					<th>Login</th>
+				</tr>
+			</thead>
+			<tbody id=mainContent>
+				<#list jisaLogins as jisa>
+				<tr>
+					<td>${jisa.jisaName }</td>
+					<td>${jisa.userName }</td>
+					<td><a href="/ma/jisalogin/login?memberId=${jisa.userId }">Login</a></td>
+				</tr>
+				</#list>
+				<tr>
+					<td>북경</td>
+					<td></td>
+					<td>준비중</td>
+				</tr>
+				<tr>
+					<td>호주</td>
+					<td></td>
+					<td>준비중</td>
+				</tr>
+				<tr>
+					<td>뉴질랜드</td>
+					<td></td>
+					<td>준비중</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 <#include "/include/footer.ftl">

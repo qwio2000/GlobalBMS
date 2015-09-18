@@ -47,25 +47,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		authoritiesService.insertLoginHis(member, request);
 		addAuthCookie(response, authentication);
 		String retUrl = request.getParameter("returl");
+		String hostUrl = ("08".equals(member.getJisaCD())) ? hongkongUrl : 
+			("08".equals(member.getJisaCD())) ? request.getContextPath() : "" ;
 		if(retUrl == null || retUrl.isEmpty()){
-			if("08".equals(member.getJisaCD())){
-				if("JA".equalsIgnoreCase(member.getUserType())){
-					response.sendRedirect(hongkongUrl+"/ja/centers");
-				}else if("FA".equalsIgnoreCase(member.getUserType())){
-					response.sendRedirect(hongkongUrl+"/fa/members");
-				}
-			}else if("00".equals(member.getJisaCD())){
-				if("MA".equalsIgnoreCase(member.getUserType())){
-					response.sendRedirect(request.getContextPath()+"/ma/records");
-				}
-			}
-			return;
+			response.sendRedirect(hostUrl+"/"+member.getUserType().toLowerCase());
 		}else{
-			if("08".equals(member.getJisaCD())){
-				response.sendRedirect(hongkongUrl+retUrl);
-			}else if("00".equals(member.getJisaCD())){
-				response.sendRedirect(request.getContextPath()+retUrl);
-			}
+			response.sendRedirect(hostUrl+retUrl);
 		}
 	}
 	

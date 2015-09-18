@@ -52,7 +52,7 @@ public class HomeController {
     @ResponseBody
     void favicon() {}
 	
-	@RequestMapping(value={"/ma/records","/ma/inventory","/ma/leads","/ma/community","/ma/membersearch","/ma/manageproduct"})
+	@RequestMapping(value={"/ma","/ma/records","/ma/inventory","/ma/leads","/ma/community","/ma/membersearch","/ma/manageproduct"})
 	public String getLayoutPage(){
 		log.debug("Getting BMS Layout Page");
 		return "layout";

@@ -3,8 +3,8 @@
 		<input type="hidden" value="${menuFirstCode }" id="menuFirstCode"/>
 		<a href="/logout"/><div class="logout"><strong>Logout</strong></div></a>
 		<h1>
-			<a href="/ma/records"><img src="${imgPath }/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>
-			<span>${loginInfo.deptName }(${loginInfo.userFstName }${loginInfo.userLstName?default('') })</span>
+			<a href="/${loginInfo.userType?lower_case }"><img src="${imgPath }/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>
+			<span>Corporation (${loginInfo.userFstName }${loginInfo.userLstName?default('') })</span>
 		</h1>
 		<span class="utilInfo">Server Time : ${.now?string.medium_short} <br>System Week #2[9/6, 15-9, 12/15]</span>
 <!-- 		<span class="utilInfo">Server Time : Sep 6, 2015 10:07 PM <br>System Week #2[9/6, 15-9, 12/15]</span> -->

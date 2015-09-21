@@ -28,4 +28,15 @@
 			</otherwise>
 		</choose>
 	</select>
+	<select id="findCenterStates" parameterType="String" resultType="com.jeiglobal.domain.CenterState">
+		SELECT *
+		FROM globalbiz.StateInfo
+		WHERE jisaCD = #{jisaCD}
+		ORDER BY sortCD
+	</select>
+	<select id="findOpenSubjsByDeptCD" parameterType="hashMap" resultType="java.lang.String">
+		SELECT openSubj 
+		FROM globalbiz.DeptMst 
+		WHERE jisaCD = #{jisaCD} and deptCD = #{deptCD}
+	</select>
 </mapper>

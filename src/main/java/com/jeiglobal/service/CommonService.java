@@ -54,5 +54,27 @@ public class CommonService {
 		param.put("useVal", useVal);
 		return commonRepository.findCodeDtls(param);
 	}
+
+	/**
+	 * 지사 별 State 리스트를 가져오는 메서드
+	 * @param jisaCD 
+	 * @return List<CenterState>
+	 */
+	public List<CenterState> getCenterStates(String jisaCD) {
+		return commonRepository.findCenterStates(jisaCD);
+	}
 	
+	/**
+	 * 지사나 가맹점별로 운영중인 과목 리스트를 가져오는 메서드
+	 * @param jisaCD
+	 * @param deptCD
+	 * @return List<String>
+	 */
+	public List<String> getOpenSubjsByDeptCD(String jisaCD, String deptCD){
+		param.clear();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		String openSubjs = commonRepository.findOpenSubjsByDeptCD(param);
+		return Arrays.asList(openSubjs.split(","));
+	}
 }

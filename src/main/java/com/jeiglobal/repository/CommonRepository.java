@@ -20,4 +20,8 @@ public interface CommonRepository {
 
 	public List<CodeDtl> findCodeDtls(Map<String, Object> param);
 
+	public List<CenterState> findCenterStates(String jisaCD);
+	
+	public String findOpenSubjsByDeptCD(Map<String, Object> param);
+
 }

@@ -1,5 +1,4 @@
 <#-- @ftlvariable name="loginInfo" type="com.jeiglobal.domain.auth.LoginInfo" -->
-<#-- @ftlvariable name="hongkongUrl" type="java.lang.String" -->
 <#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <!--[if IE 7]><html lang="ko" class="ie7"><![endif]-->
@@ -11,7 +10,6 @@
 	<title>글로벌 로그인</title>
 	<link rel="stylesheet" type="text/css" href="/public/css/common.css" />
 	<script src="/public/js/common/jquery-1.11.3.min.js" type="text/javascript"></script>
-<!-- 	<script src="/public/js/common/common.js" type="text/javascript"></script> -->
 	<style type="text/css">
 		/* login.css */
 		html, body{height:100%;width:100%;}
@@ -54,13 +52,13 @@
 					<div class="clearfix">
 						<div class="input_wrap">
 							<label for="id" class="hidden">ID</label><input type="text" name="memberId" id="memberId" class="input_login input_login_id" />
-							<span class="icon_chk on"></span><!-- 아이디 input 박스 값 확인시 class="on" 추가 ( 체크 아이콘 색상 바뀜 ) -->
+							<span class="icon_chk"></span><!-- 아이디 input 박스 값 확인시 class="on" 추가 ( 체크 아이콘 색상 바뀜 ) -->
 						</div>
 						<div class="input_wrap">
 							<label for="pw" class="hidden">PW</label><input type="password" name="memberPassword" id="memberPassword" class="input_login" />
 							<span class="icon_chk"></span><!-- 패스워드 input 박스 값 확인시 class="on" 추가 ( 체크 아이콘 색상 바뀜 ) -->
 						</div>
-						<a href="#" class="btn_login"><img src="/public/img/btn_login.png" alt="로그인" /></a>
+						<input type="image" src="/public/img/btn_login.png" alt="로그인" class="btn_login" />
 					</div>
 				</div>
 			</@security.authorize>
@@ -76,12 +74,18 @@
 	<script type="text/javascript">
 		
 		$(document).ready(function(){
-			$('.input_login_id').focus(); //페이지 로딩시 id값 입력란 focus();
 			setLoginBg(); //익스 8이하버전 백그라운드이미지처리
 			
 			$('.btn_login').click(function(){
 				$('#loginFrm').submit();
 			});
+			
+			$('.input_login').focus(function(){
+				$('.icon_chk').removeClass('on');
+				$(this).next().addClass('on');
+			});
+			
+			$('.input_login_id').focus(); //페이지 로딩시 id값 입력란 focus();
 		});
 		$(window).resize(function(){
 			setLoginBg(); //익스 8이하버전 백그라운드이미지처리

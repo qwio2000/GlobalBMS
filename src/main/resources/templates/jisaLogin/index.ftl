@@ -1,7 +1,7 @@
 <#include "/include/header.ftl">
 <div class="content">
 	<h2 class="conTit">지사 로그인</h2>
-	<div class="tbl01" style="width: 50%;">
+	<div class="tbl01">
 		<table>
 			<colgroup>
 				<col width="33%">

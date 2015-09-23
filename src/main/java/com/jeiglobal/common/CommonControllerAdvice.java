@@ -18,9 +18,11 @@ import com.jeiglobal.domain.auth.*;
 @ControllerAdvice
 public class CommonControllerAdvice {
 	
-	@Value("${serverurl.hongkong}")
-	private String hongkongUrl;
-
+	@ModelAttribute("loginInfo")
+	public LoginInfo getLoginInfo(Authentication authentication){
+		return (authentication == null) ? null : (LoginInfo) authentication.getPrincipal();
+	}
+	
 	@Value("${filePath.img}")
 	private String imgPath;
 	
@@ -30,15 +32,7 @@ public class CommonControllerAdvice {
 	@Value("${filePath.js}")
 	private String jsPath;
 	
-	@ModelAttribute("loginInfo")
-	public LoginInfo getLoginInfo(Authentication authentication){
-		return (authentication == null) ? null : (LoginInfo) authentication.getPrincipal();
-	}
 	
-	@ModelAttribute("hongkongUrl")
-	public String getHongkongUrl(){
-		return hongkongUrl;
-	}
 	@ModelAttribute("imgPath")
 	public String getImgPath(){return imgPath;}
 	@ModelAttribute("cssPath")

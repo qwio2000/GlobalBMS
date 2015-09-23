@@ -51,11 +51,11 @@
 				<div class="login_form">
 					<div class="clearfix">
 						<div class="input_wrap">
-							<label for="id" class="hidden">ID</label><input type="text" name="memberId" id="memberId" class="input_login input_login_id" />
+							<label for="id" class="hidden">ID</label><input type="text" placeholder="ID" name="memberId" id="memberId" class="input_login input_login_id" />
 							<span class="icon_chk"></span><!-- 아이디 input 박스 값 확인시 class="on" 추가 ( 체크 아이콘 색상 바뀜 ) -->
 						</div>
 						<div class="input_wrap">
-							<label for="pw" class="hidden">PW</label><input type="password" name="memberPassword" id="memberPassword" class="input_login" />
+							<label for="pw" class="hidden">PW</label><input type="password" placeholder="PASSWORD" name="memberPassword" id="memberPassword" class="input_login" />
 							<span class="icon_chk"></span><!-- 패스워드 input 박스 값 확인시 class="on" 추가 ( 체크 아이콘 색상 바뀜 ) -->
 						</div>
 						<input type="image" src="/public/img/btn_login.png" alt="로그인" class="btn_login" />

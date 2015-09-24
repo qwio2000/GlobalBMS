@@ -18,7 +18,7 @@
 			<tbody id=mainContent>
 				<#list jisaLogins as jisa>
 				<tr>
-					<td>${jisa.jisaName }</td>
+					<td>${jisa.deptName }</td>
 					<td>${jisa.userName }</td>
 					<td><a href="/ma/jisalogin/login?memberId=${jisa.userId }">Login</a></td>
 				</tr>

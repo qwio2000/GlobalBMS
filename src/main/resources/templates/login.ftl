@@ -14,16 +14,16 @@
 		/* login.css */
 		html, body{height:100%;width:100%;}
 		body{position:relative;z-index:1;min-width:960px;min-height:500px}
-		.login_wrap{width:100%;height:100%;background:url(/public/img/bg_login.jpg) no-repeat;background-size:cover;}
+		.login_wrap{width:100%;height:100%;background:url(public/img/bg_login.jpg) no-repeat;background-size:cover;}
 		.login{width:960px;height:460px;margin:0 auto;position:absolute;z-index:10;left:50%;margin-left:-480px;top:50%;margin-top:-230px}
 		.login h2{padding-bottom:49px;color:#fff;font-weight:normal;font-size:30px;text-transform:uppercase;text-align:center;line-height:36px}
 		.login_form{width:765px;margin:0 auto;}
-		.login_form .clearfix{height:45px;padding:6px 0 6px 75px;background:url(/public/img/logo_login.png) 0 50% no-repeat}
+		.login_form .clearfix{height:45px;padding:6px 0 6px 75px;background:url(public/img/logo_login.png) 0 50% no-repeat}
 		.login_form .clearfix:after{content:'';display:block;clear:both;zoom:1}
-		.login_form .input_login{width:230px;font-size:15px;color:#333333;height:22px;line-height:22px;padding:12px 40px 12px 25px;border:0;background:transparent url(/public/img/bg_loginbox.png) no-repeat;vertical-align:top}
+		.login_form .input_login{width:230px;font-size:15px;color:#333333;height:22px;line-height:22px;padding:12px 40px 12px 25px;border:0;background:transparent url(public/img/bg_loginbox.png) no-repeat;vertical-align:top}
 		.input_wrap{display:block;float:left;padding-right:5px;position:relative;z-index:30}
-		.input_wrap span.icon_chk{position:absolute;z-index:31;right:15px;top:13px;width:19px;height:19px;background:url(/public/img/icon_chk_off.png) no-repeat;}
-		.input_wrap span.icon_chk.on{background:url(/public/img/icon_chk_on.png) no-repeat;}
+		.input_wrap span.icon_chk{position:absolute;z-index:31;right:15px;top:13px;width:19px;height:19px;background:url(public/img/icon_chk_off.png) no-repeat;}
+		.input_wrap span.icon_chk.on{background:url(public/img/icon_chk_on.png) no-repeat;}
 		.btn_login{display:block;float:left;}
 		.btn_login img{vertical-align:middle}
 		.login_bg{display:none;} /* ie8이하 대응 이미지처리 */
@@ -47,7 +47,6 @@
 			<h2>A better Life <br /> through better Education</h2>
 			<form action="/loginCheck" name="loginFrm" id="loginFrm" method="post">
 			<input type="hidden" name="returl" value="${returl?default('')}" />
-			<@security.authorize access="! isAuthenticated()">
 				<div class="login_form">
 					<div class="clearfix">
 						<div class="input_wrap">
@@ -61,7 +60,6 @@
 						<input type="image" src="/public/img/btn_login.png" alt="로그인" class="btn_login" />
 					</div>
 				</div>
-			</@security.authorize>
 			</form>
 			<div class="login_footer">
 				<p>GLOBAL JEI Corporation</p>
@@ -80,9 +78,15 @@
 				$('#loginFrm').submit();
 			});
 			
-			$('.input_login').focus(function(){
-				$('.icon_chk').removeClass('on');
-				$(this).next().addClass('on');
+			$('.input_login').each(function(){
+				var chk = $(this).next('.icon_chk');
+				$(this).keyup(function(){
+					if(loginChk($(this).val())){
+						chk.addClass('on');
+					}else{
+						chk.removeClass('on');
+					}
+				});
 			});
 			
 			$('.input_login_id').focus(); //페이지 로딩시 id값 입력란 focus();
@@ -107,6 +111,14 @@
 		function chkBrower(brower_version){
 			var chk =navigator.userAgent.toLocaleLowerCase();
 			return chk.indexOf(brower_version);	
+		}
+		//값 확인
+		function loginChk(value){
+			if(value.length > 3){	
+				return true;
+			}else{
+				return false;
+			}
 		}
 	</script>
 </body>

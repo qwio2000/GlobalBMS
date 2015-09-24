@@ -3,6 +3,7 @@
 <#-- @ftlvariable name="imgPath" type="java.lang.String" -->
 <#-- @ftlvariable name="cssPath type="java.lang.String" -->
 <#-- @ftlvariable name="jsPath" type="java.lang.String" -->
+<#-- @ftlvariable name="mainWeek" type="java.util.List" -->
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <!--[if IE 7]><html lang="ko" class="ie7"><![endif]-->

@@ -6,10 +6,6 @@ multipart:
 uploadpath:
         announcements: C:\upload\jeiglobal\hk\announcements
         
-spring:
-    resources:
-        cache-period:31556926
-        
 server:
     port: 8081
     

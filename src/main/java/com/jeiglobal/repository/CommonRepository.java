@@ -24,4 +24,6 @@ public interface CommonRepository {
 	
 	public String findOpenSubjsByDeptCD(Map<String, Object> param);
 
+	public List<GradeOfSubject> findGradeOfSubject(Map<String, Object> param);
+
 }

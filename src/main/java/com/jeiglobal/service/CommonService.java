@@ -77,4 +77,13 @@ public class CommonService {
 		String openSubjs = commonRepository.findOpenSubjsByDeptCD(param);
 		return Arrays.asList(openSubjs.split(","));
 	}
+	
+	public List<GradeOfSubject> getGradeOfSubject(String jisaCD, String subj, String useYN, String digYN){
+		param.clear();
+		param.put("jisaCD", jisaCD);
+		param.put("subj", subj);
+		param.put("useYN", useYN);
+		param.put("digYN", digYN);
+		return commonRepository.findGradeOfSubject(param);
+	}
 }

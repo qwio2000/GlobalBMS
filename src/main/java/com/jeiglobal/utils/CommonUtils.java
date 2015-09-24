@@ -2,6 +2,7 @@ package com.jeiglobal.utils;
 
 import java.io.*;
 import java.net.*;
+import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.*;
@@ -76,5 +77,19 @@ public class CommonUtils {
 		}
 		response.addCookie(cookie);
 	}
-
+	
+	public static List<String> weekCalendar(String day) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yy");
+		Calendar cal = Calendar.getInstance();
+		if(!"".equals(day)){
+			cal.setTime(sdf.parse(day));
+		}
+		List<String> rtnList = new ArrayList<String>();
+		rtnList.add(String.valueOf(cal.get(Calendar.WEEK_OF_MONTH)));
+		cal.add(Calendar.DATE, -(cal.get(Calendar.DAY_OF_WEEK) - 1));
+		rtnList.add(sdf.format(cal.getTime()));
+		cal.add(Calendar.DATE, 6);
+		rtnList.add(sdf.format(cal.getTime()));
+		return rtnList;
+	}
 }

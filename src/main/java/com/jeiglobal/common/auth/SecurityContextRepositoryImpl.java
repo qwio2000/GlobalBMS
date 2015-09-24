@@ -15,6 +15,8 @@ import org.springframework.stereotype.*;
 
 import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.service.auth.*;
+import com.jeiglobal.service.menu.*;
+import com.jeiglobal.utils.*;
 
 /**
  * 
@@ -42,24 +44,27 @@ public class SecurityContextRepositoryImpl implements SecurityContextRepository{
 	
 	private HttpSessionSecurityContextRepository contextRep;
 	
+	@Autowired
+	private MenuService menuService;
+	
+	@Value("${cookieShare.domain}")
+	private String cookieDomain;
+	
 	@Override
 	public SecurityContext loadContext(
 			HttpRequestResponseHolder requestResponseHolder) {
 		contextRep = new HttpSessionSecurityContextRepository();
 		ctx = contextRep.loadContext(requestResponseHolder);
-		if(ctx.getAuthentication() == null){
-			
-			Map<String,Object> map = new HashMap<String, Object>();
-			
-			map = getAuthCookieValue(requestResponseHolder.getRequest());
-			
-			if(map != null && !map.isEmpty() && map.containsKey("AUTHId") && map.containsKey("AUTHKey")){
-				String userName = map.get("AUTHId").toString();
-				String encodeCookie = map.get("AUTHKey").toString();
-				
-				long cnt = authoritiesService.countMemberByIdAndEncodeCookie(userName, encodeCookie);
-				
-				if(cnt == 1){
+		Map<String,Object> map = new HashMap<String, Object>();
+		HttpServletRequest request = requestResponseHolder.getRequest();
+		HttpServletResponse response = requestResponseHolder.getResponse();
+		map = getAuthCookieValue(request);
+		if(map != null && !map.isEmpty() && map.containsKey("AUTHId") && map.containsKey("AUTHKey")){
+			String userName = map.get("AUTHId").toString();
+			String encodeCookie = map.get("AUTHKey").toString();
+			long cnt = authoritiesService.countMemberByIdAndEncodeCookie(userName, encodeCookie);
+			if(cnt == 1){
+				if(ctx.getAuthentication() == null){
 					LoginInfo member = authoritiesService.findMemberById(userName);
 					member.setUserPasswd("");
 					member.setEncodeCookie("");
@@ -67,10 +72,60 @@ public class SecurityContextRepositoryImpl implements SecurityContextRepository{
 					Authentication authentication = new UsernamePasswordAuthenticationToken(member,"",null);
 					ctx.setAuthentication(authentication);
 				}
+			}else{
+				if(request.getCookies() != null && request.getCookies().length > 0){
+					List<Cookie> cookies = Arrays.asList(request.getCookies());
+					for (Cookie cookie : cookies) {
+						CommonUtils.removeCookie(cookie.getName(), cookieDomain, response);
+					}
+				}
+//				PrintWriter writer = null;
+//				try {
+//					writer = response.getWriter();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				response.setContentType("text/html;charset=UTF-8");
+//				String scriptMessage = "<script language='javascript'>alert('";
+//				scriptMessage += "다른 곳에서 이 아이디로 로그인 하였습니다.');";
+//				scriptMessage += "</script>";
+//				writer.write(scriptMessage);
+				ctx.setAuthentication(null);
 			}
+		}else{
+			ctx.setAuthentication(null);
 		}
 		return ctx;
 	}
+//	@Override
+//	public SecurityContext loadContext(
+//			HttpRequestResponseHolder requestResponseHolder) {
+//		contextRep = new HttpSessionSecurityContextRepository();
+//		ctx = contextRep.loadContext(requestResponseHolder);
+//		if(ctx.getAuthentication() == null){
+//			
+//			Map<String,Object> map = new HashMap<String, Object>();
+//			
+//			map = getAuthCookieValue(requestResponseHolder.getRequest());
+//			
+//			if(map != null && !map.isEmpty() && map.containsKey("AUTHId") && map.containsKey("AUTHKey")){
+//				String userName = map.get("AUTHId").toString();
+//				String encodeCookie = map.get("AUTHKey").toString();
+//				
+//				long cnt = authoritiesService.countMemberByIdAndEncodeCookie(userName, encodeCookie);
+//				
+//				if(cnt == 1){
+//					LoginInfo member = authoritiesService.findMemberById(userName);
+//					member.setUserPasswd("");
+//					member.setEncodeCookie("");
+//					
+//					Authentication authentication = new UsernamePasswordAuthenticationToken(member,"",null);
+//					ctx.setAuthentication(authentication);
+//				}
+//			}
+//		}
+//		return ctx;
+//	}
 
 	@Override
 	public boolean containsContext(HttpServletRequest request) {

@@ -39,4 +39,7 @@
 		FROM globalbiz.DeptMst 
 		WHERE jisaCD = #{jisaCD} and deptCD = #{deptCD}
 	</select>
+	<select id="findGradeOfSubject" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.GradeOfSubject">
+		CALL globalbiz.SPJinDanDung (#{jisaCD},#{subj},#{useYN},#{digYN})
+	</select>
 </mapper>

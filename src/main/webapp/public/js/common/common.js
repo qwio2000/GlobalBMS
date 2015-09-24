@@ -1,7 +1,10 @@
 $(function(){
+	$(".active").css('borderBottom','2px solid #fff'); 
+	
 	$(".gnb>li>a").hover(function(){
 		$(".gnb>li>a").removeClass('on');
-			$(this).addClass('on').children().addClass('on');
+		$(this).addClass('on').children().addClass('on');
+		$(".active").css('borderBottom','2px solid #fc9d0b'); 
 	});
 
 	$(".gnb").mouseleave(function(){
@@ -11,6 +14,7 @@ $(function(){
 			$('.gnb>li>a').each(function(index){
 				if(index+1 == menuFirstCode){
 					$(this).addClass('on').children().addClass('on');
+					$(".active").css('borderBottom','2px solid #fff'); 
 				}
 			});
 		}
@@ -19,24 +23,25 @@ $(function(){
 	$.extend({
 		pageUtil : function(pageNum, totalPageCnt, pageBlockSize, startPageNum,endPageNum) {
 			var thisBlock = Math.ceil(pageNum / pageBlockSize); // 현재 페이징블럭
-			var preBlock, nextBlock; // 이전, 다음 페이징 블럭
-			var html = "";
-
-			if (totalPageCnt > 0) {
-				// 현재 페이지블럭의 시작페이지번호, 전페이지번호
-				if (thisBlock > 1) {
+ 			var preBlock, nextBlock; // 이전, 다음 페이징 블럭
+ 			var html = "";
+ 
+ 			if (totalPageCnt > 0) {
+ 				// 현재 페이지블럭의 시작페이지번호, 전페이지번호
+ 				if (thisBlock > 1) {
 					startPageNum = (thisBlock - 1) * pageBlockSize + 1;
 					preBlock = startPageNum - 1;
 				} else {
 					startPageNum = preBlock = 1;
 				}
-
+				
 				// 현재 페이지블럭의 끝페이지번호, 다음페이지번호
-				if ((thisBlock * pageBlockSize) >= totalPageCnt) {
+				if ((thisBlock * pageBlockSize) >= totalPageCnt) {					
 					endPageNum = totalPageCnt;
 					nextBlock = endPageNum;
 				} else {
 					endPageNum = thisBlock * pageBlockSize;
+
 					nextBlock = endPageNum + 1
 				}
 				
@@ -48,11 +53,13 @@ $(function(){
 					}
 				}
 
+				
 				for (i = startPageNum; i <= endPageNum; i++) {
+					
 					if(i != pageNum){
 						html += " <a class='naviPage' href='javascript:;' pageNo='"+i+"'>"+i+"</a> ";
 					} else {
-						html += "<a class='current' href='javascript:;' pageNo='"+i+"'>"+i+"</a>";
+						html += "<a class='on' href='javascript:;' pageNo='"+i+"'><strong>"+i+"</strong></a>";
 					}
 				}
 

@@ -198,6 +198,7 @@
 
 	/* body 영역
 	----------------------- */
+	body{position:relative;z-index:1}
 	body > .wrap{min-width:980px}
 	.headerWrap {position:relative;background:url('../img/bg_header.gif') repeat-x 0 0;height:163px;border-bottom:2px solid #fc9d0b;}
 	.header {position:relative;background:url('../img/bg_header.gif') repeat-x 0 0;width:960px;height:110px;margin:0 auto;}
@@ -207,11 +208,11 @@
 	.header h1 {position:absolute;top:30px;}
 	.header h1 span {position:relative;color:#fff;top:-10px;left:15px;} 
 	.header ul.gnb {position:absolute;top:110px;height:53px;}
-	.header ul.gnb>li {/*border-right:1px solid #d2d2d2;*/position:relative;font-size:16px;float:left;width:136px;height:53px;background:#f0f0f0 url('../img/line.gif') no-repeat right 0;text-align:center;line-height:53px;}
-	.header ul.gnb>li.active {border-bottom:2px solid #fff;}
+	.header ul.gnb>li {/*border-right:1px solid #d2d2d2;*/position:relative;font-size:16px;float:left;width:136px;height:53px;background:#f0f0f0 url('../img/line.gif') no-repeat right 0;text-align:center;line-height:52px;}
+/* 	.header ul.gnb>li.active {border-bottom:2px solid #fff;} */
 	.header ul.gnb>li:first-child {border-left:1px solid #d2d2d2;background:url('../img/line.gif') no-repeat right 0;}
 	.header ul.gnb>li:first-child .gnbsub li {padding-left:40px;}
-	.header ul.gnb>li>a {display:inline-block;width:100%;border-bottom:2px solid #fc9d0b;}
+	.header ul.gnb>li>a {display:inline-block;width:100%;}
 	/*.header ul.gnb>li>a:hover {text-decoration:underline;background:#fff;border:2px solid #fc9d0b;border-bottom:none;width:132px;}*/
 	.header ul.gnb>li>a:hover {position:relative;z-index:1000;display:block;margin-left:-1px;text-decoration:underline;background:#fff url('../img/gnb_on.png') no-repeat left 50%;width:138px;}
 	.header ul.gnb>li>a.on {margin-left:-1px;text-decoration:underline;background:#fff url('../img/gnb_on.png') no-repeat left 50%;width:138px;position:relative;z-index:1;height:53px;border-bottom:none;}
@@ -225,13 +226,13 @@
 	.header ul.gnb>li .pdleft li {padding-left:36px;}
 	.header ul.gnb>li .pdleft02 li {padding-left:48px;}
 
-
-
-	input[type="text"].searchInput {height:21px;padding:6px 0 6px 10px;line-height:21px;border:1px solid #d2d2d2;}
-
-
+	.footer {color:#888;width:960px;margin:60px auto;padding:10px;border-top:1px solid #dbdbdb;}
+	.footer img {margin-right:13px;vertical-align:middle;}
+	
 	.content {width:960px;margin:0 auto;font-size:14px;}
 	.conTit {margin-top:54px;padding-left:10px;font-size:22px;font-weight:normal;background:url('../img/bg_tit.png') no-repeat 0 50%;}
+	
+	/*memSearch*/
 	.memSearch {margin:30px 0 0 0;}
 	.memSearch li {margin-bottom:10px;}
 	.memSearch li label {display:inline-block;width:108px;}
@@ -247,48 +248,12 @@
 	.memSearch li.last .classDay li input[type="checkbox"]:checked + label span {background:url("../img/btn_check.png") left top no-repeat;}
 	.memSearch li.last label.labelpd {padding-top:3px;}
 	.memSearch li p.editor {width:848px;margin-left:4px;float:left;}
-
-	.btnArea {clear:both;margin-top:40px;}
-	.postSugg {margin-left:113px;}
-	.btnArea a {padding-right:4px;line-height:34px;display:inline-block;height:34px;background:url('../img/btn_right.png') no-repeat right 0;}
-	.btnArea a span {font-weight:bold;width:214px;text-align:center;padding-left:6px;display:inline-block;height:34px;background:url('../img/btn_left.png') no-repeat left 0;}
-
-
 	.memSearch li .file_input_textbox {height:32px;}
 	.memSearch li .file_input_div {position:relative;width:100px;top:-35px;left:421px;}
 	.memSearch li .file_input_div02 {position:relative;width:100px;height:37px;overflow:hidden;top:-61px;left:421px;}
 	.memSearch li .file_input_hidden {font-size:20px;position:absolute;top:-7px;height:34px;opacity:0;filter: alpha(opacity=0); -ms-filter: "alpha(opacity=0)"; -khtml-opacity: 0; -moz-opacity: 0;margin-top:7px;width:72px;left:-105px;}
 	.memSearch li .file_input_button {width:75px;height:35px;position:absolute;top:0px;background:#fefefe url('../img/btn_serch.png') no-repeat 0 0;color:#000;left:-105px;}
-
-	.attach {margin-bottom:10px;width:300px;position:relative;left:113px;top:-16px;}
-
-
-
-
-	.footer {color:#888;width:960px;margin:60px auto;padding:10px;border-top:1px solid #dbdbdb;}
-	.footer img {margin-right:13px;vertical-align:middle;}
-
-	.tbl01 {border-top:1px solid #fc9d0b;margin-top:25px;}
-	.tbl01 table {width:100%;}
-	.tbl01 thead th {font-size:13px;text-align:center;font-weight:normal;background:#fff8ec;padding:13px 0;border-bottom:1px solid #dbdbdb;}
-	.tbl01 tbody td {height:30px;text-align:center;font-size:13px;border-bottom:1px solid #dbdbdb;padding:5px 0;}
-	.tbl01 tbody td img {vertical-align:middle;margin-right:8px;}
-	.tbl01 tbody td.left {text-align:left;padding-left:20px;}
-	.tbl01 tbody td .appoint {text-align:left;line-height:19px;padding-left:30px;}
-	.tbl01 tbody td.conTxt {text-align:left;line-height:21px;padding:26px 30px;}
-
-	.paging {text-align:center;margin:30px 0;font-size:14px;}
-	.paging a {color:#666;background:url('../img/paging_line.gif') no-repeat right 50%;padding:0 7px 0 4px;}
-	.paging a.on {color:#000;}
-
-	.editorArea {font-size:12px;padding:20px 50px;}
-	.editorArea .rep_name {height:30px;background:url('../img/bg_reply.png') no-repeat 0 50%;width:874px;margin-left:-17px;position:relative;top:7px;}
 	
-	.rep_name>div {margin-top:-10px;}
-	.editorArea span.rep_time {float:right;}
-	.rep_answer {margin:12px 0;border:1px solid #d2d2d2;padding:10px 30px;}
-
-
 	/*ie7*/
 	.ie7 .editorArea .rep_name {left:-17px;}
 	.ie7 .editorArea span.rep_time {float:right;margin-top:-12px;}
@@ -303,8 +268,38 @@
 	.ie8 .memSearch li.last .classDay li input[type="checkbox"] {display:inline-block;margin-right:5px;}
 	.ie8 .memSearch li.last .classDay li input[type="checkbox"] + label span {display:none;margin:0px 5px 0 0;background:none;}
 
+	input[type="text"].searchInput {height:21px;padding:6px 0 6px 10px;line-height:21px;border:1px solid #d2d2d2;}
+	.btnArea {clear:both;margin-top:40px;}
+	.postSugg {margin-left:113px;}
+	.btnArea a {padding-right:4px;line-height:34px;display:inline-block;height:34px;background:url('../img/btn_right.png') no-repeat right 0;}
+	.btnArea a span {font-weight:bold;width:214px;text-align:center;padding-left:6px;display:inline-block;height:34px;background:url('../img/btn_left.png') no-repeat left 0;}
+	.attach {margin-bottom:10px;width:300px;position:relative;left:113px;top:-16px;}
 
-	/* 설문조사 */
+	.editorArea {font-size:12px;padding:20px 50px;}
+	.editorArea .rep_name {height:30px;background:url('../img/bg_reply.png') no-repeat 0 50%;width:874px;margin-left:-17px;position:relative;top:7px;}
+	
+	.rep_name>div {margin-top:-10px;}
+	.editorArea span.rep_time {float:right;}
+	.rep_answer {margin:12px 0;border:1px solid #d2d2d2;padding:10px 30px;}
+
+
+	/* table style */
+	.tbl01 {border-top:1px solid #fc9d0b;margin-top:25px;}
+	.tbl01 table {width:100%;}
+	.tbl01 thead th {font-size:13px;text-align:center;font-weight:normal;background:#fff8ec;padding:13px 0;border-bottom:1px solid #dbdbdb;}
+	.tbl01 tbody td {height:30px;text-align:center;font-size:13px;border-bottom:1px solid #dbdbdb;padding:5px 0;}
+	.tbl01 tbody td img {vertical-align:middle;margin-right:8px;}
+	.tbl01 tbody td.left {text-align:left;padding-left:20px;}
+	.tbl01 tbody td .appoint {text-align:left;line-height:19px;padding-left:30px;}
+	.tbl01 tbody td.conTxt {text-align:left;line-height:21px;padding:26px 30px;}
+	
+	/* paging */
+	.paging {text-align:center;margin:30px 0;font-size:14px;}
+	.paging a {color:#666;background:url('../img/paging_line.gif') no-repeat right 50%;padding:0 7px 0 4px;}
+	.paging a.on {color:#000;}
+
+
+	/* survey */
 	.add_survey{margin:30px 0 0 0;}
 	.add_survey li{padding-bottom:10px}
 	.add_survey li label, .add_survey .title{display:inline-block;line-height:35px;width:108px}
@@ -329,3 +324,29 @@
 	.selection_list .text{display:block;border-bottom:1px solid #d2d2d2;line-height:35px;text-align:right;}
 	.btn_calendar{display:inline-block;width:40px;line-height:35px;height:33px;background:url(../img/icon_calendar.png) 50% 50% no-repeat;text-indent:-9999px}
 
+	/* survey popup */
+	.btn_popup_close{text-indent:-99999px;position:absolute;z-index:10;top:21px;right:30px;width:17px;height:17px;background:url(../img/btn_popup_close.gif) no-repeat}
+	.popup_top{position:relative;z-index:1;background:#486577;color:#fff;height:57px;}
+	.popup_top h1{font-size:20px;padding-left:30px;font-weight:normal;line-height:28px}
+	.btn_wrap {overflow:hidden;margin-left:1px}
+	.btn_wrap a{display:block;color:#333;font-weight:bold;font-size:17px;width:50%;margin-left:-1px;border-left:1px solid #fff;float:left;line-height:61px;background:#f0f0f0;text-align:center;}
+	.ie7 .btn_wrap a{margin-left:-2px}
+	.btn_wrap a:hover{background:#e4e4e4}
+	.pop_survey{padding:50px 30px}
+	.survey_subject{position:relative;padding-left:76px;z-index:110;border:1px solid #d3d3d3;}
+	.survey_subject span{display:block;position:absolute;z-index:111;top:-1px;bottom:-1px;left:-1px;width:73px;background:#fcaf0b url(../img/icon_survey.png) 56% 48% no-repeat;text-indent:-99999px;}
+	.survey_subject p{line-height:22px;padding:17px}
+	.survey_list{height:280px;overflow-y:auto;margin-top:10px;}
+	.survey_list ul{padding-right:10px}
+	.survey_list input[type="checkbox"]{display:none;}
+	.survey_list input[type="checkbox"] + label{display:inline-block;text-indent:-99999px;width:60px;height:32px;background:url(../img/survey_off.png) 50% 50% no-repeat;cursor:pointer}
+	.survey_list input[type="checkbox"]:checked + label{background:url(../img/survey_on.png) 50% 50% no-repeat;}
+	.survey_list li{border-bottom:1px solid #f0f0f0}
+	.survey_list li{padding:20px 0}
+	.survey_list_result{position:relative;height:280px;overflow-y:auto;margin-top:10px;}
+	.survey_list_result ul{padding-right:10px}
+	.survey_list_result li{position:relative;border-bottom:1px solid #f0f0f0;padding:20px 0}
+	.percent{position:relative;z-index:10;height:15px;margin-right:50px;margin-top:14px;}
+	.percent .bar{display:block;position:absolute;z-index:20;top:0;bottom:0;background:#f0f0f0;}
+	.percent .bar .txt{display:block;width:35px;position:absolute;z-index:22;right:-40px;font-size:14px;font-weight:bold;color:#fcaf0b}
+	.percent.on .bar{background:#fcaf0b}

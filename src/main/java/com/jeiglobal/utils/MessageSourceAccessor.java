@@ -3,6 +3,7 @@ package com.jeiglobal.utils;
 import java.util.*;
 
 import org.springframework.context.*;
+import org.springframework.context.i18n.*;
 /**
  * 클래스명 : MessageSourceAccesor.java
  *
@@ -21,10 +22,18 @@ public class MessageSourceAccessor {
 		this.messageSource = messageSource;
 	}
 
+	public String getMessage(String code) {
+		return messageSource.getMessage(code, null, "No Message Available", LocaleContextHolder.getLocale());
+	}
+	
 	public String getMessage(String code, Locale locale) {
 		return messageSource.getMessage(code, null, "No Message Available", locale);
 	}
 
+	public String getMessage(String code, Object[] args) {
+		return messageSource.getMessage(code, args, "No Message Available", LocaleContextHolder.getLocale());
+	}
+	
 	public String getMessage(String code, Object[] args, Locale locale) {
 		return messageSource.getMessage(code, args, "No Message Available", locale);
 	}

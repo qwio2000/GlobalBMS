@@ -1,9 +1,9 @@
-<#setting locale="en_US">
 <#-- @ftlvariable name="loginInfo" type="com.jeiglobal.domain.auth.LoginInfo" -->
 <#-- @ftlvariable name="imgPath" type="java.lang.String" -->
 <#-- @ftlvariable name="cssPath type="java.lang.String" -->
 <#-- @ftlvariable name="jsPath" type="java.lang.String" -->
 <#-- @ftlvariable name="mainWeek" type="java.util.List" -->
+<#import "/spring.ftl" as spring/>
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <!--[if IE 7]><html lang="ko" class="ie7"><![endif]-->

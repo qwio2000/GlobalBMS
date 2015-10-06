@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="${jsPath }/common/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="${jsPath }/common/handlebars-3.0.3-min.js"></script>
 	<script type="text/javascript" src="${jsPath }/common/common.js"></script>
+	<script type="text/javascript" src="${jsPath }/common/ux.js"></script>
 	<script type="text/javascript" src="${jsPath }/common/jquery-ui.1.11.4.min.js"></script>
 	<#if headerScript?has_content>
 	<#list headerScript as script>

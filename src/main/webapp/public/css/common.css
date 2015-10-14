@@ -247,6 +247,7 @@
 	.btnArea a span {font-weight:bold;width:214px;text-align:center;padding-left:6px;display:inline-block;height:34px;background:url('../img/btn_left.png') no-repeat left 0;}
 	.btnArea_icon{padding-bottom:35px;padding-top:18px}
 	.btnArea_icon a{display:block;float:left;margin-right:14px;width:32px;height:30px;background-position:50% 50%;background-repeat:no-repeat;text-indent:-99999px;}
+	.btnArea_icon a.f_right{float:right;margin-right:0}
 	.btnArea_txt{padding-top:18px;padding-bottom:35px;}
 	.btnArea_txt a{display:block;float:left;margin-right:20px;height:30px;line-height:30px;padding-left:34px;background-position:0 50%;background-repeat:no-repeat;font-size:13px}
 	.btnArea_set .btn{display:block;line-height:30px;padding-left:30px;background-position:0 3px;background-repeat:no-repeat;font-size:13px}
@@ -266,6 +267,7 @@
 	.btn_set{background-image:url('../img/icon_set.png');}
 	.btn_del{background-image:url('../img/icon_delete.png');}
 	.btn_cart{background-image:url('../img/icon_cart.png');}
+	.btn_all{background-image:url('../img/icon_all.png');}
 
 	.btnArea_txt a.btn_del{background-position:3px 50%}
 	.btn_graph{display:inline-block;padding-right:6px;padding-left:28px;height:30px;line-height:30px;background:url('../img/btn_check2_on.png') 0 50% no-repeat}

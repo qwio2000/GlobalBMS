@@ -278,6 +278,8 @@
 	
 	.icon_cart{padding-left:28px;background-position:0 4px;background-repeat:no-repeat;background-image:url('../img/icon_cart.png');}
 
+	
+	
 	/* color */
 	.blue{color:#1387cf;font-weight:normal;}
 	.blue:hover{color:#225A7C}
@@ -404,6 +406,9 @@
 	.ie7 .check_style01 input[type="checkbox"] + label, .ie8 .check_style01 input[type="checkbox"] + label{padding-left:3px;background:none;}
 	.chk_s01 input[type="checkbox"]{display:none;}
 	.chk_s01 input[type="checkbox"] + label{display:inline-block;padding-left:30px;line-height:22px;height:22px;background:url(../img/btn_check3_off.png) 0 0 no-repeat;cursor:pointer}
+	.chk_s01.icon_resume{background:url('../img/icon_resume.gif') 30px bottom no-repeat}
+	.ie8 .chk_s01.icon_resume{background-position:20px bottom;}
+	.chk_s01.icon_resume input[type="checkbox"] + label{line-height:15px;height:28px;background-position:0 3px}	
 	.chk_s01 input[type="checkbox"]:checked + label{background:url(../img/btn_check3_on.png) 0 0 no-repeat;}
 	.chk_s01 input[type="checkbox"]:disabled + label{background:url(../img/btn_check2_disable.png) 0 0 no-repeat;cursor:default;}
 	.ie7 .chk_s01 input[type="checkbox"], .ie8 .chk_s01 input[type="checkbox"]{display:inline;}

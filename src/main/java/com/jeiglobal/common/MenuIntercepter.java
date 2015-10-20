@@ -105,7 +105,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					List<GlobalMenu> tempMenuList = new ArrayList<GlobalMenu>();
 					tempMenuList.add(headerMenuList.get(i));
 					for (GlobalMenu menu : menuList) {
-						if(headerMenuList.get(i).getMIdx() == menu.getMParentIdx()){
+						if(headerMenuList.get(i).getMIdx().longValue() == menu.getMParentIdx().longValue()){
 							tempMenuList.add(menu);
 						}
 					}

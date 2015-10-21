@@ -255,7 +255,7 @@
 	.btnArea_icon2 a{display:block;float:left;width:32px;height:30px;background-position:50% 50%;background-repeat:no-repeat;text-indent:-99999px;}
 	.btnArea_icon a.f_right{float:right;margin-right:0}
 	.btnArea_txt{padding-top:18px;padding-bottom:35px;}
-	.btnArea_txt a{display:block;float:left;margin-right:20px;height:30px;line-height:30px;padding-left:34px;background-position:0 50%;background-repeat:no-repeat;font-size:13px}
+	.btnArea_txt a{display:block;float:left;margin-right:20px;height:30px;line-height:30px;padding-left:34px;background-position:0 46%;background-repeat:no-repeat;font-size:13px}
 	.btnArea_set .btn{display:block;line-height:30px;padding-left:30px;background-position:0 3px;background-repeat:no-repeat;font-size:13px}
 	.btnArea_set span.btn{position:relative;z-index:30;padding-left:145px;font-size:13px}
 	.btnArea_set span.btn .t{position:absolute;z-index:31;top:0;left:30px;display:block;}
@@ -268,6 +268,7 @@
 	.btn_member{background-image:url('../img/icon_add.png');}
 	.btn_doc{background-image:url('../img/icon_doc_add.png');}
 	.btn_doc_add{background-image:url('../img/icon_doc_add2.png');}
+	.btn_doc2{background-image:url('../img/icon_doc.png');}
 	.btn_talk{background-image:url('../img/icon_talk.png');}
 	.btn_clock{background-image:url('../img/icon_clock.png');}
 	.btn_date{background-image:url('../img/icon_date.png');}
@@ -388,12 +389,14 @@
 	.list01 ul li a .date{display:block;width:82px;position:absolute;z-index:31;right:0;top:10px;}
 	.list01 ul li a img{vertical-align:middle}
 	.list02 li {overflow:hidden;padding-bottom:10px;font-size:13px}
+	.list02 li .tit em{font-weight:bold;}
 	.list02 li .tit{display:block;float:left;line-height: 35px;width:140px;vertical-align:top}
 	.list02 li .tit2{display: inline-block;line-height: 35px;width:170px;vertical-align:top}
 	.list02 li .tit3{display: inline-block;line-height: 35px;width:150px;vertical-align:top;padding-left:0;padding-right:0}
 	.list02 select, .list04 select {padding-left:5px;height:35px;border:1px solid #d2d2d2;-webkit-appearance: none;-moz-appearance: none;appearance: none;background:transparent url('../img/sel_arrow.png') no-repeat 94% 50%;}
 	.list02 select::-ms-expand, .list04 select::-ms-expand{display:none;}
 	.list02 li strong{line-height:35px;vertical-align:middle}
+	.list02 li span.text{line-height:35px;vertical-align:middle}
 	.list02 .next_sel{display:block;padding-top:10px}
 	.list02 .next_input{display:block;padding-top:10px;padding-left:140px}
 	.list02 .textarea_wrap{float:left;width:390px}
@@ -514,7 +517,7 @@
 
 	/* product_list */
 	.product_list{padding:8px 0}
-	.product_list .tit{display:inline-block;width:55px;font-weight:bold;}
+	.product_list .tit{display:inline-block;width:55px;font-weight:bold;line-height:20px}
 	.product_list li{padding:3px 0;}
 	.product_list li em{display:block;font-weight:bold;padding-bottom:3px}
 	.product_list li .txt{display:inline-block;padding:3px 0 0px 0;line-height:23px}
@@ -551,6 +554,9 @@
 	.add_new_list{padding-top:80px}
 	.add_new_list .tit {line-height:30px;padding-left:30px;background:url(../img/icon_doc_add.png) 0 46% no-repeat;font-size:14px;font-weight:normal;}
 	.add_new_list .tit strong{color:#e60013}
+	.add_new_list .text{line-height:20px}
+	.add_new_list .text em{font-weight:bold;}
+	.add_new_list a{color:#e60013;font-weight:bold;font-size:14px}
 
 	/* input_list */
 	.input_list li{padding-top:20px;font-size:14px}
@@ -643,3 +649,4 @@
 
 	/*gm popup */
 	.pop_gm{padding:25px 30px}
+	.pop_gm .subTit{font-weight: bold;padding-bottom:15px;font-size: 15px;}

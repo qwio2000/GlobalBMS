@@ -4,7 +4,7 @@
 		<div class="logout"><a href="/logout"><strong>Logout</strong></a></div>
 		<h1>
 			<a href="/${loginInfo.userType?lower_case }"><img src="${imgPath }/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>
-			<span>Corporation (${loginInfo.userFstName }${loginInfo.userLstName?default('') })</span>
+			<span>Corporation (${loginInfo.userFstName } ${loginInfo.userLstName?default('') })</span>
 		</h1>
 		<span class="utilInfo">Server Time : ${.now?string.medium_short} <br>System Week #${mainWeek[0] } [${mainWeek[1]} ~ ${mainWeek[2] }]</span>
 <!-- 		<span class="utilInfo">Server Time : Sep 6, 2015 10:07 PM <br>System Week #2[9/6, 15-9, 12/15]</span> -->

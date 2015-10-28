@@ -18,6 +18,7 @@ import org.springframework.web.servlet.handler.*;
 import com.jeiglobal.domain.auth.*;
 import com.jeiglobal.domain.menu.*;
 import com.jeiglobal.service.menu.*;
+import com.jeiglobal.utils.*;
 /**
  * 
  * 클래스명 : MenuIntercepter.java
@@ -33,6 +34,9 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 	
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private MessageSourceAccessor msa;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
@@ -105,7 +109,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 					List<GlobalMenu> tempMenuList = new ArrayList<GlobalMenu>();
 					tempMenuList.add(headerMenuList.get(i));
 					for (GlobalMenu menu : menuList) {
-						if(headerMenuList.get(i).getMIdx() == menu.getMParentIdx()){
+						if(headerMenuList.get(i).getMIdx().longValue() == menu.getMParentIdx().longValue()){
 							tempMenuList.add(menu);
 						}
 					}
@@ -114,10 +118,12 @@ public class MenuIntercepter extends HandlerInterceptorAdapter{
 			}else{
 				log.debug("Invalid Url : {}", currentUrl);
 				
+				String msg = msa.getMessage("error.menuinterceptor.invalidurl");
 				PrintWriter writer = response.getWriter();
 				response.setContentType("text/html;charset=UTF-8");
 				String scriptMessage = "<script language='javascript'>alert('";
-				scriptMessage += "유효한 URL이 아닙니다.');";
+				scriptMessage += msg;
+				scriptMessage += "');";
 				scriptMessage += "history.back();</script>";
 				writer.write(scriptMessage);
 				return false;

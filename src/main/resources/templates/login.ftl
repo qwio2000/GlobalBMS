@@ -1,5 +1,9 @@
 <#-- @ftlvariable name="loginInfo" type="com.jeiglobal.domain.auth.LoginInfo" -->
 <#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#-- @ftlvariable name="imgPath" type="java.lang.String" -->
+<#-- @ftlvariable name="cssPath type="java.lang.String" -->
+<#-- @ftlvariable name="jsPath" type="java.lang.String" -->
+<#import "/spring.ftl" as spring/>
 <!DOCTYPE html>
 <!--[if IE 7]><html lang="ko" class="ie7"><![endif]-->
 <!--[if IE 8]><html lang="ko" class="ie8"><![endif]-->
@@ -8,8 +12,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>글로벌 로그인</title>
-	<link rel="stylesheet" type="text/css" href="/public/css/common.css" />
-	<script src="/public/js/common/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="${cssPath }/common.css" />
+	<script src="${jsPath }/common/jquery-1.11.3.min.js" type="text/javascript"></script>
 	<style type="text/css">
 		/* login.css */
 		html, body{height:100%;width:100%;}
@@ -35,7 +39,8 @@
 <#if error?default("") == "true" >
 	<script type="text/javascript">
 	$(function(){
-		alert("계정과 암호가 일치하지 않습니다.");
+		var msg = '<@spring.message 'error.login.failed'/>';
+		alert(msg);
 		$("#loginFrm").attr("action","/login");
 		$("#loginFrm").submit();
 	});
@@ -57,7 +62,7 @@
 							<label for="pw" class="hidden">PW</label><input type="password" placeholder="PASSWORD" name="memberPassword" id="memberPassword" class="input_login" />
 							<span class="icon_chk"></span><!-- 패스워드 input 박스 값 확인시 class="on" 추가 ( 체크 아이콘 색상 바뀜 ) -->
 						</div>
-						<input type="image" src="/public/img/btn_login.png" alt="로그인" class="btn_login" />
+						<input type="image" src="${imgPath }/btn_login.png" alt="로그인" class="btn_login" />
 					</div>
 				</div>
 			</form>
@@ -66,7 +71,7 @@
 			</div>
 		</div>
 		<div class="login_bg">
-			<img src="/public/img/bg_login.jpg" alt="" />
+			<img src="${imgPath }/bg_login.jpg" alt="" />
 		</div>
 	</div>
 	<script type="text/javascript">

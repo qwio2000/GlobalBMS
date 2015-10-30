@@ -323,7 +323,7 @@
 	.tbl01 {border-top:1px solid #fc9d0b;margin-top:25px;}
 	.tbl01.mt50{margin-top:50px}
 	.tbl01 table {width:100%;font-size:13px;}
-	.tbl01 thead th {text-align:center;font-weight:normal;background:#fff8ec;padding:13px 0;border-bottom:1px solid #dbdbdb;}
+	.tbl01 thead th {text-align:center;font-weight:normal;background:#fff8ec;padding:13px 0 12px 0;border-bottom:1px solid #dbdbdb;}
 	.tbl01 tbody td {height:30px;text-align:center;border-bottom:1px solid #dbdbdb;padding:5px 0;}
 	.tbl01 tbody td img {vertical-align:middle;margin-right:5px;}
 	.tbl01 tbody td.left {text-align:left;padding-left:20px;}
@@ -349,7 +349,6 @@
 	.tbl01 tbody tr.no_line td{border-bottom:0}
 	.tbl01 thead th.b_r{border-right:1px solid #dbdbdb}
 	.tbl01 tbody td.b_r{border-right:1px solid #dbdbdb}
-	.ie7 .tbl01 tbody td {padding:5px 0 4px 0}
 	.tbl01 select{padding-left:5px;width:100px;height:35px;border:1px solid #d2d2d2;-webkit-appearance: none;-moz-appearance: none;appearance: none;background:#fff url('../img/sel_arrow.png') no-repeat 94% 50%;}
 	.tbl01 select::-ms-expand{display:none;}
 	.ie8 .tbl01 select{padding:5px 0px 5px 5px}
@@ -445,8 +444,10 @@
 
 	/*  Main */
 	.current_month {float:left;width:480px;}
-	.last_month{float:left;width:456;padding-left:24px;}
+	.current_month2 {float:left;width:480px;}
+	.last_month{float:left;width:456px;padding-left:24px;}
 	.event_calender .conTit{margin-bottom:25px}
+	.amnounce{float:left;width:456px;padding-left:24px;}
 
 	/*memSearch*/
 	.memSearch {margin:30px 0 0 0;}

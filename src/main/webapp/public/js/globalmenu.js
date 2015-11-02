@@ -85,7 +85,6 @@ $(function() {
             			async: true,
             			dataType: "JSON",
             			success: function(JsonData, textStatus, XMLHttpRequest) {
-            				console.log(JsonData);
             				$("#mParentIdx").val(JsonData.mparentIdx);
                 			$("#mIdx").val(JsonData.midx);
             				$("#mMenuName").val(JsonData.mmenuName);
@@ -160,7 +159,6 @@ $(function() {
         	$("#_method").val("POST");
         	
         	var jsonSendData = $("#menuContentFrm").serialize();
-        	console.log(jsonSendData);
         	$.ajax({
     			url: jeiadmin_url+"/menuSave.json",
     			type: "POST",

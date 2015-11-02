@@ -79,7 +79,7 @@ public class CommonUtils {
 	}
 	
 	public static List<String> weekCalendar(String day) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yy");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar cal = Calendar.getInstance();
 		if(!"".equals(day)){
 			cal.setTime(sdf.parse(day));

@@ -216,7 +216,7 @@
 	.header ul.gnb>li>a.on {margin-left:-1px;text-decoration:underline;background:#fff url('../img/gnb_on.png') no-repeat left 50%;width:138px;position:relative;z-index:1;height:53px;border-bottom:none;}
 	.header ul.gnb>li>a.on span.on {background:url('../img/select.png') no-repeat 0 0;width:22px;height:22px;position:absolute;top:-11px;left:58px;}
 	.header ul.gnb>li>a:hover span {background:url('../img/select.png') no-repeat 0 0;width:22px;height:22px;position:absolute;top:-11px;left:58px;}
-	.header ul.gnb>li:hover .gnbsub {position:relative;z-index:50;display:block;background:#fff url('../img/line.png') no-repeat right 0;width:268px;border:2px solid #fc9d0b;border-top:none;padding:10px 0;margin-left:-1px;}
+	.header ul.gnb>li:hover .gnbsub {position:relative;z-index:51;display:block;background:#fff url('../img/line.png') no-repeat right 0;width:268px;border:2px solid #fc9d0b;border-top:none;padding:10px 0;margin-left:-1px;}
 	.header ul.gnb>li .gnbsub {display:none;background:#fff url('../img/line.png') no-repeat right 0;width:268px;border:2px solid #fc9d0b;border-top:none;padding:10px 0;margin-left:-1px;}
 	.header ul.gnb>li .gnbsub li {font-size:14px;text-align:left;padding-left:30px;height:28px;line-height:28px;}
 	.header ul.gnb>li .gnbsub li a:hover {font-weight:bold;padding-left:10px;background:url('../img/dash.gif') no-repeat 0 50%;}

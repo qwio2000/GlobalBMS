@@ -1,6 +1,6 @@
 <div class="headerWrap">
 	<div class="header">
-		<input type="hidden" value="${menuFirstCode }" id="menuFirstCode"/>
+		<input type="hidden" value="${menuFirstCode?default('') }" id="menuFirstCode"/>
 		<div class="logout"><a href="/logout"><strong>Logout</strong></a></div>
 		<h1>
 			<a href="/${loginInfo.userType?lower_case }"><img src="${imgPath }/logo.png" alt="JEI Corporate HQ(JEI Korea)" /></a>

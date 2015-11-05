@@ -63,5 +63,12 @@ public class JisaManageService {
 	public List<Map<String, Object>> getJisaList() {
 		return jisaManageRepository.findJisaList();
 	}
+	/*
+	public JisaView getJisaView() {
+		return jisaManageRepository.findJisaView();
+	}
+	*/	
+	
+	//
 
 }

@@ -1,16 +1,18 @@
-package com.jeiglobal.service.jisaLogin;
+package com.jeiglobal.service.jisamanage;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.crypto.password.*;
-import org.springframework.stereotype.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import com.jeiglobal.repository.jisaLogin.*;
-import com.jeiglobal.service.auth.*;
-import com.jeiglobal.utils.*;
+import com.jeiglobal.repository.jisamanage.JisaManageRepository;
+import com.jeiglobal.service.auth.AuthoritiesService;
+import com.jeiglobal.utils.CommonUtils;
 
 /**
  * 클래스명 : JisaLoginService.java
@@ -22,7 +24,7 @@ import com.jeiglobal.utils.*;
  * 본사 -> 지사 로그인을 처리할 때 사용하는 서비스
  */
 @Service
-public class JisaLoginService {
+public class JisaManageService {
 
 	@Value("${cookieShare.domain}")
 	private String cookieDomain;
@@ -31,7 +33,7 @@ public class JisaLoginService {
 	private AuthoritiesService authoritiesService;
 	
 	@Autowired
-	private JisaLoginRepository jisaLoginRepository;
+	private JisaManageRepository jisaManageRepository;
 	
 	/** 쿠키 백업
 	 * @param authId
@@ -58,8 +60,8 @@ public class JisaLoginService {
 	/**
 	 * @return List<Map<String,Object>>
 	 */
-	public List<Map<String, Object>> getJisaLogins() {
-		return jisaLoginRepository.findJisaLogins();
+	public List<Map<String, Object>> getJisaList() {
+		return jisaManageRepository.findJisaList();
 	}
 
 }

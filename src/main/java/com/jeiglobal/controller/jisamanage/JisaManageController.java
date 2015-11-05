@@ -1,9 +1,11 @@
-package com.jeiglobal.controller.jisaLogin;
+package com.jeiglobal.controller.jisamanage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.jeiglobal.service.jisaLogin.JisaLoginService;
+import com.jeiglobal.service.jisamanage.JisaManageService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,20 +33,23 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-public class JisaLoginController {
+public class JisaManageController {
 
 	@Autowired
-	private JisaLoginService jisaLoginService;
+	private JisaManageService jisaManageService;
 	
 	@Value("${serverurl.hongkong}")
 	private String hongkongUrl;
 	
-	@RequestMapping(value="/ma/jisalogin")
-	public String getJisaLoginPage(Model model){
-		List<Map<String, Object>> jisaLogins = jisaLoginService.getJisaLogins();
+	@RequestMapping(value="/ma/jisamanage")
+	public String getJisaManageList(Model model){
+		List<Map<String, Object>> jisaList = jisaManageService.getJisaList();
 		log.debug("Getting Jisa Login Page");
-		model.addAttribute("jisaLogins", jisaLogins);
-		return "jisaLogin/index";
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("jisamanage");
+		model.addAttribute("headerScript", headerScript);		
+		model.addAttribute("jisaList", jisaList);
+		return "jisamanage/index";
 	}
 	
 	/**
@@ -61,7 +66,7 @@ public class JisaLoginController {
 	 * @param model
 	 * @return 지사 계층으로 Redirect
 	 */
-	@RequestMapping(value="/ma/jisalogin/login",method = {RequestMethod.GET, RequestMethod.HEAD})
+	@RequestMapping(value="/ma/jisamanage/login",method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getJisaLogin(String memberId, 
 			@CookieValue(value="AUTHId") String AuthId, 
 			@CookieValue(value="AUTHKey") String AuthKey,
@@ -69,8 +74,8 @@ public class JisaLoginController {
 			HttpServletResponse response,
 			Model model){
 		log.debug("BMS : {} ===> JA : {} Login", AuthId, memberId);
-		jisaLoginService.addBackupCookies(AuthId, AuthKey, response);
-		jisaLoginService.addJACookies(memberId, response);
+		jisaManageService.addBackupCookies(AuthId, AuthKey, response);
+		jisaManageService.addJACookies(memberId, response);
 		HttpSessionSecurityContextRepository hsscr = new HttpSessionSecurityContextRepository();
 		HttpRequestResponseHolder hrrh = new HttpRequestResponseHolder(request, response);
 		hsscr.loadContext(hrrh).setAuthentication(null);//기존 Authentication에 저장된 객체 제거

@@ -1,7 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jeiglobal.repository.auth.MssqlRepository">
-	<select id="findKoreaMemberSearch" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.member.KoreaMemberInfo">
-	 {	CALL JEIGLOBAL.dbo.KO_MEMBER_FIND_LST(#{type},#{searchWord},#{birthYYMM},#{jisaCD},'','','')}
+	<select id="findKoreaMemberSearchCount" parameterType="com.jeiglobal.domain.member.MemberDto$MemberSearchInfo" resultType="int">
+	 	select COUNT(1) from (
+			SELECT  row_number() over (order by a.hkey) as rowNum, A.HKEY AS memKey, A.KWAMOK AS subj, A.STATECD AS statusCD, C.CDNM AS statusCDNM, A.HNAME AS mFstName, '' AS mLstName, 
+				B.BIRTH AS mBirthDay, CASE BokheiYMD WHEN '' THEN IpheiYMD ELSE BOKHEIYMD END AS registFnlYMD, HUHEIYMD AS dropFnlYMD,  
+				TEL1+'-'+TEL2+'-'+TEL3 AS gPhone, ADDR AS addr, '한국'  AS jisaCDNM, '00' AS jisaCD
+			FROM vicdb.MEMBER.DBO.MEMBERKWAMOKMST AS A  
+				JOIN vicdb.MEMBER.DBO.MEMBERMST AS B  ON (A.HKEY = B.HKEY) 
+				LEFT JOIN vicdb.COMMON.DBO.CODE_DTL AS C ON (C.CMCD = 'C0004' AND C.CDCD = A.StateCD)
+			WHERE IPBOKHEISKEY != ''
+			<choose>
+				<when test="type == '1'.toString()">
+				 	AND A.HKEY  = #{memKey}
+				</when>
+				<when test="type == '2'.toString()">
+					AND A.HNAME LIKE '%'+#{memName}+'%' AND B.BIRTH LIKE #{birthYM}+'%'	
+				</when>
+			</choose> 
+		 ) as a
 	</select>
+	<select id="findKoreaMemberSearch" parameterType="hashMap" resultType="com.jeiglobal.domain.member.MemberDto$MemberSearchResult">
+	 	select * from (
+			SELECT  row_number() over (order by a.hkey) as rowNum, A.HKEY AS memKey, A.KWAMOK AS subj, A.STATECD AS statusCD, C.CDNM AS statusCDNM, A.HNAME AS mFstName, '' AS mLstName, 
+				B.BIRTH AS mBirthDay, CASE BokheiYMD WHEN '' THEN IpheiYMD ELSE BOKHEIYMD END AS registFnlYMD, HUHEIYMD AS dropFnlYMD,  
+				TEL1+'-'+TEL2+'-'+TEL3 AS gPhone, ADDR AS addr, '한국'  AS jisaCDNM, '00' AS jisaCD
+			FROM vicdb.MEMBER.DBO.MEMBERKWAMOKMST AS A  
+				JOIN vicdb.MEMBER.DBO.MEMBERMST AS B  ON (A.HKEY = B.HKEY) 
+				LEFT JOIN vicdb.COMMON.DBO.CODE_DTL AS C ON (C.CMCD = 'C0004' AND C.CDCD = A.StateCD)
+			WHERE IPBOKHEISKEY != ''
+			<choose>
+				<when test="memberSearchInfo.type == '1'.toString()">
+				 	AND A.HKEY  = #{memberSearchInfo.memKey}
+				</when>
+				<when test="memberSearchInfo.type == '2'.toString()">
+					AND A.HNAME LIKE '%'+#{memberSearchInfo.memName}+'%' AND B.BIRTH LIKE #{memberSearchInfo.birthYM}+'%'	
+				</when>
+			</choose> 
+		 ) as a
+		where a.rowNum between #{startRow} and #{endRow}
+	</select>
+	<select id="findOtherForeignMemberSearchCount" parameterType="com.jeiglobal.domain.member.MemberDto$MemberSearchInfo" resultType="int">
+		select COUNT(1) from (
+			SELECT row_number() over (order by a.mkey) as rowNum, A.MKEY as memKey, A.SUBJ as subj, A.STATE as statusCD, case a.state when '1' then '유지' when '2' then '퇴회' end as statusCDNM,
+			B.MFIRSTNAME as mFstName, ISNULL(B.MLASTNAME, '') as mLstName, B.BIRTHDAY as mBirthDay, case a.bokheiday when '' then A.IPHEIDAY else A.BOKHEIDAY end as registFnlYMD, A.HUHEIDAY as dropFnlYMD, B.TEL as gPhone, B.ADDR1 as addr, A.JISA as jisaCD
+		   ,D.CNAME AS jisaCDNM
+		   FROM HEIINFO AS A  
+		   INNER JOIN HEXINFO AS B ON(A.MKEY=B.MKEY)  
+		   LEFT JOIN CODELIB AS D ON(A.JISA=D.CODE AND D.BRCODE='0001' AND D.JISA='00' AND D.LANG='')  
+		   WHERE   
+			   	<choose>
+					<when test="type == '1'.toString()">
+					 	A.MKEY  = #{memKey}
+					</when>
+					<when test="type == '2'.toString()">
+						ISNULL(B.MFIRSTNAME, '') + ISNULL(B.MLASTNAME) LIKE '%'+#{memName}+'%'
+					</when>
+				</choose>
+	   ) as a
+	</select>
+	<select id="findOtherForeignMemberSearch" parameterType="hashMap" resultType="com.jeiglobal.domain.member.MemberDto$MemberSearchResult">
+		select * from (
+			SELECT row_number() over (order by a.mkey) as rowNum, A.MKEY as memKey, A.SUBJ as subj, A.STATE as statusCD, case a.state when '1' then '유지' when '2' then '퇴회' end as statusCDNM,
+			B.MFIRSTNAME as mFstName, ISNULL(B.MLASTNAME, '') as mLstName, B.BIRTHDAY as mBirthDay, case a.bokheiday when '' then A.IPHEIDAY else A.BOKHEIDAY end as registFnlYMD, A.HUHEIDAY as dropFnlYMD, B.TEL as gPhone, B.ADDR1 as addr, A.JISA as jisaCD
+		   ,D.CNAME AS jisaCDNM
+		   FROM HEIINFO AS A  
+		   INNER JOIN HEXINFO AS B ON(A.MKEY=B.MKEY)  
+		   LEFT JOIN CODELIB AS D ON(A.JISA=D.CODE AND D.BRCODE='0001' AND D.JISA='00' AND D.LANG='')  
+		   WHERE   
+		   		A.JISA != '08'
+			   	<choose>
+					<when test="memberSearchInfo.type == '1'.toString()">
+					 	AND A.MKEY  = #{memberSearchInfo.memKey}
+					</when>
+					<when test="memberSearchInfo.type == '2'.toString()">
+						AND ISNULL(B.MFIRSTNAME, '') + ISNULL(B.MLASTNAME) LIKE '%'+#{memberSearchInfo.memName}+'%' AND B.BIRTHDAY LIKE #{memberSearchInfo.birthYM}+'%'
+					</when>
+				</choose>
+	   ) as a
+	   where a.rowNum between #{startRow} and #{endRow}
+	</select>
+	
 </mapper>

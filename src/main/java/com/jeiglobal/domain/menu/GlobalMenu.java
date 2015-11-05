@@ -1,6 +1,6 @@
 package com.jeiglobal.domain.menu;
 
-import java.sql.Timestamp;
+import java.sql.*;
 
 import lombok.*;
 

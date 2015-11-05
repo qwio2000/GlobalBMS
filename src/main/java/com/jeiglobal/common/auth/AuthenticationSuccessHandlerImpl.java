@@ -22,9 +22,9 @@ import com.jeiglobal.utils.*;
  *
  * 작성자 : 전승엽(IT지원팀)
  * 
- * 1. 로그인 시 선택한 언어 값을 받아온다.
- * 2. Auth 정보를 쿠키를 생성한다.
- * 3. 사용자가 이전에 요청한 Url이 있었으면 그 Url로 연결, 없었으면 DEFAULT_INDEX_URL로 연결
+ * 1. globalbiz.Users 테이블에 로그인 내역을 업데이트 후 globalbiz.UsersLoginHis에 Insert
+ * 2. Auth 정보 쿠키를 생성한다.
+ * 3. 사용자가 이전에 요청한 Url이 있었으면 그 Url로 연결, 없었으면 메인페이지로 연결
  */
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
@@ -46,21 +46,17 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		authoritiesService.updateLoginInfo(member.getUserId(), request);
 		authoritiesService.insertLoginHis(member, request);
 		addAuthCookie(response, authentication);
-		String retUrl = request.getParameter("returl");
-		if(!retUrl.contains(member.getUserType().toLowerCase())){
-			retUrl = "";
+		String hostUrl = ("08".equals(member.getJisaCD())) ? hongkongUrl : ("00".equals(member.getJisaCD())) ? request.getContextPath() : "" ;
+		String retUrl = request.getParameter("returl").replaceAll("&amp;", "&");
+		//retUrl이 다른 계층 Url인 경우
+		if(!retUrl.startsWith("/"+member.getUserType().toLowerCase())){
+			retUrl = "/"+member.getUserType().toLowerCase();
 		}
-		String hostUrl = ("08".equals(member.getJisaCD())) ? hongkongUrl : 
-			("00".equals(member.getJisaCD())) ? request.getContextPath() : "" ;
-		if(retUrl == null || retUrl.isEmpty()){
-			response.sendRedirect(hostUrl+"/"+member.getUserType().toLowerCase());
-		}else{
-			response.sendRedirect(hostUrl+retUrl);
-		}
+		response.sendRedirect(hostUrl + retUrl);
 	}
 	
 	
-	private void addAuthCookie(HttpServletResponse response,Authentication authentication){
+	private void addAuthCookie(HttpServletResponse response, Authentication authentication){
 		LoginInfo member = (LoginInfo)authentication.getPrincipal();
 		StandardPasswordEncoder standrdPasswordEncoder = new StandardPasswordEncoder();
 		

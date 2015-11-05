@@ -1,5 +1,8 @@
 package com.jeiglobal.controller;
 
+import java.io.*;
+import java.net.*;
+
 import lombok.extern.slf4j.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -33,15 +36,17 @@ public class HomeController {
 	@RequestMapping(value={"/","/login"})
 	public String getLoginPage(Model model, 
 			@RequestParam(value="error", required=false) String error,
-			@RequestParam(value="returl", required=false) String returl) {
+			@RequestParam(value="returl", required=false) String returl) throws UnsupportedEncodingException {
 		if(error != null) {
     		model.addAttribute("error",error);
     		log.debug("Getting login page, error={}", error);
     	}else{
     		log.debug("Getting Login Page");
     	}
-		model.addAttribute("returl", returl);
-		log.debug("### Return Url : {}", returl);
+		if(returl != null){
+			model.addAttribute("returl", URLDecoder.decode(returl, "UTF-8"));
+			log.debug("### Return Url : {}", URLDecoder.decode(returl, "UTF-8"));
+		}
 		return "login";
 	}
 	

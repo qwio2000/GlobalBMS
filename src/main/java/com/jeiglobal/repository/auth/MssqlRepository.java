@@ -2,7 +2,8 @@ package com.jeiglobal.repository.auth;
 
 import java.util.*;
 
-import com.jeiglobal.domain.member.*;
+import com.jeiglobal.domain.member.MemberDto.MemberSearchInfo;
+import com.jeiglobal.domain.member.MemberDto.MemberSearchResult;
 import com.jeiglobal.repository.*;
 
 /**
@@ -18,6 +19,14 @@ import com.jeiglobal.repository.*;
 @AnotherRepositoryAnnoInterface
 public interface MssqlRepository {
 	
-	public List<KoreaMemberInfo> findKoreaMemberSearch(Map<String, Object> param);
+	public int findKoreaMemberSearchCount(MemberSearchInfo memberSearchInfo);
+
+	public List<MemberSearchResult> findKoreaMemberSearch(Map<String, Object> param);
+
+	public int findOtherForeignMemberSearchCount(MemberSearchInfo memberSearchInfo);
+
+	public List<MemberSearchResult> findOtherForeignMemberSearch(Map<String, Object> param);
+
+
 	
 }

@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.*;
 import org.springframework.security.web.util.*;
 import org.springframework.stereotype.*;
 /**

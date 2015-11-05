@@ -1,7 +1,6 @@
 package com.jeiglobal.repository;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.*;
 
 /**
  * 인터페이스명 : AnotherRepositoryAnnoInterface.java

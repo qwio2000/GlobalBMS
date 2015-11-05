@@ -5,9 +5,10 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
-import com.jeiglobal.domain.auth.*;
-import com.jeiglobal.domain.member.*;
+import com.jeiglobal.domain.member.MemberDto.MemberSearchInfo;
+import com.jeiglobal.domain.member.MemberDto.MemberSearchResult;
 import com.jeiglobal.repository.auth.*;
+import com.jeiglobal.repository.member.*;
 
 /**
  * 클래스명 : MemberSearchService.java
@@ -24,24 +25,50 @@ public class MemberSearchService {
 	@Autowired
 	private MssqlRepository mssqlRepository;
 	
+	@Autowired
+	private MemberSearchRepository memberSearchRepository;
+	
 	Map<String, Object> param = new HashMap<>();
 	
 	/**
-	 * 한국 회원 조회
-	 * @param type
-	 * @param searchWord
-	 * @param birthYM
+	 * @param memberSearchInfo
 	 * @param loginInfo
-	 * @return Object
+	 * @return int
 	 */
-	public List<KoreaMemberInfo> getKoreaMemberSearch(String type, String searchWord,
-			String birthYM, LoginInfo loginInfo) {
+	public int getMemberSearchCount(MemberSearchInfo memberSearchInfo) {
+		int count = 0;
+		if("hkForeign".equals(memberSearchInfo.getKind())){//홍콩
+			count = memberSearchRepository.findHkMemberSearchCount(memberSearchInfo);
+		}else if("otherForeign".equals(memberSearchInfo.getKind())){//북경, 대양주
+			count = mssqlRepository.findOtherForeignMemberSearchCount(memberSearchInfo);
+		}else{//한국
+			count = mssqlRepository.findKoreaMemberSearchCount(memberSearchInfo);
+		}
+		return count;
+	}
+
+	/**
+	 * 회원 검색 
+	 * @param memberSearchInfo
+	 * @param startRow
+	 * @param endRow
+	 * @return List<MemberSearchResult>
+	 */
+	public List<MemberSearchResult> getMemberSearch(
+			MemberSearchInfo memberSearchInfo, int startRow, int endRow) {
 		param.clear();
-		param.put("type", type);
-		param.put("searchWord", searchWord);
-		param.put("birthYM", birthYM);
-		param.put("jisaCD", loginInfo.getJisaCD());
-		return mssqlRepository.findKoreaMemberSearch(param);
+		param.put("memberSearchInfo", memberSearchInfo);
+		param.put("startRow", startRow);
+		param.put("endRow", endRow);
+		List<MemberSearchResult> result = new ArrayList<>();
+		if("hkForeign".equals(memberSearchInfo.getKind())){//홍콩
+			result = memberSearchRepository.findHkMemberSearch(param);
+		}else if("otherForeign".equals(memberSearchInfo.getKind())){//북경, 대양주
+			result = mssqlRepository.findOtherForeignMemberSearch(param);
+		}else{//한국
+			result = mssqlRepository.findKoreaMemberSearch(param);
+		}
+		return result;
 	}
 
 }

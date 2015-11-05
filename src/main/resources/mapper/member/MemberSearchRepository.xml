@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeiglobal.repository.member.MemberSearchRepository">
+	<select id="findHkMemberSearchCount" parameterType="com.jeiglobal.domain.member.MemberDto$MemberSearchInfo" resultType="int">
+		SELECT COUNT(1)
+		FROM globalbiz.MemMst AS a
+			INNER JOIN globalbiz.MemSubjMst AS b ON a.memKey = b.memKey
+		<where>
+			<choose>
+				<when test="type == '1'.toString()">
+					a.memKey = #{memKey}
+				</when>
+				<when test="type == '2'.toString()">
+					CONCAT(a.mFstName, a.mLstName) LIKE CONCAT('%',#{memName},'%') AND a.mBirthDay LIKE CONCAT(#{birthYM}, '%')
+				</when>
+			</choose>
+		</where>
+		ORDER BY a.memKey
+	</select>
+	<select id="findHkMemberSearch" parameterType="hashMap" resultType="com.jeiglobal.domain.member.MemberDto$MemberSearchResult">
+		SELECT a.memKey, b.subj, b.statusCD, CASE b.statusCD WHEN '1' THEN '유지' WHEN '2' THEN '퇴회' END AS statusCDNM, a.mFstName, a.mLstName, a.mBirthDay, 
+			CASE b.registFnlYMD WHEN '' THEN b.registFstYMD ELSE b.registFnlYMD END AS registFnlYMD, b.dropFnlYMD, b.jisaCD, globalbiz.FuncCodeDtlNM(b.jisaCD, '0001', b.jisaCD, '', 'Y') AS jisaCDNM,
+			CASE a.gPhone WHEN '' THEN a.gCellPhone ELSE a.gPhone END AS gPhone, a.addr
+		FROM globalbiz.MemMst AS a
+			INNER JOIN globalbiz.MemSubjMst AS b ON a.memKey = b.memKey
+		<where>
+			<choose>
+				<when test="memberSearchInfo.type == '1'.toString()">
+					a.memKey = #{memberSearchInfo.memKey}
+				</when>
+				<when test="memberSearchInfo.type == '2'.toString()">
+					CONCAT(a.mFstName, a.mLstName) LIKE CONCAT('%',#{memberSearchInfo.memName},'%') AND a.mBirthDay LIKE CONCAT(#{memberSearchInfo.birthYM}, '%')
+				</when>
+			</choose>
+		</where>
+		ORDER BY a.memKey
+		LIMIT #{startRow}, #{endRow}
+	</select>
+</mapper>

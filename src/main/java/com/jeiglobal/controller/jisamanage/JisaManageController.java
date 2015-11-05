@@ -1,19 +1,25 @@
 package com.jeiglobal.controller.jisamanage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import lombok.extern.slf4j.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.web.context.HttpRequestResponseHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.web.context.*;
-import org.springframework.stereotype.*;
-import org.springframework.ui.*;
-import org.springframework.web.bind.annotation.*;
+import com.jeiglobal.service.jisamanage.JisaManageService;
 
-import com.jeiglobal.service.jisamanage.*;
-
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -23,8 +29,9 @@ import com.jeiglobal.service.jisamanage.*;
  * 작성일 : 2015. 9. 7.
  *
  * 작성자 : 전승엽(IT지원팀)
+ * 수정자 : 노윤희(IT지원팀)
  * 
- * HomeController
+ * 지사관리
  */
 @Slf4j
 @Controller
@@ -32,6 +39,7 @@ public class JisaManageController {
 
 	@Autowired
 	private JisaManageService jisaManageService;
+	
 	
 	@Value("${serverurl.hongkong}")
 	private String hongkongUrl;
@@ -46,6 +54,28 @@ public class JisaManageController {
 		model.addAttribute("jisaList", jisaList);
 		return "jisamanage/index";
 	}
+	/*
+	// 센터 뷰
+	@RequestMapping(value={"/ma/jisamanage/jisaView"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getJisaView(Model model, @ModelAttribute LoginInfo loginInfo, String jisaCD){
+		// 센터 정보
+		CenterView dataJisaInfo = jisaManageService.getJisaView(jisaCD, "00000");
+		String chk = (dataJisaInfo == null)? "N" : "Y";
+		
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("jisamanage");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("jisaInfo", dataJisaInfo);
+		model.addAttribute("chk", chk);
+		return "center/centerView";
+	}
+	*/	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 본사에서 지사로 로그인 할 경우 로그인 처리

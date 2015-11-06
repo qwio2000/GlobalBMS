@@ -2,14 +2,18 @@ package com.jeiglobal.controller.manage;
 
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import lombok.extern.slf4j.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.jeiglobal.domain.auth.*;
+import com.jeiglobal.domain.manage.ManageDto.User;
 import com.jeiglobal.domain.manage.ManageDto.Users;
 import com.jeiglobal.service.manage.*;
 import com.jeiglobal.utils.*;
@@ -31,6 +35,12 @@ public class AccountManageController {
 	@Autowired
 	private AccountManageService accountManageService;
 	
+	@Autowired
+	private MessageSourceAccessor msa;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
 	@Value("${page.size}")
 	private int pageSize;
 	
@@ -73,10 +83,61 @@ public class AccountManageController {
 		int count = accountManageService.getUsersCountByUserId(userId);
 		String check = "";
 		if(count > 0){
-			check = "Y";
-		}else{
 			check = "N";
+		}else{
+			check = "Y";
 		}
 		return check;
+	}
+	
+	@RequestMapping(value={"/ma/manage/users"},method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody	
+	public String addUserJson(User user, HttpServletRequest request){
+		log.debug("Getting Account Manage, User Regist : {}", user.getUserId());
+		user.setEmpKey(accountManageService.getNewEmpKey());
+		user.setUserPasswd(encoder.encode(user.getUserPasswd()));
+		user.setRegID(CommonUtils.getWorkId(request));
+		accountManageService.addUser(user);
+		return msa.getMessage("manage.user.regist.success");
+	}
+	
+	@RequestMapping(value={"/ma/manage/users/delete"},method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody	
+	public String removeUserJson(String userId){
+		log.debug("Getting Account Manage, User Delete : {}", userId);
+		accountManageService.removeUserByUserId(userId);
+		return msa.getMessage("manage.user.delete.success");
+	}
+	
+	@RequestMapping(value="/ma/manage/users/edit", method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getUserEditPage(Model model, String userId){
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("accountManage");
+		log.debug("Getting Account Manage, User Edit Page");
+		log.debug(accountManageService.getUserByUserId(userId).toString());
+		model.addAttribute("user", accountManageService.getUserByUserId(userId));
+		model.addAttribute("headerScript", headerScript);
+		return "manage/account/userEdit";
+	}
+	
+	@RequestMapping(value={"/ma/manage/users/edit"},method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody	
+	public String setUserJson(User user, HttpServletRequest request, String isChangePwd){
+		log.debug("Getting Account Manage, User Edit : {}", user.getUserId());
+		if("Y".equals(isChangePwd)){
+			user.setUserPasswd(encoder.encode(user.getUserPasswd()));
+		}
+		user.setUpdID(CommonUtils.getWorkId(request));
+		accountManageService.setUser(user, isChangePwd);
+		
+		return msa.getMessage("manage.user.update.success");
+	}
+	
+	@RequestMapping(value={"/ma/manage/users/clearPwdJson"},method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody	
+	public String setUserPwdJson(String userId, HttpServletRequest request){
+		log.debug("Getting Account Manage, User Password Clear : {}", userId);
+		accountManageService.setUserPasswordClearByUserId(userId, encoder.encode(userId), CommonUtils.getWorkId(request));
+		return msa.getMessage("manage.user.passwordclear.success");
 	}
 }

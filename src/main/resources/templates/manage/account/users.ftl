@@ -48,13 +48,13 @@
 			<td>{{userId}}</td>
 			<td>{{userFstName}} {{userLstName}}</td>
 			<td>{{departMent}}</td>
-			<td>{{statusCDNM}}</td>
+			<td {{#xIf statusCD "==" "0"}}class="font_red"{{/xIf}}>{{statusCDNM}}</td>
 			<td>{{regDate}}</td>
 			<td>{{latestLoginDate}}</td>
 			<td>
 				<div class="btnArea_icon2" style="width:80px;">
-					<a href="" class="btn_info " title="수정">수정</a>
-					<a href="" class="btn_del " title="삭제">삭제</a>				
+					<a href="javascript:editUserPop('{{userId}}')" class="btn_info " title="수정">수정</a>
+					<a href="javascript:deleteUser('{{userId}}')" class="btn_del " title="삭제">삭제</a>				
 				</div>
 			</td>
 		</tr>

@@ -113,8 +113,8 @@ $(function(){
 					alert('생년월일을 입력해 주십시오.');
 					$('#birthYM').focus();
 					return;
-				}else if(memName == ''){
-					alert('회원 이름을 입력해 주십시오.');
+				}else if(memName == '' || memName.length < 2){
+					alert('회원 이름을 두 자리 이상 입력해 주십시오.');
 					$('#memName').focus();
 					return;
 				}

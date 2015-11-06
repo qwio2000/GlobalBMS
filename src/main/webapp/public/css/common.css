@@ -286,6 +286,7 @@
 	.btn_delete{display:block;margin:0 auto;width:24px;text-indent:-9999px;line-height:35px;background:url('../img/icon_delete.png') 0 50% no-repeat;}
 
 	.icon_cart{padding-left:28px;background-position:0 4px;background-repeat:no-repeat;background-image:url('../img/icon_cart.png');}
+	.icon_print{padding-left:30px;background:url('../img/icon_print.png') 0px 50% no-repeat;}
 
 	/* color */
 	.blue{color:#1387cf;font-weight:normal;}
@@ -347,6 +348,7 @@
 	.tbl01 tbody tr.line2 th{border-left:1px solid #dbdbdb}
 	.tbl01 tbody tr.line2 th.no_line{border-left:0}
 	.tbl01 tbody tr.no_line td{border-bottom:0}
+	.tbl01 tbody tr th.no_left{padding-left:0;text-align:center}
 	.tbl01 thead th.b_r{border-right:1px solid #dbdbdb}
 	.tbl01 tbody td.b_r{border-right:1px solid #dbdbdb}
 	.tbl01 select{padding-left:5px;width:100px;height:35px;border:1px solid #d2d2d2;-webkit-appearance: none;-moz-appearance: none;appearance: none;background:#fff url('../img/sel_arrow.png') no-repeat 94% 50%;}
@@ -370,15 +372,18 @@
 	.tbl01 .subject_graph{display:block;font-size:12px;margin-left:3px;padding-left:23px;line-height:22px;background:url(../img/icon_graph.png) 0 2px no-repeat;}
 	.tbl01 .icon_search{display:inline-block;margin-left:3px;padding-left:23px;line-height:20px;background:url(../img/icon_search2.png) 0 50% no-repeat}
 	.tbl_w100 thead th{width:100px}
+	.tbl01 .click:hover{text-decoration:underline}
+	.tbl_report .chk_s01 input[type="checkbox"] + label{padding-left:25px}
 
 	/* schedule_detail */
 	.tbl01.tbl_schedule tbody td{height:22px}
 	.tbl01.tbl_schedule{margin-top:5px}
 	.tbl_schedule .btn_schedule{display:block;line-height:20px;}
-	.tbl_schedule .btn_schedule.on{font-weight:bold;}
+	.tbl_schedule .btn_schedule.on{text-decoration:underline}
 	.tbl_schedule{position:relative;z-index:30;padding-bottom:50px}
-	.schedule_detail{display:none;position:absolute;z-index:35;top:0;left:0;width:260px;border:1px solid #dbdbdb;border-top:1px solid #fc9d0b;background:#FFFFFF}
-	.schedule_detail .detail_list{width:235px;margin:0 auto;padding:15px 0}
+	.schedule_detail{display:none;position:absolute;z-index:35;top:0;left:0;width:240px;border:1px solid #fc9d0b;background:#FFFFFF}
+	.schedule_detail .detail_list{padding:15px}
+	.schedule_detail .txt_time{padding-bottom:5px}
 
 	/* list style */
 	.list01{margin-top:25px;font-size:13px}
@@ -651,3 +656,6 @@
 	/*gm popup */
 	.pop_gm{padding:25px 30px}
 	.pop_gm .subTit{font-weight: bold;padding-bottom:15px;font-size: 15px;}
+
+	/* notice_date */
+	.notice_date{line-height:35px;padding-left:20px}

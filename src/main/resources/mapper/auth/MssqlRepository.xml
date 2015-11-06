@@ -54,7 +54,7 @@
 					 	A.MKEY  = #{memKey}
 					</when>
 					<when test="type == '2'.toString()">
-						ISNULL(B.MFIRSTNAME, '') + ISNULL(B.MLASTNAME) LIKE '%'+#{memName}+'%'
+						ISNULL(B.MFIRSTNAME, '') + ISNULL(B.MLASTNAME, '') LIKE '%'+#{memName}+'%'
 					</when>
 				</choose>
 	   ) as a

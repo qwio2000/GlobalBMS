@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeiglobal.repository.manage.AccountManageRepository">
+	<select id="findUsersCount" parameterType="com.jeiglobal.domain.auth.LoginInfo" resultType="int">
+		SELECT COUNT(1) FROM globalbiz.Users WHERE userType = #{userType}
+	</select>
+	<select id="findUsers" parameterType="hashMap" resultType="com.jeiglobal.domain.manage.ManageDto$Users">
+		SELECT userId, userFstName, userLstName, departMent, statusCD, CASE statusCD WHEN '1' THEN '사용가능' ELSE '사용불가' END AS statusCDNM, 
+			CONVERT(regDate, CHAR(19)) AS regDate, IFNULL(CONVERT(latestLoginDate, CHAR(19)), '') AS latestLoginDate
+		FROM globalbiz.Users 
+		WHERE userType = #{userType}
+		ORDER BY userLevel, regDate
+		LIMIT #{startRow}, #{endRow}
+	</select>
+	<select id="findUsersCountByUserId" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(1) FROM globalbiz.Users WHERE userId = #{userId}
+	</select>
+</mapper>

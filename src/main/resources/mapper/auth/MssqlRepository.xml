@@ -38,7 +38,7 @@
 				</when>
 			</choose> 
 		 ) as a
-		where a.rowNum between #{startRow} and #{endRow}
+		where a.rowNum between #{startRow} + 1 and #{startRow} + #{endRow}
 	</select>
 	<select id="findOtherForeignMemberSearchCount" parameterType="com.jeiglobal.domain.member.MemberDto$MemberSearchInfo" resultType="int">
 		select COUNT(1) from (
@@ -78,7 +78,7 @@
 					</when>
 				</choose>
 	   ) as a
-	   where a.rowNum between #{startRow} and #{endRow}
+	   where a.rowNum between #{startRow} + 1 and #{startRow} + #{endRow}
 	</select>
 	
 </mapper>

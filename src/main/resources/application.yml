@@ -23,7 +23,7 @@ filePath:
      
 page:
     blockSize: 10  # 한 블록에 출력될 페이지 개수
-    size: 100      # 한 페이지에 출력될 레코드 개수 
+    size: 10      # 한 페이지에 출력될 레코드 개수 
 ---
 spring.profiles: develop
 

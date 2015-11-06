@@ -130,4 +130,10 @@ $(function(){
 	if(window.location.pathname == '/ma/member/search'){
 		$.getMemberSearch();
 	}
+	
+	$(".paging").on("click","a.naviPage",function() {
+		var pageNum = $(this).attr('pageNo');	
+		$('#pageNum').val(pageNum);
+		$.getMemberSearch();
+	});	
 });

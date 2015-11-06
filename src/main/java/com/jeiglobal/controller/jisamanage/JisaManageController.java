@@ -14,9 +14,11 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.jeiglobal.domain.auth.LoginInfo;
 import com.jeiglobal.service.jisamanage.JisaManageService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -54,12 +56,11 @@ public class JisaManageController {
 		model.addAttribute("jisaList", jisaList);
 		return "jisamanage/index";
 	}
-	/*
-	// 센터 뷰
+
+	// 지사 뷰
 	@RequestMapping(value={"/ma/jisamanage/jisaView"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getJisaView(Model model, @ModelAttribute LoginInfo loginInfo, String jisaCD){
-		// 센터 정보
-		CenterView dataJisaInfo = jisaManageService.getJisaView(jisaCD, "00000");
+		Map<String, Object> dataJisaInfo = jisaManageService.getJisaView(jisaCD, "00000");
 		String chk = (dataJisaInfo == null)? "N" : "Y";
 		
 		List<String> headerScript = new ArrayList<String>();
@@ -67,10 +68,9 @@ public class JisaManageController {
 		model.addAttribute("headerScript", headerScript);
 		model.addAttribute("jisaInfo", dataJisaInfo);
 		model.addAttribute("chk", chk);
-		return "center/centerView";
+		return "jisamanage/jisaView";
 	}
-	*/	
-	
+
 	
 	
 	

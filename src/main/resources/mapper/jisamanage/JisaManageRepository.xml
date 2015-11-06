@@ -4,4 +4,7 @@
 	<select id="findJisaList" resultType="hashMap">
 		CALL globalbiz.SPJisaList(); 
 	</select>
+	<select id="findJisaView" resultType="hashMap">
+		CALL globalbiz.SPCenterView(#{jisaCD},#{deptCD});
+	</select>	
 </mapper>

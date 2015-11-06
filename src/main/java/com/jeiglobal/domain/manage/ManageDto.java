@@ -31,9 +31,9 @@ public class ManageDto {
 		private String userPasswd;
 		private String userFstName;
 		private String userLstName;
-		private String userLevel; //관리자, 스태프
+		private String userLevel; //U0
 		private String empKey; //자동생성
-		private String dutyCD; //M0
+		private String dutyCD; //관리자, 스태프
 		private String email;
 		private String phone;
 		private String jisaCD; //00

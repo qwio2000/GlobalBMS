@@ -9,10 +9,43 @@
 			CONVERT(regDate, CHAR(19)) AS regDate, IFNULL(CONVERT(latestLoginDate, CHAR(19)), '') AS latestLoginDate
 		FROM globalbiz.Users 
 		WHERE userType = #{userType}
-		ORDER BY userLevel, regDate
+		ORDER BY userLevel, regDate, userFstName, userLstName
 		LIMIT #{startRow}, #{endRow}
 	</select>
 	<select id="findUsersCountByUserId" parameterType="java.lang.String" resultType="int">
 		SELECT COUNT(1) FROM globalbiz.Users WHERE userId = #{userId}
 	</select>
+	<select id="findNewEmpKey" statementType="CALLABLE" resultType="java.lang.String">
+		CALL globalbiz.SPKeyGenSelect('03')
+	</select>
+	<insert id="insertNewUser" parameterType="com.jeiglobal.domain.manage.ManageDto$User">
+		INSERT INTO globalbiz.Users 
+			(userId, userPasswd, userFstName, userLstName, userType, userLevel, empKey, dutyCD, email, phone, jisaCD, deptCD, deptName, title, departMent, statusCD, regDate, regID, updID, latestLoginIp, encodeCookie)
+		VALUES
+			(#{userId}, #{userPasswd}, #{userFstName}, #{userLstName}, 'MA', #{userLevel}, #{empKey}, 'M0', #{email}, #{phone}, '00', '00000', '재능교육 본사', #{title}, #{departMent}, '1', NOW(), #{regID}, '', '', '')
+	</insert>
+	<delete id="deleteUserByUserId" parameterType="java.lang.String">
+		DELETE FROM globalbiz.Users WHERE userId = #{userId}
+	</delete>
+	<select id="findUserByUserId" parameterType="java.lang.String" resultType="com.jeiglobal.domain.manage.ManageDto$User">
+		SELECT *
+		FROM globalbiz.Users
+		WHERE userId = #{userId}
+	</select>
+	<update id="updateUserPasswordClearByUserId" parameterType="hashMap">
+		UPDATE globalbiz.Users
+		SET userPasswd = #{changePwd}, passUpdDate = NOW(), updDate = NOW(), updID = #{workId}
+		WHERE userId = #{userId}
+	</update>
+	<update id="updateUser" parameterType="hashMap">
+		UPDATE globalbiz.Users
+		<set>
+			<if test="isChangePwd == 'Y'.toString()">
+				userPasswd = #{user.userPasswd}, passUpdDate = NOW(),
+			</if>
+			userFstName = #{user.userFstName}, userLstName = #{user.userLstName}, userLevel = #{user.userLevel}, email = #{user.email},
+			phone = #{user.phone}, title = #{user.title}, departMent = #{user.departMent}, statusCD = #{user.statusCD}, updDate = NOW(), updID = #{user.updID}
+		</set>
+		WHERE userId = #{user.userId}
+	</update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.jeiglobal.service.jisamanage;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,9 @@ import com.jeiglobal.utils.CommonUtils;
  * 작성일 : 2015. 9. 10.
  *
  * 작성자 : 전승엽(IT지원팀)
+ * 수정자 : 노윤희(IT지원팀)
  * 
+ * 지사관리
  * 본사 -> 지사 로그인을 처리할 때 사용하는 서비스
  */
 @Service
@@ -63,12 +66,12 @@ public class JisaManageService {
 	public List<Map<String, Object>> getJisaList() {
 		return jisaManageRepository.findJisaList();
 	}
-	/*
-	public JisaView getJisaView() {
-		return jisaManageRepository.findJisaView();
+	public Map<String, Object> getJisaView(String jisaCD, String deptCD) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);		
+		return jisaManageRepository.findJisaView(param);
 	}
-	*/	
 	
-	//
-
+	
 }

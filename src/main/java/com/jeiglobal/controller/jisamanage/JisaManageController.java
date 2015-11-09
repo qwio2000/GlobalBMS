@@ -1,8 +1,6 @@
 package com.jeiglobal.controller.jisamanage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,13 +11,12 @@ import org.springframework.security.web.context.HttpRequestResponseHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.jeiglobal.domain.auth.LoginInfo;
+import com.jeiglobal.domain.manage.*;
 import com.jeiglobal.service.jisamanage.JisaManageService;
+import com.jeiglobal.utils.*;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +39,8 @@ public class JisaManageController {
 	@Autowired
 	private JisaManageService jisaManageService;
 	
+	@Autowired
+	private MessageSourceAccessor msa;
 	
 	@Value("${serverurl.hongkong}")
 	private String hongkongUrl;
@@ -69,6 +68,47 @@ public class JisaManageController {
 		model.addAttribute("jisaInfo", dataJisaInfo);
 		model.addAttribute("chk", chk);
 		return "jisamanage/jisaView";
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj/{jisaCD:[0-9]{2}}"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getSubjManagePage(Model model, @PathVariable String jisaCD){
+		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("jisamanage");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("jisaCD", jisaCD);
+		return "jisamanage/subj";
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj/{jisaCD:[0-9]{2}}/{pageNum:[0-9]{1}}"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public Map<String, Object> getSubjInfos(Model model, @PathVariable String jisaCD, @PathVariable int pageNum){
+		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
+		PageUtil pageInfo = new PageUtil(pageNum, jisaManageService.getJisaSubjInfosCount(jisaCD), 5, 10);
+		List<SubjInfo> subjInfos = jisaManageService.getJisaSubjInfos(jisaCD, pageInfo.getStartRow(), pageInfo.getEndRow());
+		Map<String, Object> map = new HashMap<>();
+		map.put("pageInfo", pageInfo);
+		map.put("subjInfos", subjInfos);
+		return map;
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj/{subj:^[A-Z]{2}}"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public Map<String, Object> getSubjInfos(Model model, String jisaCD, @PathVariable String subj){
+		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
+		SubjInfo subjInfo = jisaManageService.getSubjInfo(jisaCD, subj);
+		Map<String, Object> map = new HashMap<>();
+		map.put("subjInfo", subjInfo);
+		return map;
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String addSubjInfo(Model model, SubjInfo subjInfo, HttpServletRequest request){
+		log.debug("Getting Subject Manage Page : subjInfo = {}", subjInfo.toString());
+		String workId = CommonUtils.getWorkId(request);
+		jisaManageService.addSubjInfo(subjInfo, workId);
+		return msa.getMessage("jisamanage.subj.regist.success");
 	}
 
 	

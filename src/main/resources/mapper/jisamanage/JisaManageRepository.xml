@@ -6,5 +6,40 @@
 	</select>
 	<select id="findJisaView" resultType="hashMap">
 		CALL globalbiz.SPCenterView(#{jisaCD},#{deptCD});
+	</select>
+	<select id="findJisaSubjInfosCount" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(1)
+		FROM globalbiz.SubjInfo 
+		WHERE jisaCD = #{jisaCD} 
+		ORDER BY sortVal ASC;
 	</select>	
+	<select id="findJisaSubjInfos" parameterType="hashMap" resultType="com.jeiglobal.domain.manage.SubjInfo">
+		SELECT jisaCD, subj, subjName, subjShortName, studyNum, bookNum, monthNum, digYN, sortVal, startDate, stopDate, useYN, regDate, regID, updDate, updID
+		FROM globalbiz.SubjInfo 
+		WHERE jisaCD = #{jisaCD} 
+		ORDER BY sortVal ASC
+		LIMIT #{startRow}, #{endRow}
+	</select>	
+	<select id="findSubjInfo" parameterType="hashMap" resultType="com.jeiglobal.domain.manage.SubjInfo">
+		SELECT a.jisaCD, a.subj, a.subjName, a.subjShortName, a.studyNum, a.bookNum, a.monthNum, a.digYN, a.sortVal, a.startDate, a.stopDate, a.useYN, a.regDate, a.regID, a.updDate, a.updID, 
+			CASE WHEN IFNULL(b.cnt, 0) > 0 THEN '1' WHEN IFNULL(b.cnt, 0) = 0 AND IFNULL(c.cnt, 0) > 0 THEN '2' ELSE '0' END AS chk
+		FROM globalbiz.SubjInfo AS a
+		LEFT JOIN (
+			SELECT COUNT(1) AS cnt, b.jisaCD, b.subj
+			FROM globalbiz.MemSubjMst AS b
+			WHERE b.jisaCD = #{jisaCD} AND b.subj = #{subj} AND b.statusCD = '1'
+			) AS b ON a.jisaCD = b.jisaCD AND a.subj = b.subj
+		LEFT JOIN (
+			SELECT COUNT(1) AS cnt, c.jisaCD, c.subj
+			FROM globalbiz.MemSubjMst AS c
+			WHERE c.jisaCD = #{jisaCD} AND c.subj = #{subj}
+			) AS c ON a.jisaCD = c.jisaCD AND a.subj = c.subj
+		WHERE a.jisaCD = #{jisaCD} AND a.subj = #{subj}
+	</select>
+	<insert id="insertSubjInfo" parameterType="hashMap">
+		INSERT INTO globalbiz.SubjInfo
+			(jisaCD, subj, subjName, subjShortName, studyNum, bookNum, monthNum, digYN, sortVal, startDate, stopDate, useYN, regDate, regID, updID)
+		VALUES
+			(#{subjInfo.jisaCD}, #{subjInfo.subj}, #{subjInfo.subjName}, #{subjInfo.subjShortName}, 1, 1, 1, #{subjInfo.digYN}, #{subjInfo.sortVal}, #{subjInfo.startDate}, #{subjInfo.stopDate}, #{subjInfo.useYN}, NOW(), #{workId}, '')
+	</insert>	
 </mapper>

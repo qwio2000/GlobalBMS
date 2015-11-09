@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jeiglobal.domain.manage.*;
 import com.jeiglobal.repository.jisamanage.JisaManageRepository;
 import com.jeiglobal.service.auth.AuthoritiesService;
 import com.jeiglobal.utils.CommonUtils;
@@ -71,6 +72,52 @@ public class JisaManageService {
 		param.put("jisaCD", jisaCD);
 		param.put("deptCD", deptCD);		
 		return jisaManageRepository.findJisaView(param);
+	}
+
+	/**
+	 * 지사 과목정보 가져오기
+	 * @param jisaCD
+	 * @param startRow 
+	 * @param endRow 
+	 * @return List<SubjInfo>
+	 */
+	public List<SubjInfo> getJisaSubjInfos(String jisaCD, int startRow, int endRow) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("startRow", startRow);
+		param.put("endRow", endRow);
+		return jisaManageRepository.findJisaSubjInfos(param);
+	}
+
+	/**
+	 * @param jisaCD
+	 * @return int
+	 */
+	public int getJisaSubjInfosCount(String jisaCD) {
+		return jisaManageRepository.findJisaSubjInfosCount(jisaCD);
+	}
+
+	/**
+	 * @param jisaCD
+	 * @param subj
+	 * @return SubjInfo
+	 */
+	public SubjInfo getSubjInfo(String jisaCD, String subj) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("subj", subj);
+		return jisaManageRepository.findSubjInfo(param);
+	}
+
+	/**
+	 * @param subjInfo void
+	 * @param workId 
+	 */
+	public void addSubjInfo(SubjInfo subjInfo, String workId) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subjInfo", subjInfo);
+		param.put("workId", workId);
+		jisaManageRepository.insertSubjInfo(param);
 	}
 	
 	

@@ -71,4 +71,22 @@
 	<delete id="deleteSubjInfoToCodeDtl" parameterType="hashMap">
 		DELETE FROM globalbiz.CodeDtl WHERE jisaCD = #{jisaCD} AND dtlCD = #{subj} AND mstCD = '0002'
 	</delete>
+	<select id="findJisaTuitionInfos" parameterType="java.lang.String" resultType="com.jeiglobal.domain.manage.SubjTuitionInfo">
+		SELECT * 
+		FROM globalbiz.SubjTuitionInfo 
+		WHERE jisaCD = #{jisaCD} AND bookNum = 1 AND subj = 'TT'
+		ORDER BY deptType, feeType
+	</select>
+	<select id="findJisaTuitionInfo" parameterType="hashMap" resultType="com.jeiglobal.domain.manage.SubjTuitionInfo">
+		SELECT * 
+		FROM globalbiz.SubjTuitionInfo 
+		WHERE jisaCD = #{jisaCD} AND deptType = #{deptType} AND feeType = #{feeType} AND bookNum = 1 AND subj = 'TT'
+	</select>
+	<update id="updateJisaTuitionInfo" parameterType="com.jeiglobal.domain.manage.SubjTuitionInfo">
+		UPDATE globalbiz.SubjTuitionInfo
+		SET registFee = #{registFee}, monthFee = #{monthFee}, 
+			sectionFee1 = #{sectionFee1}, sectionFee2 = #{sectionFee2}, sectionFee3 = #{sectionFee3}, sectionFee4 = #{sectionFee4},
+			updDate = NOW(), updID = #{updID}
+		WHERE jisaCD = #{jisaCD} AND deptType = #{deptType} AND feeType = #{feeType} AND subj = 'TT' AND bookNum = 1
+	</update>
 </mapper>

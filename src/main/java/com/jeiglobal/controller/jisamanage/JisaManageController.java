@@ -82,7 +82,7 @@ public class JisaManageController {
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/{jisaCD:[0-9]{2}}/{pageNum:[0-9]{1}}"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public Map<String, Object> getSubjInfos(Model model, @PathVariable String jisaCD, @PathVariable int pageNum){
+	public Map<String, Object> getSubjInfos(@PathVariable String jisaCD, @PathVariable int pageNum){
 		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
 		PageUtil pageInfo = new PageUtil(pageNum, jisaManageService.getJisaSubjInfosCount(jisaCD), 5, 10);
 		List<SubjInfo> subjInfos = jisaManageService.getJisaSubjInfos(jisaCD, pageInfo.getStartRow(), pageInfo.getEndRow());
@@ -94,7 +94,7 @@ public class JisaManageController {
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/{subj:^[A-Z]{2}}"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public Map<String, Object> getSubjInfos(Model model, String jisaCD, @PathVariable String subj){
+	public Map<String, Object> getSubjInfos(String jisaCD, @PathVariable String subj){
 		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
 		SubjInfo subjInfo = jisaManageService.getSubjInfo(jisaCD, subj);
 		Map<String, Object> map = new HashMap<>();
@@ -104,7 +104,7 @@ public class JisaManageController {
 	
 	@RequestMapping(value={"/ma/jisamanage/subj"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String addSubjInfo(Model model, SubjInfo subjInfo, HttpServletRequest request){
+	public String addSubjInfo(SubjInfo subjInfo, HttpServletRequest request){
 		log.debug("Adding Subject : subjInfo = {}", subjInfo.toString());
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.addSubjInfo(subjInfo, workId);
@@ -114,7 +114,7 @@ public class JisaManageController {
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/update"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String setSubjInfo(Model model, String beforeSubj, SubjInfo subjInfo, HttpServletRequest request){
+	public String setSubjInfo(String beforeSubj, SubjInfo subjInfo, HttpServletRequest request){
 		log.debug("Updating Subject : subjInfo = {}", subjInfo.toString());
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.setSubjInfo(subjInfo, workId, beforeSubj);
@@ -124,7 +124,7 @@ public class JisaManageController {
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/updatestopdate"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String setSubjInfo(Model model, String subj, String jisaCD, String stopDate, HttpServletRequest request){
+	public String setSubjInfo(String subj, String jisaCD, String stopDate, HttpServletRequest request){
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.setSubjInfoStopDate(subj, jisaCD, stopDate, workId);
 		return msa.getMessage("jisamanage.subj.delete.success");
@@ -132,14 +132,49 @@ public class JisaManageController {
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/delete"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String removeSubjInfo(Model model, String subj, String jisaCD){
+	public String removeSubjInfo(String subj, String jisaCD){
 		jisaManageService.removeSubjInfo(subj, jisaCD);
 		jisaManageService.removeSubjInfoToCodeDtl(subj, jisaCD);
 		return msa.getMessage("jisamanage.subj.delete.success");
 	}
 
+	@RequestMapping(value={"/ma/jisamanage/tuition/{jisaCD:[0-9]{2}}"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getTuitionManagePage(Model model, @PathVariable String jisaCD){
+		log.debug("Getting Tuition Manage Page : jisaCD = {}", jisaCD);
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("tuitionManage");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("jisaCD", jisaCD);
+		return "jisamanage/tuition";
+	}
 	
+	@RequestMapping(value={"/ma/jisamanage/tuition/{jisaCD:[0-9]{2}}/list"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public Map<String, Object> getTuitionInfos(@PathVariable String jisaCD){
+		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
+		List<SubjTuitionInfo> tuitionInfos = jisaManageService.getJisaTuitionInfos(jisaCD);
+		Map<String, Object> map = new HashMap<>();
+		map.put("tuitionInfos", tuitionInfos);
+		return map;
+	}
 	
+	@RequestMapping(value={"/ma/jisamanage/tuition/edit"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public Map<String, Object> getTuitionInfo(String jisaCD, String deptType, String feeType){
+		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
+		SubjTuitionInfo tuitionInfo = jisaManageService.getJisaTuitionInfo(jisaCD, deptType, feeType);
+		Map<String, Object> map = new HashMap<>();
+		map.put("tuitionInfo", tuitionInfo);
+		return map;
+	}
+	@RequestMapping(value={"/ma/jisamanage/tuition"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String setTuitionInfo(SubjTuitionInfo tuition, HttpServletRequest request){
+		log.debug("Getting Subject Manage Page : tuition = {}", tuition);
+		String workId = CommonUtils.getWorkId(request);
+		jisaManageService.setJisaTuitionInfo(tuition, workId);
+		return msa.getMessage("jisamanage.tuition.edit.success");
+	}
 	
 	
 	

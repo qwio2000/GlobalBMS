@@ -201,6 +201,39 @@ public class JisaManageService {
 		jisaManageRepository.deleteSubjInfoToCodeDtl(param);
 	}
 
+	/**
+	 * @param jisaCD
+	 * @return List<SubjTuitionInfo>
+	 */
+	public List<SubjTuitionInfo> getJisaTuitionInfos(String jisaCD) {
+		return jisaManageRepository.findJisaTuitionInfos(jisaCD);
+	}
+
+	/**
+	 * @param jisaCD
+	 * @param deptType
+	 * @param feeType
+	 * @return SubjTuitionInfo
+	 */
+	public SubjTuitionInfo getJisaTuitionInfo(String jisaCD, String deptType,
+			String feeType) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptType", deptType);
+		param.put("feeType", feeType);
+		return jisaManageRepository.findJisaTuitionInfo(param);
+	}
+
+	/**
+	 * @param tuition
+	 * @param workId
+	 */
+	public void setJisaTuitionInfo(SubjTuitionInfo tuition, String workId) {
+		// TODO Auto-generated method stub
+		tuition.setUpdID(workId);
+		jisaManageRepository.updateJisaTuitionInfo(tuition);
+	}
+
 
 	
 }

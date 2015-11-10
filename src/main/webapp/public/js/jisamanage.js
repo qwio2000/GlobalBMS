@@ -73,8 +73,8 @@ $(function(){
 			$.openPop("/ma/jisamanage/subj/"+jisaCD, "jisaManage", "menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=900,height=500");
 		},
 		// 회비 셋팅/변경
-		openSetTuitionMatrix:function(deptCD){
-			alert('회비 셋팅/변경');
+		openSetTuitionMatrix:function(jisaCD){
+			$.openPop("/ma/jisamanage/tuition/"+jisaCD, "jisaManage", "menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=900,height=570");
 		}		
 	
 			

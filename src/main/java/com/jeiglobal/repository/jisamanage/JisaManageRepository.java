@@ -41,6 +41,12 @@ public interface JisaManageRepository {
 	public void deleteSubjInfo(Map<String, Object> param);
 
 	public void deleteSubjInfoToCodeDtl(Map<String, Object> param);
+
+	public List<SubjTuitionInfo> findJisaTuitionInfos(String jisaCD);
+
+	public SubjTuitionInfo findJisaTuitionInfo(Map<String, Object> param);
+
+	public void updateJisaTuitionInfo(SubjTuitionInfo tuition);
 	
 	
 

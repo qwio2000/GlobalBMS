@@ -113,7 +113,7 @@ $(function(){
 					type:"POST",
 					cache: false,
 					async: true,
-					data: {"userId": $("#beforeId").val()},
+					data: {"userId": $("#userId").val()},
 					dataType: "text",
 					success: function(jsonData, textStatus, XMLHttpRequest) {
 						alert(jsonData);

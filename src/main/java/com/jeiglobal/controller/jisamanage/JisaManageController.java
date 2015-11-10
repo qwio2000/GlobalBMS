@@ -105,10 +105,37 @@ public class JisaManageController {
 	@RequestMapping(value={"/ma/jisamanage/subj"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public String addSubjInfo(Model model, SubjInfo subjInfo, HttpServletRequest request){
-		log.debug("Getting Subject Manage Page : subjInfo = {}", subjInfo.toString());
+		log.debug("Adding Subject : subjInfo = {}", subjInfo.toString());
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.addSubjInfo(subjInfo, workId);
+		jisaManageService.addCodeDtl(subjInfo, workId);
 		return msa.getMessage("jisamanage.subj.regist.success");
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj/update"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String setSubjInfo(Model model, String beforeSubj, SubjInfo subjInfo, HttpServletRequest request){
+		log.debug("Updating Subject : subjInfo = {}", subjInfo.toString());
+		String workId = CommonUtils.getWorkId(request);
+		jisaManageService.setSubjInfo(subjInfo, workId, beforeSubj);
+		jisaManageService.setSubjInfoToCodeDtl(subjInfo, workId, beforeSubj);
+		return msa.getMessage("jisamanage.subj.update.success");
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj/updatestopdate"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String setSubjInfo(Model model, String subj, String jisaCD, String stopDate, HttpServletRequest request){
+		String workId = CommonUtils.getWorkId(request);
+		jisaManageService.setSubjInfoStopDate(subj, jisaCD, stopDate, workId);
+		return msa.getMessage("jisamanage.subj.delete.success");
+	}
+	
+	@RequestMapping(value={"/ma/jisamanage/subj/delete"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String removeSubjInfo(Model model, String subj, String jisaCD){
+		jisaManageService.removeSubjInfo(subj, jisaCD);
+		jisaManageService.removeSubjInfoToCodeDtl(subj, jisaCD);
+		return msa.getMessage("jisamanage.subj.delete.success");
 	}
 
 	

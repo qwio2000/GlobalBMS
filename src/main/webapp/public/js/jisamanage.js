@@ -117,28 +117,77 @@ $(function(){
 			});
 		}
 	});
+	
+	$("#delBtn").on("click", function(){
+		var param = {"jisaCD": $("#jisaCD").val(), "subj":$('#beforeSubj').val()};
+		$.ajax({
+			url:"/ma/jisamanage/subj/delete",
+			type:"POST",
+			cache: false,
+			dataType: "text",
+			data: param,
+			success: function(jsonData, textStatus, XMLHttpRequest) {
+				alert(jsonData);
+				editCancle();
+				$.getSubjInfos();
+			},
+			error:function (xhr, ajaxOptions, thrownError){	
+				alert(thrownError);
+			}
+		});
+	});
 	$("#btnName").on("click", function(){
 		var chk = $('#chk').val();
-		if(chk == '2'){//유지회원 0, 기존 회원 0 이상
-			alert('수정');
-		}else if(chk == '3'){//최초 등록
-			var param = $('#subjForm').serialize();
-			console.log(param);
-//			$.ajax({
-//				url:"/ma/jisamanage/subj",
-//				type:"POST",
-//				cache: false,
-//				dataType: "text",
-//				data: param,
-//				success: function(jsonData, textStatus, XMLHttpRequest) {
-//					alert(jsonData);
-//					$.getSubjInfos();
-//				},
-//				error:function (xhr, ajaxOptions, thrownError){	
-//					alert(thrownError);
-//				}
-//			});
+		var param = $('#subjForm').serialize();
+		if(chk == '3'){//최초 등록
+			$.ajax({
+				url:"/ma/jisamanage/subj",
+				type:"POST",
+				cache: false,
+				dataType: "text",
+				data: param,
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					alert(jsonData);
+					editCancle();
+					$.getSubjInfos();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
+		}else if(chk == '2'){//유지회원 0, 기존 회원 0 이상
+			param = {"subj":$('#subj').val(), "jisaCD":$('#jisaCD').val(), "stopDate":$('#stopDate').val()};
+			$.ajax({
+				url:"/ma/jisamanage/subj/updatestopdate",
+				type:"POST",
+				cache: false,
+				dataType: "text",
+				data: param,
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					alert(jsonData);
+					editCancle();
+					$.getSubjInfos();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
 		}else if(chk == '0'){//유지 회원 0, 기존 회원 0
+			$.ajax({
+				url:"/ma/jisamanage/subj/update",
+				type:"POST",
+				cache: false,
+				dataType: "text",
+				data: param,
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					alert(jsonData);
+					editCancle();
+					$.getSubjInfos();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
 			
 		}
 	});
@@ -153,19 +202,23 @@ function editSubj(subj){
 		dataType: "json",
 		data: param,
 		success: function(jsonData, textStatus, XMLHttpRequest) {
+			$("#beforeSubj").val(subj);
 			if(jsonData.subjInfo.chk == "1"){
 				$('#caption').html("해당 과목이 유지인 회원이 존재 : <strong>수정 불가</strong>");
 				$('#caption').show();
 				$('#btnName').hide();
+				$('#delBtn').hide();
 			}else if(jsonData.subjInfo.chk == "2"){
 				$('#caption').html("유지는 없지만 판매한 이력이 있는 상품 : <strong>판매중지일만 수정 가능</strong>");
 				$('#caption').show();
 				$('#btnName > span').html('수정');
 				$('#btnName').show();
+				$('#delBtn').hide();
 			}else{
 				$('#caption').hide();
 				$('#btnName > span').html('수정');
 				$('#btnName').show();
+				$('#delBtn').show();
 			}
 			var source = $("#jisaManageDivTemplate").html();
 			var template = Handlebars.compile(source);
@@ -205,6 +258,7 @@ function addNewSubj(){
 	$('#btnName > span').html('등록');
 	$('#btnName').show();
 	$('#caption').hide();
+	$('#delBtn').hide();
 	var source = $("#jisaManageEmptyDivTemplate").html();
 	var template = Handlebars.compile(source);
 	Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {

@@ -110,7 +110,7 @@ public class JisaManageService {
 	}
 
 	/**
-	 * @param subjInfo void
+	 * @param subjInfo
 	 * @param workId 
 	 */
 	public void addSubjInfo(SubjInfo subjInfo, String workId) {
@@ -119,6 +119,88 @@ public class JisaManageService {
 		param.put("workId", workId);
 		jisaManageRepository.insertSubjInfo(param);
 	}
+
+	/**
+	 * @param subjInfo
+	 * @param workId void
+	 */
+	public void addCodeDtl(SubjInfo subjInfo, String workId) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subjInfo", subjInfo);
+		param.put("workId", workId);
+		jisaManageRepository.insertSubjInfoToCodeDtl(param);
+	}
 	
+	/**
+	 * 유지회원 0, 퇴회회원 0인 경우 : 한번도 판매되지 않은 상품 전체 수정
+	 * @param subjInfo
+	 * @param workId
+	 * @param beforeSubj 
+	 */
+	public void setSubjInfo(SubjInfo subjInfo, String workId, String beforeSubj) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subjInfo", subjInfo);
+		param.put("workId", workId);
+		param.put("beforeSubj", beforeSubj);
+		jisaManageRepository.updateSubjInfo(param);
+	}
+	
+	/**
+	 * @param subjInfo
+	 * @param workId
+	 * @param beforeSubj void
+	 */
+	public void setSubjInfoToCodeDtl(SubjInfo subjInfo, String workId,
+			String beforeSubj) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subjInfo", subjInfo);
+		param.put("workId", workId);
+		param.put("beforeSubj", beforeSubj);
+		jisaManageRepository.updateSubjInfoToCodeDtl(param);
+	}
+
+	/**
+	 * 유지회원 0, 퇴회회원 0이상인 경우 판매중지일 수정
+	 * @param subj
+	 * @param jisaCD
+	 * @param stopDate
+	 * @param workId
+	 */
+	public void setSubjInfoStopDate(String subj, String jisaCD,
+			String stopDate, String workId) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subj", subj);
+		param.put("jisaCD", jisaCD);
+		param.put("stopDate", stopDate);		
+		param.put("workId", workId);		
+		jisaManageRepository.updateSubjInfoStopDate(param);
+	}
+
+	/**
+	 * 유지회원 0, 퇴회회원 0인 경우 globalbiz.subjInfo 삭제
+	 * @param subj
+	 * @param jisaCD
+	 * @param workId
+	 */
+	public void removeSubjInfo(String subj, String jisaCD) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subj", subj);
+		param.put("jisaCD", jisaCD);
+		jisaManageRepository.deleteSubjInfo(param);
+	}
+
+	/**
+	 * 유지회원 0, 퇴회회원 0인 경우 globalbiz.CodeDtl 삭제
+	 * @param subj
+	 * @param jisaCD
+	 */
+	public void removeSubjInfoToCodeDtl(String subj, String jisaCD) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subj", subj);
+		param.put("jisaCD", jisaCD);
+		jisaManageRepository.deleteSubjInfoToCodeDtl(param);
+	}
+
+
 	
 }

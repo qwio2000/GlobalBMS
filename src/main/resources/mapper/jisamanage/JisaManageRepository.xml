@@ -42,4 +42,33 @@
 		VALUES
 			(#{subjInfo.jisaCD}, #{subjInfo.subj}, #{subjInfo.subjName}, #{subjInfo.subjShortName}, 1, 1, 1, #{subjInfo.digYN}, #{subjInfo.sortVal}, #{subjInfo.startDate}, #{subjInfo.stopDate}, #{subjInfo.useYN}, NOW(), #{workId}, '')
 	</insert>	
+	<insert id="insertSubjInfoToCodeDtl" parameterType="hashMap">
+		INSERT INTO globalbiz.CodeDtl
+			(mstCD, dtlCD, jisaCD, dtlCDNM, dtlCDNMK, dtlCDNME, dtlCDNMC, dtlCDDesc, sortVal1, sortVal2, sortVal3, useYN, regDate, regID, updDate, updID)
+		VALUES
+			('0002', #{subjInfo.subj}, #{subjInfo.jisaCD}, #{subjInfo.subjShortName}, #{subjInfo.subjName}, '', #{subjInfo.digYN}, '과목', #{subjInfo.sortVal}, 0, 0, #{subjInfo.useYN}, NOW(), #{workId}, NULL, '')
+	</insert>	
+	<update id="updateSubjInfo" parameterType="hashMap">
+		UPDATE globalbiz.SubjInfo
+		SET subj = #{subjInfo.subj}, subjName = #{subjInfo.subjName}, subjShortName = #{subjInfo.subjShortName}, digYN = #{subjInfo.digYN}, sortVal = #{subjInfo.sortVal}, 
+			startDate = #{subjInfo.startDate}, stopDate = #{subjInfo.stopDate}, useYN = #{subjInfo.useYN}, updDate = NOW(), updID = #{workId}
+		WHERE jisaCD = #{subjInfo.jisaCD} AND subj = #{beforeSubj}
+	</update>
+	<update id="updateSubjInfoStopDate" parameterType="hashMap">
+		UPDATE globalbiz.SubjInfo
+		SET stopDate = #{stopDate}, updDate = NOW(), updID = #{workId}
+		WHERE jisaCD = #{jisaCD} AND subj = #{subj}
+	</update>
+	<update id="updateSubjInfoToCodeDtl" parameterType="hashMap">
+		UPDATE globalbiz.CodeDtl
+		SET dtlCD = #{subjInfo.subj}, dtlCDNMK = #{subjInfo.subjName}, dtlCDNM = #{subjInfo.subjShortName}, dtlCDNMC = #{subjInfo.digYN}, sortVal1 = #{subjInfo.sortVal}, 
+			useYN = #{subjInfo.useYN}, updDate = NOW(), updID = #{workId}
+		WHERE mstCD = '0002' AND dtlCD = #{beforeSubj} AND jisaCD = #{subjInfo.jisaCD}
+	</update>
+	<delete id="deleteSubjInfo" parameterType="hashMap">
+		DELETE FROM globalbiz.SubjInfo WHERE jisaCD = #{jisaCD} AND subj = #{subj}
+	</delete>
+	<delete id="deleteSubjInfoToCodeDtl" parameterType="hashMap">
+		DELETE FROM globalbiz.CodeDtl WHERE jisaCD = #{jisaCD} AND dtlCD = #{subj} AND mstCD = '0002'
+	</delete>
 </mapper>

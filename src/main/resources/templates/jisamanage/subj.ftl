@@ -46,6 +46,7 @@
 			<div id="divData" class="tbl01" style="display: none;">
 			<form id="subjForm">
 			<input type="hidden" id="jisaCD" name="jisaCD" value="${jisaCD?default('') }"/>
+			<input type="hidden" id="beforeSubj" name="beforeSubj" value=""/>
 				<table>
 					<colgroup>
 						<col width="120">
@@ -60,6 +61,7 @@
 				</table>
 				<div class="btnArea" style="text-align: center;">
 					<a id="btnName" style="cursor: pointer;"><span>수정</span></a>
+					<a id="delBtn" style="cursor: pointer;"><span>삭제</span></a>
 					<a href="javascript:editCancle();"><span>취소</span></a>
 				</div>
 			</form>
@@ -73,7 +75,7 @@
 			<td>{{inc @index }}</td>
 			<td><a href="javascript:editSubj('{{subj}}')" class="blue">{{subjName }}</a></td>
 			<td>{{subjShortName }}</td>
-			<td>{{#xIf useYN "==" "Y"}}판매{{else}}판매불가{{/xIf}}</td>
+			<td>{{#xIf useYN "==" "Y"}}판매{{else}}중지{{/xIf}}</td>
 			<td>{{startDate }}</td>
 			<td>{{stopDate }}</td>
 			<td>{{subj }}</td>
@@ -105,7 +107,7 @@
 	<td class="col_gray">과목명<br/>(ShortName)</td>
 	<td class="left"><input type="text" id="subjShortName" name="subjShortName" class="searchInput" style="width: 140px;" value="{{subjInfo.subjShortName}}" {{#xIf subjInfo.chk "!=" 0}}readonly="readonly"{{/xIf}}></td>
 	<td class="col_gray">과목코드</td>
-	<td class="left"><input type="text" id="subj" name="subj" class="searchInput" style="width: 140px;" value="{{subjInfo.subj}}" {{#xIf subjInfo.chk "!=" 0}}readonly="readonly"{{/xIf}}></td>
+	<td class="left"><input type="text" id="subj" name="subj" class="searchInput" style="width: 140px;" value="{{subjInfo.subj}}" {{#xIf subjInfo.chk "!=" 0}}readonly="readonly"{{/xIf}} maxlength="2"></td>
 	<td class="col_gray">정렬순서</td>
 	<td class="left"><input type="text" id="sortVal" name="sortVal" class="searchInput" style="width: 140px;" value="{{subjInfo.sortVal}}" {{#xIf subjInfo.chk "!=" 0}}readonly="readonly"{{/xIf}}></td>
 </tr>
@@ -140,7 +142,7 @@
 	<td class="col_gray">과목명<br/>(ShortName)</td>
 	<td class="left"><input type="text" id="subjShortName" name="subjShortName" class="searchInput" style="width: 140px;" value="" ></td>
 	<td class="col_gray">과목코드</td>
-	<td class="left"><input type="text" id="subj" name="subj" class="searchInput" style="width: 140px;" value=""></td>
+	<td class="left"><input type="text" id="subj" name="subj" class="searchInput" style="width: 140px;" value="" maxlength="2"></td>
 	<td class="col_gray">정렬순서</td>
 	<td class="left"><input type="text" id="sortVal" name="sortVal" class="searchInput" style="width: 140px;" value=""></td>
 </tr>

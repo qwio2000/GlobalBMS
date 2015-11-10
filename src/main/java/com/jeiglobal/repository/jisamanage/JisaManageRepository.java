@@ -29,6 +29,18 @@ public interface JisaManageRepository {
 	public SubjInfo findSubjInfo(Map<String, Object> param);
 
 	public void insertSubjInfo(Map<String, Object> param);
+
+	public void updateSubjInfo(Map<String, Object> param);
+
+	public void updateSubjInfoStopDate(Map<String, Object> param);
+
+	public void insertSubjInfoToCodeDtl(Map<String, Object> param);
+
+	public void updateSubjInfoToCodeDtl(Map<String, Object> param);
+
+	public void deleteSubjInfo(Map<String, Object> param);
+
+	public void deleteSubjInfoToCodeDtl(Map<String, Object> param);
 	
 	
 

@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.jeiglobal.domain.*;
 import com.jeiglobal.domain.auth.LoginInfo;
 import com.jeiglobal.domain.manage.*;
+import com.jeiglobal.service.*;
 import com.jeiglobal.service.jisamanage.JisaManageService;
 import com.jeiglobal.utils.*;
 
@@ -44,6 +46,9 @@ public class JisaManageController {
 	
 	@Value("${serverurl.hongkong}")
 	private String hongkongUrl;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@RequestMapping(value="/ma/jisamanage")
 	public String getJisaManageList(Model model){
@@ -163,8 +168,10 @@ public class JisaManageController {
 	public Map<String, Object> getTuitionInfo(String jisaCD, String deptType, String feeType){
 		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
 		SubjTuitionInfo tuitionInfo = jisaManageService.getJisaTuitionInfo(jisaCD, deptType, feeType);
+		List<CodeDtl> feeUnits = commonService.getCodeDtls("0303", jisaCD, 1, "Y");
 		Map<String, Object> map = new HashMap<>();
 		map.put("tuitionInfo", tuitionInfo);
+		map.put("feeUnits", feeUnits);
 		return map;
 	}
 	@RequestMapping(value={"/ma/jisamanage/tuition"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")

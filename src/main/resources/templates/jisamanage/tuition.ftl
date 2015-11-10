@@ -133,7 +133,13 @@
 	<td><input type="text" name="sectionFee3" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee3}}"/></td>
 	<td><input type="text" name="sectionFee2" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee2}}"/></td>
 	<td><input type="text" name="sectionFee1" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee1}}"/></td>
-	<td>{{tuitionInfo.feeUnit}}</td>
+	<td>
+		<select name="feeUnit" id="feeUnit">
+			{{#each feeUnits}}
+			<option value="{{dtlCD}}" {{#xIf dtlCD "==" ../tuitionInfo.feeUnit }}selected{{/xIf}}>{{dtlCDNM}}</option>
+			{{/each}}
+		</select>
+	</td>
 </tr>
 </script>
 <#include "/include/popupfooter.ftl">

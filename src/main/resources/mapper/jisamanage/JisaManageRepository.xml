@@ -84,7 +84,7 @@
 	</select>
 	<update id="updateJisaTuitionInfo" parameterType="com.jeiglobal.domain.manage.SubjTuitionInfo">
 		UPDATE globalbiz.SubjTuitionInfo
-		SET registFee = #{registFee}, monthFee = #{monthFee}, 
+		SET registFee = #{registFee}, monthFee = #{monthFee}, feeUnit = #{feeUnit},
 			sectionFee1 = #{sectionFee1}, sectionFee2 = #{sectionFee2}, sectionFee3 = #{sectionFee3}, sectionFee4 = #{sectionFee4},
 			updDate = NOW(), updID = #{updID}
 		WHERE jisaCD = #{jisaCD} AND deptType = #{deptType} AND feeType = #{feeType} AND subj = 'TT' AND bookNum = 1

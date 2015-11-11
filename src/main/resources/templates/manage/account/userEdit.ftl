@@ -16,7 +16,7 @@
 					<strong><a href="javascript:$.userPwdClear('');" class="">[Clear] </a></strong>
 				</li>
 				<li>
-					<label for="userLevel" class="tit">User Duty <span class="must">*</span></label>
+					<label for="userLevel" class="tit">User Privilege <span class="must">*</span></label>
 					<select name="userLevel" id="userLevel" style="width:187px;margin-right:3px">
 						<option value="">-선택-</option>
 						<option value="U0" <#if user.userLevel == 'U0'>selected</#if>>관리자</option>

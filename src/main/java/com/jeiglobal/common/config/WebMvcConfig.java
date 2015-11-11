@@ -31,15 +31,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	/**
 	 * Message를 이용하기 위한 Bean 설정
-	 * 
 	 * @param messageSource
-	 * @return
+	 * @return MessageSourceAccessor
 	 */
 	@Bean
-	public MessageSourceAccessor messageSourceAccesor(
-			MessageSource messageSource) {
-		return new MessageSourceAccessor(messageSource);
-	}
+	public MessageSourceAccessor messageSourceAccesor(MessageSource messageSource) { return new MessageSourceAccessor(messageSource); }
 
 	/**
 	 * PUT method Filter
@@ -83,12 +79,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	/**
 	 * 메뉴 인터셉터 Bean 설정
-	 * @return
+	 * @return MenuIntercepter
 	 */
 	@Bean
-	public MenuIntercepter menuIntercepter(){
-		return new MenuIntercepter();
-	}
+	public MenuIntercepter menuIntercepter(){ return new MenuIntercepter(); }
 	
 	//Interceptor 등록
 	@Override
@@ -98,9 +92,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
-	public BCryptPasswordEncoder setBCryptPasswordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+	public BCryptPasswordEncoder setBCryptPasswordEncoder(){ return new BCryptPasswordEncoder(); }
 	
 	/**
 	 * Default Locale 설정

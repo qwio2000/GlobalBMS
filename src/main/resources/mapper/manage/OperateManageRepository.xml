@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeiglobal.repository.manage.OperateManageRepository">
+	<select id="findMagamDatesCount" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(1)
+		FROM (
+			SELECT *
+			FROM globalbiz.MagamDate
+			WHERE mgMonth >= #{mgMonth}
+			GROUP BY mgMonth
+			ORDER BY mgMonth
+		) AS a
+	</select>
+	<select id="findMagamDates" parameterType="java.lang.String" resultType="com.jeiglobal.domain.manage.ManageDto$MagamDate">
+		SELECT mgMonth, jisaCD, mgStartDate, mgEndDate, mgEndYMD, mgJobDate, mgJobEndDate
+		FROM globalbiz.MagamDate
+		WHERE mgMonth >= #{mgMonth}
+		GROUP BY mgMonth
+		ORDER BY mgMonth
+	</select>
+</mapper>

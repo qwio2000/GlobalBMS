@@ -51,5 +51,16 @@ public class ManageDto {
 		private String latestLoginIp; //공백
 		private String encodeCookie; //공백
 	}
+	
+	@Data
+	public static class MagamDate{
+		private String mgMonth;
+		private String jisaCD;
+		private String mgStartDate;
+		private String mgEndDate;
+		private String mgEndYMD;
+		private String mgJobDate;
+		private String mgJobEndDate;
+	}
 }
 	

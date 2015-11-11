@@ -37,15 +37,12 @@
 		SET userPasswd = #{changePwd}, passUpdDate = NOW(), updDate = NOW(), updID = #{workId}
 		WHERE userId = #{userId}
 	</update>
-	<update id="updateUser" parameterType="hashMap">
+	<update id="updateUser" parameterType="com.jeiglobal.domain.manage.ManageDto$User">
 		UPDATE globalbiz.Users
 		<set>
-			<if test="isChangePwd == 'Y'.toString()">
-				userPasswd = #{user.userPasswd}, passUpdDate = NOW(),
-			</if>
-			userFstName = #{user.userFstName}, userLstName = #{user.userLstName}, userLevel = #{user.userLevel}, email = #{user.email},
-			phone = #{user.phone}, title = #{user.title}, departMent = #{user.departMent}, statusCD = #{user.statusCD}, updDate = NOW(), updID = #{user.updID}
+			userFstName = #{userFstName}, userLstName = #{userLstName}, userLevel = #{userLevel}, email = #{email},
+			phone = #{phone}, title = #{title}, departMent = #{departMent}, statusCD = #{statusCD}, updDate = NOW(), updID = #{updID}
 		</set>
-		WHERE userId = #{user.userId}
+		WHERE userId = #{userId}
 	</update>
 </mapper>

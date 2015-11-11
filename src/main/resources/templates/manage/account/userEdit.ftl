@@ -6,7 +6,6 @@
 		<div class="pop_jisa">
 			<form action="" name="userForm" id="userForm">
 			<input type="hidden" name="userId" id="userId" value="${user.userId?default('') }"/>
-			<input type="hidden" name="beforePasswd" id="beforePasswd" value="${user.userPasswd?default('') }"/>
 			<ul class="list02">
 				<li>
 					<label for="userId" class="tit">User ID</label>
@@ -14,14 +13,8 @@
 				</li>				
 				<li>
 					<label for="userPasswd" class="tit">Password <span class="must">*</span></label>
-					<input type="password" name="userPasswd" id="userPasswd" class="searchInput" style="width:384px"  maxlength='20' value="${user.userPasswd?default('') }">
-					<input type="hidden" name="isChangePwd" id="isChangePwd" value=""/>
 					<strong><a href="javascript:$.userPwdClear('');" class="">[Clear] </a></strong>
 				</li>
-				<li>
-					<label for="retypeUserPasswd" class="tit">Retype Password <span class="must">*</span></label>
-					<input type="password" name="retypeUserPasswd" id="retypeUserPasswd" class="searchInput" style="width:384px"  maxlength='20' value="${user.userPasswd?default('') }">
-				</li>					
 				<li>
 					<label for="userLevel" class="tit">User Duty <span class="must">*</span></label>
 					<select name="userLevel" id="userLevel" style="width:187px;margin-right:3px">

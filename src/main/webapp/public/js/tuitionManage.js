@@ -58,6 +58,12 @@ $(function(){
 	}
 	
 	$("#editBtn").on("click", function(){
+		if(!($.numeric("registFee","입회비"))){return;}
+		if(!($.numeric("monthFee","월회비"))){return;}
+		if(!($.numeric("sectionFee4","차액월회비 4주차"))){return;}
+		if(!($.numeric("sectionFee3","차액월회비 3주차"))){return;}
+		if(!($.numeric("sectionFee2","차액월회비 2주차"))){return;}
+		if(!($.numeric("sectionFee1","차액월회비 1주차"))){return;}		
 		if(confirm('정말 회비를 수정하시겠습니까?')){
 			var param = $('#tuitionForm').serialize();
 			$.ajax({

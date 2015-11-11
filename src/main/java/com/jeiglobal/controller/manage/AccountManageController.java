@@ -122,13 +122,10 @@ public class AccountManageController {
 	
 	@RequestMapping(value={"/ma/manage/users/edit"},method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody	
-	public String setUserJson(User user, HttpServletRequest request, String isChangePwd){
+	public String setUserJson(User user, HttpServletRequest request){
 		log.debug("Getting Account Manage, User Edit : {}", user.getUserId());
-		if("Y".equals(isChangePwd)){
-			user.setUserPasswd(encoder.encode(user.getUserPasswd()));
-		}
 		user.setUpdID(CommonUtils.getWorkId(request));
-		accountManageService.setUser(user, isChangePwd);
+		accountManageService.setUser(user);
 		
 		return msa.getMessage("manage.user.update.success");
 	}

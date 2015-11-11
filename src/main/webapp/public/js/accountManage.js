@@ -198,23 +198,6 @@ $(function(){
 				return;
 			}
 		}
-		var beforePasswd = $("#beforePasswd").val();
-		var isChangePwd = "N";
-		if(beforePasswd != $("#userPasswd").val()){
-			if(!($.required("userPasswd","Password"))){return;}
-			if(!($.required("retypeUserPasswd","Retype Password"))){return;}
-			if(!$.passwordCheck("userPasswd","Password")){
-				$("#userPasswd").focus();
-				return;
-			}
-			if($.trim($("#userPasswd").val()) != $.trim($("#retypeUserPasswd").val())){
-				alert("Confirm Retype Password!!");
-				$("#retypeUserPasswd").focus();
-				return;
-			}				
-			isChangePwd = "Y";
-		}
-		$("#isChangePwd").val(isChangePwd);
 		var param = $("#userForm").serialize();
 		console.log(param);
 		$.ajax({

@@ -140,6 +140,10 @@ $(function(){
 		var chk = $('#chk').val();
 		var param = $('#subjForm').serialize();
 		if(chk == '3'){//최초 등록
+			if(!($.required("subjName","과목 이름"))){return;}
+			if(!($.required("subjShortName","과목 이름(Short Name)"))){return;}
+			if(!($.required("subj","과목 코드"))){return;}
+			if(!($.numeric("sortVal","정렬 순서"))){return;}
 			$.ajax({
 				url:"/ma/jisamanage/subj",
 				type:"POST",

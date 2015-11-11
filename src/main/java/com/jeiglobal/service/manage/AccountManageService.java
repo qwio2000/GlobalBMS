@@ -103,13 +103,9 @@ public class AccountManageService {
 
 	/**
 	 * @param user
-	 * @param isChangePwd void
 	 */
-	public void setUser(User user, String isChangePwd) {
-		param.clear();
-		param.put("user", user);
-		param.put("isChangePwd", isChangePwd);
-		accountManageRepository.updateUser(param);
+	public void setUser(User user) {
+		accountManageRepository.updateUser(user);
 	}
 
 }

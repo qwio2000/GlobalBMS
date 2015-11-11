@@ -35,6 +35,6 @@ public interface AccountManageRepository {
 
 	public void updateUserPasswordClearByUserId(Map<String, Object> param);
 
-	public void updateUser(Map<String, Object> param);
+	public void updateUser(User user);
 
 }

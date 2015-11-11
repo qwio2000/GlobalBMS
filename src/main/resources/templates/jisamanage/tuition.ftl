@@ -127,12 +127,12 @@
 		{{/xIf}}{{/xIf}}
 		<input type="hidden" name="feeType" value="{{tuitionInfo.feeType}}"/>
 	</td>
-	<td><input type="text" name="registFee" class="searchInput" style="width: 50px;" value="{{tuitionInfo.registFee}}"/></td>
-	<td><input type="text" name="monthFee" class="searchInput" style="width: 50px;" value="{{tuitionInfo.monthFee}}"/></td>
-	<td><input type="text" name="sectionFee4" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee4}}"/></td>
-	<td><input type="text" name="sectionFee3" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee3}}"/></td>
-	<td><input type="text" name="sectionFee2" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee2}}"/></td>
-	<td><input type="text" name="sectionFee1" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee1}}"/></td>
+	<td><input type="text" name="registFee" id="registFee" class="searchInput" style="width: 50px;" value="{{tuitionInfo.registFee}}"/></td>
+	<td><input type="text" name="monthFee" id="monthFee" class="searchInput" style="width: 50px;" value="{{tuitionInfo.monthFee}}"/></td>
+	<td><input type="text" name="sectionFee4" id="sectionFee4" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee4}}"/></td>
+	<td><input type="text" name="sectionFee3" id="sectionFee3" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee3}}"/></td>
+	<td><input type="text" name="sectionFee2" id="sectionFee2" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee2}}"/></td>
+	<td><input type="text" name="sectionFee1" id="sectionFee1" class="searchInput" style="width: 50px;" value="{{tuitionInfo.sectionFee1}}"/></td>
 	<td>
 		<select name="feeUnit" id="feeUnit">
 			{{#each feeUnits}}

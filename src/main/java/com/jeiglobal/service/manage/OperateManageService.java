@@ -23,7 +23,9 @@ public class OperateManageService {
 
 	@Autowired
 	private OperateManageRepository operateManageRepository;
-
+	
+	Map<String, Object> param = new HashMap<>();
+	
 	/**
 	 * @return int
 	 */
@@ -34,11 +36,17 @@ public class OperateManageService {
 	
 	/**
 	 * 마감 리스트
+	 * @param endRow 
+	 * @param startRow 
 	 * @return List<MagamDate>
 	 */
-	public List<MagamDate> getMagamDates() {
+	public List<MagamDate> getMagamDates(int startRow, int endRow) {
+		param.clear();
 		String mgMonth = getOneYearAgo();
-		return operateManageRepository.findMagamDates(mgMonth);
+		param.put("mgMonth", mgMonth);
+		param.put("startRow", startRow);
+		param.put("endRow", endRow);
+		return operateManageRepository.findMagamDates(param);
 	}
 
 	/**

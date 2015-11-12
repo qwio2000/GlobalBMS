@@ -103,7 +103,21 @@ $(function(){
 				changeMonth: true,
 				changeYear: true,
 				yearRange: '1950:2015',
-				dateFormat: 'yy-mm-dd'
+				dateFormat: 'yy-mm-dd',
+				onSelect: function(dataText, inst){
+					var today = new Date();
+					var dataSplit = dataText.split("-");
+					var yy = dataSplit[0];
+					var mm = dataSplit[1];
+					var dd = dataSplit[2];
+					var selectDay = new Date(yy, mm-1, dd);
+					if(today > selectDay){
+						alert('판매 중지일이 오늘 날짜보다 작을 수는 없습니다');
+						$('#stopDate').val('');
+						return;
+					}
+					$("#stopDate").val(dataText);
+				}
 			});
 		}
 	});
@@ -119,7 +133,12 @@ $(function(){
 	});
 	
 	$("#delBtn").on("click", function(){
-		var param = {"jisaCD": $("#jisaCD").val(), "subj":$('#beforeSubj').val()};
+		var deptCnt = $("#deptCnt").val();
+		if(deptCnt > 0 && !confirm('현재 가맹점에서 운영중인 과목이 삭제됩니다. 계속하시겠습니까?')){
+			return;
+		}
+		var param = {"jisaCD": $("#jisaCD").val(), "subj":$('#beforeSubj').val(), "deptCnt":deptCnt};
+		console.log(param);
 		$.ajax({
 			url:"/ma/jisamanage/subj/delete",
 			type:"POST",
@@ -160,7 +179,14 @@ $(function(){
 				}
 			});
 		}else if(chk == '2'){//유지회원 0, 기존 회원 0 이상
-			param = {"subj":$('#subj').val(), "jisaCD":$('#jisaCD').val(), "stopDate":$('#stopDate').val()};
+			var stopDate = $('#stopDate').val();
+			var deptCnt = $("#deptCnt").val();
+			if(stopDate != ''){
+				if(deptCnt > 0 && !confirm('현재 가맹점에서 운영중인 과목이 삭제됩니다. 계속하시겠습니까?')){
+					return;
+				}
+			}
+			param = {"subj":$('#subj').val(), "jisaCD":$('#jisaCD').val(), "stopDate":stopDate, "deptCnt":deptCnt};
 			$.ajax({
 				url:"/ma/jisamanage/subj/updatestopdate",
 				type:"POST",
@@ -177,6 +203,12 @@ $(function(){
 				}
 			});
 		}else if(chk == '0'){//유지 회원 0, 기존 회원 0
+			var stopDate = $('#stopDate').val();
+			if(stopDate != ''){
+				if($("#deptCnt").val() > 0 && !confirm('현재 가맹점에서 운영중인 과목이 삭제됩니다. 계속하시겠습니까?')){
+					return;
+				}
+			}
 			$.ajax({
 				url:"/ma/jisamanage/subj/update",
 				type:"POST",
@@ -206,20 +238,35 @@ function editSubj(subj){
 		dataType: "json",
 		data: param,
 		success: function(jsonData, textStatus, XMLHttpRequest) {
+			var message = "";
 			$("#beforeSubj").val(subj);
 			if(jsonData.subjInfo.chk == "1"){
-				$('#caption').html("해당 과목이 유지인 회원이 존재 : <strong>수정 불가</strong>");
+				message = "해당 과목이 유지인 회원이 존재 : <strong>수정 불가</strong>";
+				if(jsonData.subjInfo.deptCnt > 0){
+					message += "<br/>현재 이 과목을 운영중인 가맹점이 존재합니다.";
+				}
+				$('#caption').html(message);
 				$('#caption').show();
 				$('#btnName').hide();
 				$('#delBtn').hide();
 			}else if(jsonData.subjInfo.chk == "2"){
-				$('#caption').html("유지는 없지만 판매한 이력이 있는 상품 : <strong>판매중지일만 수정 가능</strong>");
+				message = "유지는 없지만 판매한 이력이 있는 상품 : <strong>판매중지일만 수정 가능</strong>";
+				if(jsonData.subjInfo.deptCnt > 0){
+					message += "<br/>현재 이 과목을 운영중인 가맹점이 존재합니다. <br/>판매 중지일 변경 시 이 과목을 운영중인 가맹점에서 해당 과목이 <strong>삭제</strong> 처리됩니다.";
+				}
+				$('#caption').html(message);
 				$('#caption').show();
 				$('#btnName > span').html('수정');
 				$('#btnName').show();
 				$('#delBtn').hide();
 			}else{
-				$('#caption').hide();
+				if(jsonData.subjInfo.deptCnt > 0){
+					message = "현재 이 과목을 운영중인 가맹점이 존재합니다. <br/>판매 중지일 변경 시 이 과목을 운영중인 가맹점에서 해당 과목이 <strong>삭제</strong> 처리됩니다.";
+					$('#caption').html(message);
+					$('#caption').show();
+				}else{
+					$('#caption').hide();
+				}
 				$('#btnName > span').html('수정');
 				$('#btnName').show();
 				$('#delBtn').show();

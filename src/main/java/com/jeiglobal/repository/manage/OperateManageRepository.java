@@ -19,7 +19,7 @@ public interface OperateManageRepository {
 
 	public int findMagamDatesCount(String mgMonth);
 
-	public List<MagamDate> findMagamDates(String mgMonth);
+	public List<MagamDate> findMagamDates(Map<String, Object> param);
 
 
 }

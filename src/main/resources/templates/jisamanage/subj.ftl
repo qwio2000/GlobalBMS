@@ -86,6 +86,7 @@
 <script id="jisaManageDivTemplate" type="text/x-handlebars-template">
 <tr>
 	<input type="hidden" id="chk" value="{{subjInfo.chk}}">
+	<input type="hidden" name="deptCnt" id="deptCnt" value="{{subjInfo.deptCnt}}">
 	<td class="col_gray">과목명</td>
 	<td class="left"><input type="text" id="subjName" name="subjName" class="searchInput" style="width: 140px;" value="{{subjInfo.subjName}}" {{#xIf subjInfo.chk "!=" 0}}readonly="readonly"{{/xIf}}></td>
 	<td class="col_gray">상태</td>

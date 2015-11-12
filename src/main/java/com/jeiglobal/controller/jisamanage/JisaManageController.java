@@ -97,7 +97,7 @@ public class JisaManageController {
 		return map;
 	}
 	
-	@RequestMapping(value={"/ma/jisamanage/subj/{subj:^[A-Z]{2}}"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
+	@RequestMapping(value={"/ma/jisamanage/subj/{subj:^[A-Za-z]{2}}"}, method = {RequestMethod.GET, RequestMethod.HEAD}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
 	public Map<String, Object> getSubjInfos(String jisaCD, @PathVariable String subj){
 		log.debug("Getting Subject Manage Page : jisaCD = {}", jisaCD);
@@ -124,22 +124,32 @@ public class JisaManageController {
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.setSubjInfo(subjInfo, workId, beforeSubj);
 		jisaManageService.setSubjInfoToCodeDtl(subjInfo, workId, beforeSubj);
+		if(subjInfo.getDeptCnt() > 0 && !"".equals(subjInfo.getStopDate())){
+			jisaManageService.setDeptSubjInfo(subjInfo.getSubj(), subjInfo.getJisaCD());
+		}
 		return msa.getMessage("jisamanage.subj.update.success");
 	}
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/updatestopdate"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String setSubjInfo(String subj, String jisaCD, String stopDate, HttpServletRequest request){
+	public String setSubjInfo(String subj, String jisaCD, String stopDate, int deptCnt, HttpServletRequest request){
+		log.debug("deptCnt : {}", deptCnt);
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.setSubjInfoStopDate(subj, jisaCD, stopDate, workId);
-		return msa.getMessage("jisamanage.subj.delete.success");
+		if(deptCnt > 0 && !"".equals(stopDate)){
+			jisaManageService.setDeptSubjInfo(subj, jisaCD);
+		}
+		return msa.getMessage("jisamanage.subj.update.success");
 	}
 	
 	@RequestMapping(value={"/ma/jisamanage/subj/delete"}, method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
 	@ResponseBody
-	public String removeSubjInfo(String subj, String jisaCD){
+	public String removeSubjInfo(String subj, String jisaCD, int deptCnt){
 		jisaManageService.removeSubjInfo(subj, jisaCD);
 		jisaManageService.removeSubjInfoToCodeDtl(subj, jisaCD);
+		if(deptCnt > 0){
+			jisaManageService.setDeptSubjInfo(subj, jisaCD);
+		}
 		return msa.getMessage("jisamanage.subj.delete.success");
 	}
 

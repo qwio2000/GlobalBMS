@@ -47,7 +47,7 @@ public class OperateManageController {
 	public Map<String, Object> getClosingDateJson(@PathVariable int pageNum){
 		log.debug("Getting Closing Date From 1 Years ago");
 		PageUtil pageInfo = new PageUtil(pageNum, operateManageService.getMagamDatesCount(), 10, 10);
-		List<MagamDate> magamDates = operateManageService.getMagamDates(); 
+		List<MagamDate> magamDates = operateManageService.getMagamDates(pageInfo.getStartRow(), pageInfo.getEndRow()); 
 		Map<String, Object> map = new HashMap<>();
 		map.put("pageInfo", pageInfo);
 		map.put("magamDates", magamDates);

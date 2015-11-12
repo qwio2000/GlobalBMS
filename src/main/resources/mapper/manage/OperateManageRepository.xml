@@ -11,11 +11,12 @@
 			ORDER BY mgMonth
 		) AS a
 	</select>
-	<select id="findMagamDates" parameterType="java.lang.String" resultType="com.jeiglobal.domain.manage.ManageDto$MagamDate">
+	<select id="findMagamDates" parameterType="hashMap" resultType="com.jeiglobal.domain.manage.ManageDto$MagamDate">
 		SELECT mgMonth, jisaCD, mgStartDate, mgEndDate, mgEndYMD, mgJobDate, mgJobEndDate
 		FROM globalbiz.MagamDate
 		WHERE mgMonth >= #{mgMonth}
 		GROUP BY mgMonth
 		ORDER BY mgMonth
+		LIMIT #{startRow}, #{endRow}
 	</select>
 </mapper>

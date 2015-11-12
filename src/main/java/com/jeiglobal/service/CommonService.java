@@ -68,14 +68,15 @@ public class CommonService {
 	 * 지사나 가맹점별로 운영중인 과목 리스트를 가져오는 메서드
 	 * @param jisaCD
 	 * @param deptCD
+	 * @param type  =>  1 : 운영중인것, 2 : 한번이라도 운영된 적이 있었던 과목들
 	 * @return List<String>
 	 */
-	public List<String> getOpenSubjsByDeptCD(String jisaCD, String deptCD){
+	public List<String> getOpenSubjsByDeptCD(String jisaCD, String deptCD, String type){
 		param.clear();
 		param.put("jisaCD", jisaCD);
 		param.put("deptCD", deptCD);
-		String openSubjs = commonRepository.findOpenSubjsByDeptCD(param);
-		return Arrays.asList(openSubjs.split(","));
+		param.put("type", type);
+		return commonRepository.findOpenSubjsByDeptCD(param);
 	}
 	
 	public List<GradeOfSubject> getGradeOfSubject(String jisaCD, String subj, String useYN, String digYN){

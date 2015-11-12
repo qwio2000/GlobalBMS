@@ -234,6 +234,19 @@ public class JisaManageService {
 		jisaManageRepository.updateJisaTuitionInfo(tuition);
 	}
 
+	/**
+	 * 유지인 회원은 없는 경우 판매중지일 입력할 경우 DeptSubjInfo useYN 수정
+	 * @param subj
+	 * @param jisaCD
+	 */
+	public void setDeptSubjInfo(String subj, String jisaCD) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("subj", subj);
+		jisaManageRepository.updateDeptSubjInfo(param);
+		
+	}
+
 
 	
 }

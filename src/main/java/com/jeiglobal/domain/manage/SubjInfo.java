@@ -32,4 +32,5 @@ public class SubjInfo {
 	private Date updDate;
 	private String updID;
 	private String chk;
+	private int deptCnt;
 }

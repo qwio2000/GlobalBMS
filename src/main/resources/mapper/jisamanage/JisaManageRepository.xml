@@ -22,7 +22,7 @@
 	</select>	
 	<select id="findSubjInfo" parameterType="hashMap" resultType="com.jeiglobal.domain.manage.SubjInfo">
 		SELECT a.jisaCD, a.subj, a.subjName, a.subjShortName, a.studyNum, a.bookNum, a.monthNum, a.digYN, a.sortVal, a.startDate, a.stopDate, a.useYN, a.regDate, a.regID, a.updDate, a.updID, 
-			CASE WHEN IFNULL(b.cnt, 0) > 0 THEN '1' WHEN IFNULL(b.cnt, 0) = 0 AND IFNULL(c.cnt, 0) > 0 THEN '2' ELSE '0' END AS chk
+			CASE WHEN IFNULL(b.cnt, 0) > 0 THEN '1' WHEN IFNULL(b.cnt, 0) = 0 AND IFNULL(c.cnt, 0) > 0 THEN '2' ELSE '0' END AS chk, d.deptCnt
 		FROM globalbiz.SubjInfo AS a
 		LEFT JOIN (
 			SELECT COUNT(1) AS cnt, b.jisaCD, b.subj
@@ -34,6 +34,11 @@
 			FROM globalbiz.MemSubjMst AS c
 			WHERE c.jisaCD = #{jisaCD} AND c.subj = #{subj}
 			) AS c ON a.jisaCD = c.jisaCD AND a.subj = c.subj
+		LEFT JOIN (
+			SELECT COUNT(1) AS deptCnt, jisaCD, subj
+			FROM globalbiz.DeptSubjInfo AS d
+			WHERE d.jisaCD = #{jisaCD} AND d.subj = #{subj} AND d.useYN = 'Y'
+		) AS d ON a.jisaCD = d.jisaCD AND a.subj = d.subj
 		WHERE a.jisaCD = #{jisaCD} AND a.subj = #{subj}
 	</select>
 	<insert id="insertSubjInfo" parameterType="hashMap">
@@ -88,5 +93,10 @@
 			sectionFee1 = #{sectionFee1}, sectionFee2 = #{sectionFee2}, sectionFee3 = #{sectionFee3}, sectionFee4 = #{sectionFee4},
 			updDate = NOW(), updID = #{updID}
 		WHERE jisaCD = #{jisaCD} AND deptType = #{deptType} AND feeType = #{feeType} AND subj = 'TT' AND bookNum = 1
+	</update>
+	<update id="updateDeptSubjInfo" parameterType="hashMap">
+		UPDATE globalbiz.DeptSubjInfo
+		SET useYN = 'N'
+		WHERE jisaCD = #{jisaCD} AND subj = #{subj}
 	</update>
 </mapper>

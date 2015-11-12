@@ -434,8 +434,7 @@ $(function(){
 				showMonthAfterYear : true,
 				yearSuffix : '년'
 	});
-	$(".datePicker_yymm").datepicker(
-		{
+	$(".datePicker_yymm").datepicker({
 			changeMonth: true,
 			changeYear: true,
 			dateFormat : 'yy-mm',

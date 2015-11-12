@@ -42,6 +42,15 @@ public class OperateManageController {
 		return "manage/operate/list";
 	}
 	
+	@RequestMapping(value="/ma/manage/operate/closingDate", method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getMagamDatePage(Model model){
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("operateManage");
+		log.debug("Getting Operate Manage Page");
+		model.addAttribute("headerScript", headerScript);
+		return "manage/operate/magamDate";
+	}
+	
 	@RequestMapping(value="/ma/manage/operate/closingDate/{pageNum:[0-9]+}", method = {RequestMethod.GET, RequestMethod.HEAD})
 	@ResponseBody
 	public Map<String, Object> getClosingDateJson(@PathVariable int pageNum){
@@ -51,6 +60,16 @@ public class OperateManageController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("pageInfo", pageInfo);
 		map.put("magamDates", magamDates);
+		return map;
+	}
+	
+	@RequestMapping(value="/ma/manage/operate/closingDate/{mgMonth:[0-9]{4}-[0-9]{2}}", method = {RequestMethod.GET, RequestMethod.HEAD})
+	@ResponseBody
+	public Map<String, Object> getClosingDateJson(@PathVariable String mgMonth){
+		log.debug("Getting Closing Date : mgMonth = {}", mgMonth);
+		MagamDate magamDate = operateManageService.getMagamDateByMgMonth(mgMonth); 
+		Map<String, Object> map = new HashMap<>();
+		map.put("magamDate", magamDate);
 		return map;
 	}
 	

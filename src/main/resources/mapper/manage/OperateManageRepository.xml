@@ -19,4 +19,10 @@
 		ORDER BY mgMonth
 		LIMIT #{startRow}, #{endRow}
 	</select>
+	<select id="findMagamDateByMgMonth" parameterType="java.lang.String" resultType="com.jeiglobal.domain.manage.ManageDto$MagamDate">
+		SELECT mgMonth, jisaCD, mgStartDate, mgEndDate, mgEndYMD, mgJobDate, mgJobEndDate
+		FROM globalbiz.MagamDate
+		WHERE mgMonth = #{mgMonth}
+		GROUP BY mgMonth
+	</select>
 </mapper>

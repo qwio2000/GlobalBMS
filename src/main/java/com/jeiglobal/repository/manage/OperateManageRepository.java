@@ -21,5 +21,7 @@ public interface OperateManageRepository {
 
 	public List<MagamDate> findMagamDates(Map<String, Object> param);
 
+	public MagamDate findMagamDateByMgMonth(String mgMonth);
+
 
 }

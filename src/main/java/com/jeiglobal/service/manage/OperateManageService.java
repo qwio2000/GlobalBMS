@@ -61,5 +61,14 @@ public class OperateManageService {
 		return mgMonth;
 	}
 
+	/**
+	 * mgMonth로 MagamDate 가져오기
+	 * @param mgMonth
+	 * @return MagamDate
+	 */
+	public MagamDate getMagamDateByMgMonth(String mgMonth) {
+		return operateManageRepository.findMagamDateByMgMonth(mgMonth);
+	}
+
 	
 }

@@ -28,7 +28,7 @@
 					<td>월 1회</td>
 					<td>
 						<div class="btnArea_icon2" style="width:40px;">
-							<a href="javascript:" class="btn_info " title="수정">수정</a>
+							<a href="javascript:openMagamDatePop();" class="btn_info " title="수정">수정</a>
 						</div>
 					</td>
 				</tr>

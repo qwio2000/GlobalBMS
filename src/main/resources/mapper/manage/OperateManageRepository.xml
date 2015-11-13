@@ -41,4 +41,27 @@
 		VALUES
 			(#{mgMonth}, #{jisaCD}, #{mgStartDate}, #{mgEndDate}, #{mgEndYMD}, '', '')
 	</insert>
+	<select id="findCodeMstsByMstCDs" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeMst">
+		SELECT * FROM globalbiz.CodeMst
+		<where>
+			mstCD IN 
+			 <foreach item="item" index="index" collection="mstCDAry"
+			     open="(" separator="," close=")">
+			       #{item}
+			 </foreach>
+		</where>
+		ORDER BY mstCD
+	</select>
+	<select id="findCodeDtlsCountByMstCD" parameterType="hashMap" resultType="int">
+		SELECT COUNT(1) 
+		FROM globalbiz.CodeDtl
+		WHERE jisaCD = #{jisaCD} AND mstCD = #{mstCD}
+	</select>
+	<select id="findCodeDtlsByMstCD" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeDtl">
+		SELECT *
+		FROM globalbiz.CodeDtl
+		WHERE jisaCD = #{jisaCD} AND mstCD = #{mstCD}
+		ORDER BY sortVal1
+		LIMIT #{startRow}, #{endRow}
+	</select>
 </mapper>

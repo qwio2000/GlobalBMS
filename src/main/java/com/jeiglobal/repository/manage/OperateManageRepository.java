@@ -2,6 +2,7 @@ package com.jeiglobal.repository.manage;
 
 import java.util.*;
 
+import com.jeiglobal.domain.*;
 import com.jeiglobal.domain.manage.ManageDto.MagamDate;
 import com.jeiglobal.repository.*;
 
@@ -29,5 +30,10 @@ public interface OperateManageRepository {
 
 	public void insertMagamDate(MagamDate magamDate);
 
+	public List<CodeMst> findCodeMstsByMstCDs(Map<String, Object> param);
+
+	public int findCodeDtlsCountByMstCD(Map<String, Object> param);
+
+	public List<CodeDtl> findCodeDtlsByMstCD(Map<String, Object> param);
 
 }

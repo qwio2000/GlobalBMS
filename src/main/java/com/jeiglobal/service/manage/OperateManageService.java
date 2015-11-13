@@ -6,6 +6,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import com.jeiglobal.domain.*;
 import com.jeiglobal.domain.manage.ManageDto.MagamDate;
 import com.jeiglobal.repository.manage.*;
 
@@ -95,6 +96,47 @@ public class OperateManageService {
 	public void addClosingDate(MagamDate magamDate) {
 		operateManageRepository.insertMagamDate(magamDate);
 		
+	}
+
+	/**
+	 * 코드 수정 가능한 mstCD 정보 가져오기
+	 * @param mstCDAry
+	 * @return List<CodeMst>
+	 */
+	public List<CodeMst> getCodeMstsByMstCDs(String[] mstCDAry) {
+		param.clear();
+		param.put("mstCDAry", mstCDAry);
+		return operateManageRepository.findCodeMstsByMstCDs(param);
+	}
+
+	/**
+	 * 페이징 처리를 위한 코드 Dtl Count
+	 * @param mstCD 
+	 * @param jisaCD 
+	 * @return int
+	 */
+	public int getCodeDtlCount(String mstCD, String jisaCD) {
+		param.clear();
+		param.put("mstCD", mstCD);
+		param.put("jisaCD", jisaCD);
+		return operateManageRepository.findCodeDtlsCountByMstCD(param);
+	}
+
+	/**
+	 * @param mstCD
+	 * @param jisaCD
+	 * @param startRow
+	 * @param endRow
+	 * @return List<CodeDtl>
+	 */
+	public List<CodeDtl> getCodeDtls(String mstCD, String jisaCD, int startRow,
+			int endRow) {
+		param.clear();
+		param.put("mstCD", mstCD);
+		param.put("jisaCD", jisaCD);
+		param.put("startRow", startRow);
+		param.put("endRow", endRow);
+		return operateManageRepository.findCodeDtlsByMstCD(param);
 	}
 
 	

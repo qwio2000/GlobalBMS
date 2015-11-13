@@ -9,7 +9,9 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.jeiglobal.domain.*;
 import com.jeiglobal.domain.manage.ManageDto.MagamDate;
+import com.jeiglobal.service.*;
 import com.jeiglobal.service.manage.*;
 import com.jeiglobal.utils.*;
 
@@ -32,6 +34,14 @@ public class OperateManageController {
 	
 	@Autowired
 	private MessageSourceAccessor msa;
+	
+	@Autowired
+	private CommonService commonService;
+	
+	private final static String GRADE_MSTCD = "0003";
+	private final static String REGIST_WHY_MSTCD = "0202";
+	private final static String REGIST_HOW_MSTCD = "0009";
+	private final static String DROP_REASON_MSTCD = "0201";
 	
 	@RequestMapping(value="/ma/manage/operate", method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getUsersPage(Model model){
@@ -97,6 +107,58 @@ public class OperateManageController {
 		return msa.getMessage("manage.operate.closingdate.regist.success");
 	}
 	
+	@RequestMapping(value="/ma/manage/operate/code", method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getCodeManagePage(Model model){
+		String[] mstCDAry = {GRADE_MSTCD, REGIST_WHY_MSTCD, REGIST_HOW_MSTCD, DROP_REASON_MSTCD}; 
+		List<CodeMst> codeMsts = operateManageService.getCodeMstsByMstCDs(mstCDAry);
+		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("codeManage");
+		log.debug("Getting Code Manage Page");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("codeMsts", codeMsts);
+		model.addAttribute("jisaCDs", jisaCDs);
+		return "manage/operate/code";
+	}
 	
+	@RequestMapping(value="/ma/manage/operate/code/{pageNum:[0-9]+}", method = {RequestMethod.GET, RequestMethod.HEAD})
+	@ResponseBody
+	public Map<String, Object> getCodeDtlJson(@PathVariable int pageNum, String mstCD, String jisaCD){
+		log.debug("Getting Code Dtl, mstCD : {}, jisaCD : {} ", mstCD, jisaCD);
+		PageUtil pageInfo = new PageUtil(pageNum, operateManageService.getCodeDtlCount(mstCD, jisaCD), 10, 10);
+		List<CodeDtl> codeDtls = operateManageService.getCodeDtls(mstCD, jisaCD, pageInfo.getStartRow(), pageInfo.getEndRow()); 
+		Map<String, Object> map = new HashMap<>();
+		map.put("pageInfo", pageInfo);
+		map.put("codeDtls", codeDtls);
+		return map;
+	}
+	@RequestMapping(value="/ma/manage/operate/code/new", method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getCodeRegistPage(Model model, String mstCD, String jisaCD){
+		String[] mstCDAry = {GRADE_MSTCD, REGIST_WHY_MSTCD, REGIST_HOW_MSTCD, DROP_REASON_MSTCD}; 
+		List<CodeMst> codeMsts = operateManageService.getCodeMstsByMstCDs(mstCDAry);
+		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("codeManage");
+		log.debug("Getting Code Manage Page");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("codeMsts", codeMsts);
+		model.addAttribute("jisaCDs", jisaCDs);
+		model.addAttribute("mstCD", mstCD);
+		model.addAttribute("jisaCD", jisaCD);
+		return "manage/operate/codeRegist";
+	}
+	@RequestMapping(value="/ma/manage/operate/code/edit", method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getCodeEditPage(Model model, String mstCD, String jisaCD, String dtlCD){
+		CodeDtl codeDtl = commonService.getCodeDtl(mstCD, jisaCD, dtlCD);
+		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("codeManage");
+		log.debug("Getting Code Manage Page");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("jisaCDs", jisaCDs);
+		model.addAttribute("codeDtl", codeDtl);
+		
+		return "manage/operate/codeEdit";
+	}
 	
 }

@@ -70,5 +70,32 @@ public class OperateManageService {
 		return operateManageRepository.findMagamDateByMgMonth(mgMonth);
 	}
 
+	/**
+	 * 마감 일자 수정
+	 * @param magamDate
+	 */
+	public void setClosingDate(MagamDate magamDate) {
+		operateManageRepository.updateMagamDate(magamDate);
+		
+	}
+
+	/**
+	 * 등록 전 등록하려고 하는 mgMonth가 있는지 판별하기 위해 카운트를 가져옴
+	 * @param mgMonth
+	 * @return int
+	 */
+	public int getMagamDateCountByMgMonth(String mgMonth) {
+		return operateManageRepository.findMagamDateCountByMgMonth(mgMonth);
+	}
+
+	/**
+	 * 등록
+	 * @param magamDate void
+	 */
+	public void addClosingDate(MagamDate magamDate) {
+		operateManageRepository.insertMagamDate(magamDate);
+		
+	}
+
 	
 }

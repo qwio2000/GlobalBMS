@@ -44,7 +44,7 @@ $(function(){
 		$(this).datepicker({
 			changeMonth: true,
 			changeYear: true,
-			yearRange: '1950:2015',
+			yearRange: "-20:+20",
 			dateFormat: 'yy-mm-dd'
 		});
 	});
@@ -53,7 +53,7 @@ $(function(){
 		$(this).datepicker({
 			changeMonth: true,
 			changeYear: true,
-			yearRange: '1950:2015',
+			yearRange: "-20:+20",
 			dateFormat: 'yy-mm-dd'
 		});
 	});
@@ -62,7 +62,7 @@ $(function(){
 		$(this).datepicker({
 			changeMonth: true,
 			changeYear: true,
-			yearRange: '1950:2015',
+			yearRange: "-20:+20",
 			dateFormat: 'yy-mm-dd'
 		});
 	});
@@ -72,86 +72,49 @@ $(function(){
 			changeMonth: true,
 			changeYear: true,
 			dateFormat : 'yy-mm',
-			yearRange: "-0:+20",
+			yearRange: "-20:+20",
 		});
 	});
 	
 	$("#btnName").on("click", function(){
+		if(!($.required("mgStartDate","마감 시작일"))){return;}
+		if(!($.required("mgEndDate","마감 종료일"))){return;}
+		if(!($.required("mgEndYMD","마감월말일자"))){return;}
+		var param = $('#magamForm').serialize();
 		if(typeof($('#mgMonth').val()) == "undefined"){//수정
-			alert('수정');
+			$.ajax({
+				url:"/ma/manage/operate/closingDate/edit",
+				type:"POST",
+				cache: false,
+				dataType: "text",
+				data: param,
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					alert(jsonData);
+					editCancle();
+					$.getMagamDates();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
 		}else{//등록
-			alert('등록');
+			if(!($.required("mgMonth","마감년월"))){return;}
+			$.ajax({
+				url:"/ma/manage/operate/closingDate",
+				type:"POST",
+				cache: false,
+				dataType: "text",
+				data: param,
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					alert(jsonData);
+					editCancle();
+					$.getMagamDates();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
 		}
-//		var chk = $('#chk').val();
-//		var param = $('#subjForm').serialize();
-//		if(chk == '3'){//최초 등록
-//			if(!($.required("subjName","과목 이름"))){return;}
-//			if(!($.required("subjShortName","과목 이름(Short Name)"))){return;}
-//			if(!($.required("subj","과목 코드"))){return;}
-//			if(!($.numeric("sortVal","정렬 순서"))){return;}
-//			$.ajax({
-//				url:"/ma/jisamanage/subj",
-//				type:"POST",
-//				cache: false,
-//				dataType: "text",
-//				data: param,
-//				success: function(jsonData, textStatus, XMLHttpRequest) {
-//					alert(jsonData);
-//					editCancle();
-//					$.getSubjInfos();
-//				},
-//				error:function (xhr, ajaxOptions, thrownError){	
-//					alert(thrownError);
-//				}
-//			});
-//		}else if(chk == '2'){//유지회원 0, 기존 회원 0 이상
-//			var stopDate = $('#stopDate').val();
-//			var deptCnt = $("#deptCnt").val();
-//			if(stopDate != ''){
-//				if(deptCnt > 0 && !confirm('현재 가맹점에서 운영중인 과목이 삭제됩니다. 계속하시겠습니까?')){
-//					return;
-//				}
-//			}
-//			param = {"subj":$('#subj').val(), "jisaCD":$('#jisaCD').val(), "stopDate":stopDate, "deptCnt":deptCnt};
-//			$.ajax({
-//				url:"/ma/jisamanage/subj/updatestopdate",
-//				type:"POST",
-//				cache: false,
-//				dataType: "text",
-//				data: param,
-//				success: function(jsonData, textStatus, XMLHttpRequest) {
-//					alert(jsonData);
-//					editCancle();
-//					$.getSubjInfos();
-//				},
-//				error:function (xhr, ajaxOptions, thrownError){	
-//					alert(thrownError);
-//				}
-//			});
-//		}else if(chk == '0'){//유지 회원 0, 기존 회원 0
-//			var stopDate = $('#stopDate').val();
-//			if(stopDate != ''){
-//				if($("#deptCnt").val() > 0 && !confirm('현재 가맹점에서 운영중인 과목이 삭제됩니다. 계속하시겠습니까?')){
-//					return;
-//				}
-//			}
-//			$.ajax({
-//				url:"/ma/jisamanage/subj/update",
-//				type:"POST",
-//				cache: false,
-//				dataType: "text",
-//				data: param,
-//				success: function(jsonData, textStatus, XMLHttpRequest) {
-//					alert(jsonData);
-//					editCancle();
-//					$.getSubjInfos();
-//				},
-//				error:function (xhr, ajaxOptions, thrownError){	
-//					alert(thrownError);
-//				}
-//			});
-//			
-//		}
 	});
 });
 

@@ -25,4 +25,20 @@
 		WHERE mgMonth = #{mgMonth}
 		GROUP BY mgMonth
 	</select>
+	<update id="updateMagamDate" parameterType="com.jeiglobal.domain.manage.ManageDto$MagamDate">
+		UPDATE globalbiz.MagamDate
+		SET mgStartDate = #{mgStartDate}, mgEndDate = #{mgEndDate}, mgEndYMD = #{mgEndYMD}
+		WHERE mgMonth = #{mgMonth}
+	</update>
+	<select id="findMagamDateCountByMgMonth" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(1)
+		FROM globalbiz.MagamDate
+		WHERE mgMonth = #{mgMonth}
+	</select>
+	<insert id="insertMagamDate" parameterType="com.jeiglobal.domain.manage.ManageDto$MagamDate">
+		INSERT INTO globalbiz.MagamDate
+			(mgMonth, jisaCD, mgStartDate, mgEndDate, mgEndYMD, mgJobDate, mgJobEndDate)
+		VALUES
+			(#{mgMonth}, #{jisaCD}, #{mgStartDate}, #{mgEndDate}, #{mgEndYMD}, '', '')
+	</insert>
 </mapper>

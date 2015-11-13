@@ -73,4 +73,30 @@ public class OperateManageController {
 		return map;
 	}
 	
+	@RequestMapping(value="/ma/manage/operate/closingDate/edit", method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String setClosingDateJson(MagamDate magamDate){
+		log.debug("Setting Closing Date : magamDate = {}", magamDate);
+		operateManageService.setClosingDate(magamDate);
+		return msa.getMessage("manage.operate.closingdate.update.success");
+	}
+	
+	@RequestMapping(value="/ma/manage/operate/closingDate", method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String addClosingDateJson(MagamDate magamDate){
+		log.debug("Adding Closing Date : magamDate = {}", magamDate);
+		int count = operateManageService.getMagamDateCountByMgMonth(magamDate.getMgMonth());
+		if(count > 0){
+			return msa.getMessage("manage.operate.closingdate.regist.alreadyexist");
+		}
+		String[] jisaCD = {"00", "08"};
+		for (int i = 0; i < jisaCD.length; i++) {
+			magamDate.setJisaCD(jisaCD[i]);
+			operateManageService.addClosingDate(magamDate);
+		}
+		return msa.getMessage("manage.operate.closingdate.regist.success");
+	}
+	
+	
+	
 }

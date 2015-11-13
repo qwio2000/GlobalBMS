@@ -88,17 +88,17 @@
 		{{magamDate.mgMonth}}
 		<input type="hidden" name="mgMonth" value="{{magamDate.mgMonth}}">
 	</td>
-	<td><input type="text" name="mgStartDate" id="mgStartDate" class="searchInput" style="width: 120px;" value="{{magamDate.mgStartDate}}"/></td>
-	<td><input type="text" name="mgEndDate" id="mgEndDate" class="searchInput" style="width: 120px;" value="{{magamDate.mgEndDate}}"/></td>
-	<td><input type="text" name="mgEndYMD" id="mgEndYMD" class="searchInput" style="width: 120px;" value="{{magamDate.mgEndYMD}}"/></td>
+	<td><input type="text" name="mgStartDate" id="mgStartDate" class="searchInput" style="width: 120px;" value="{{magamDate.mgStartDate}}" readonly/></td>
+	<td><input type="text" name="mgEndDate" id="mgEndDate" class="searchInput" style="width: 120px;" value="{{magamDate.mgEndDate}}" readonly/></td>
+	<td><input type="text" name="mgEndYMD" id="mgEndYMD" class="searchInput" style="width: 120px;" value="{{magamDate.mgEndYMD}}" readonly/></td>
 </tr>
 </script>
 <script id="magamDateEmptyDivTemplate" type="text/x-handlebars-template">
 <tr>
-	<td><input type="text" name="mgMonth" id="mgMonth" class="searchInput" style="width: 120px;" value=""/></td>
-	<td><input type="text" name="mgStartDate" id="mgStartDate" class="searchInput" style="width: 120px;" value=""/></td>
-	<td><input type="text" name="mgEndDate" id="mgEndDate" class="searchInput" style="width: 120px;" value=""/></td>
-	<td><input type="text" name="mgEndYMD" id="mgEndYMD" class="searchInput" style="width: 120px;" value=""/></td>
+	<td><input type="text" name="mgMonth" id="mgMonth" class="searchInput" style="width: 120px;" value="" readonly/></td>
+	<td><input type="text" name="mgStartDate" id="mgStartDate" class="searchInput" style="width: 120px;" value="" readonly/></td>
+	<td><input type="text" name="mgEndDate" id="mgEndDate" class="searchInput" style="width: 120px;" value="" readonly/></td>
+	<td><input type="text" name="mgEndYMD" id="mgEndYMD" class="searchInput" style="width: 120px;" value="" readonly/></td>
 </tr>
 </script>
 <#include "/include/popupfooter.ftl">

@@ -23,5 +23,11 @@ public interface OperateManageRepository {
 
 	public MagamDate findMagamDateByMgMonth(String mgMonth);
 
+	public void updateMagamDate(MagamDate magamDate);
+
+	public int findMagamDateCountByMgMonth(String mgMonth);
+
+	public void insertMagamDate(MagamDate magamDate);
+
 
 }

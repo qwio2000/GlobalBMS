@@ -50,6 +50,7 @@
 			</ul>
 			<div class="btnArea">
 				<a id="saveUserInfo" style="cursor: pointer;" ><span>Update Code Information</span></a>
+				<a href="/ma/manage/operate/code?jisaCD=${codeDtl.jisaCD }&mstCD=${codeDtl.mstCD}&pageNum=${pageNum}"><span>List</span></a>
 			</div>
 			</form>
 		</div>

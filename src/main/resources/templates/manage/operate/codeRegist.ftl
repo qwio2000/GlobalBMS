@@ -45,17 +45,14 @@
 					<input type="text" name="dtlCDNMC" id="dtlCDNMC" class="searchInput" style="width:384px"  maxlength='100' >
 				</li>				
 				<li>
-					<label for="sortVal1" class="tit">정렬순서 <span class="must">*</span></label>
-					<input type="text" name="sortVal1" id="sortVal1" class="searchInput" style="width:384px">
-				</li>
-				<li>
 					<label for="useYN" class="tit">사용여부</label>
-					<span class="radio_wrap"><input type="radio" value="1" name="useYN" id="Active" checked><label class="radio_label" for="Active"> 사용가능</label></span>
-					<span class="radio_wrap"><input type="radio" value="0" name="useYN" id="Inactive"><label class="radio_label" for="Inactive"> 사용불가</label></span>
+					<span class="radio_wrap"><input type="radio" value="Y" name="useYN" id="Active" checked><label class="radio_label" for="Active"> 사용가능</label></span>
+					<span class="radio_wrap"><input type="radio" value="N" name="useYN" id="Inactive"><label class="radio_label" for="Inactive"> 사용불가</label></span>
 				</li>
 			</ul>
 			<div class="btnArea">
 				<a id="saveUserInfo" style="cursor: pointer;" ><span>Save Code Information</span></a>
+				<a href="/ma/manage/operate/code?jisaCD=${jisaCD }&mstCD=${mstCD}&pageNum=${pageNum}"><span>List</span></a>
 			</div>
 			</form>
 		</div>

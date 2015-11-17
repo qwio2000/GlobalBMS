@@ -108,7 +108,7 @@ public class OperateManageController {
 	}
 	
 	@RequestMapping(value="/ma/manage/operate/code", method = {RequestMethod.GET, RequestMethod.HEAD})
-	public String getCodeManagePage(Model model){
+	public String getCodeManagePage(Model model, String jisaCD, String mstCD, @RequestParam(defaultValue="1", required=false) int pageNum){
 		String[] mstCDAry = {GRADE_MSTCD, REGIST_WHY_MSTCD, REGIST_HOW_MSTCD, DROP_REASON_MSTCD}; 
 		List<CodeMst> codeMsts = operateManageService.getCodeMstsByMstCDs(mstCDAry);
 		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
@@ -118,6 +118,9 @@ public class OperateManageController {
 		model.addAttribute("headerScript", headerScript);
 		model.addAttribute("codeMsts", codeMsts);
 		model.addAttribute("jisaCDs", jisaCDs);
+		model.addAttribute("sJisaCD", jisaCD);
+		model.addAttribute("sMstCD", mstCD);
+		model.addAttribute("pageNum", pageNum);
 		return "manage/operate/code";
 	}
 	
@@ -133,7 +136,7 @@ public class OperateManageController {
 		return map;
 	}
 	@RequestMapping(value="/ma/manage/operate/code/new", method = {RequestMethod.GET, RequestMethod.HEAD})
-	public String getCodeRegistPage(Model model, String mstCD, String jisaCD){
+	public String getCodeRegistPage(Model model, String mstCD, String jisaCD, @RequestParam(defaultValue="1", required=false) int pageNum){
 		String[] mstCDAry = {GRADE_MSTCD, REGIST_WHY_MSTCD, REGIST_HOW_MSTCD, DROP_REASON_MSTCD}; 
 		List<CodeMst> codeMsts = operateManageService.getCodeMstsByMstCDs(mstCDAry);
 		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
@@ -145,10 +148,12 @@ public class OperateManageController {
 		model.addAttribute("jisaCDs", jisaCDs);
 		model.addAttribute("mstCD", mstCD);
 		model.addAttribute("jisaCD", jisaCD);
+		model.addAttribute("pageNum", pageNum);
+		
 		return "manage/operate/codeRegist";
 	}
 	@RequestMapping(value="/ma/manage/operate/code/edit", method = {RequestMethod.GET, RequestMethod.HEAD})
-	public String getCodeEditPage(Model model, String mstCD, String jisaCD, String dtlCD){
+	public String getCodeEditPage(Model model, String mstCD, String jisaCD, String dtlCD, int pageNum){
 		CodeDtl codeDtl = commonService.getCodeDtl(mstCD, jisaCD, dtlCD);
 		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
 		List<String> headerScript = new ArrayList<>();
@@ -157,6 +162,7 @@ public class OperateManageController {
 		model.addAttribute("headerScript", headerScript);
 		model.addAttribute("jisaCDs", jisaCDs);
 		model.addAttribute("codeDtl", codeDtl);
+		model.addAttribute("pageNum", pageNum);
 		
 		return "manage/operate/codeEdit";
 	}

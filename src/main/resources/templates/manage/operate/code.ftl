@@ -6,17 +6,17 @@
 			<div class="pop_jisa">
 				<div class="list02 pt20 clearfix">
 					<div class="float_l">
-					<input type="hidden" id="pageNum" name="pageNum" value="1"/>
+					<input type="hidden" id="pageNum" name="pageNum" value="${pageNum?default('1') }"/>
 						<select name="jisaCD" id="jisaCD" style="width:162px">
 							<option value="">지사선택</option>
 							<#list jisaCDs as jisaCD>
-								<option value="${jisaCD.dtlCD }">${jisaCD.dtlCDNMK }</option>
+								<option value="${jisaCD.dtlCD }" <#if sJisaCD?default('') == jisaCD.dtlCD>selected</#if>>${jisaCD.dtlCDNMK }</option>
 							</#list>
 						</select>
 						<select name="mstCD" id="mstCD" style="width:162px">
 							<option value="">코드선택</option>
 							<#list codeMsts as codeMst>
-								<option value="${codeMst.mstCD }">${codeMst.mstCDName }</option>
+								<option value="${codeMst.mstCD }" <#if sMstCD?default('') == codeMst.mstCD>selected</#if>>${codeMst.mstCDName }</option>
 							</#list>
 						</select>
 						<span class="btnArea" style="margin-top: 0px;"><a id="goBtn" style="cursor: pointer;"><span style="width:70px">Go</span></a></span>
@@ -51,14 +51,14 @@
 				<th>내 용 2</th>
 				<th>내 용 3</th>
 				<th>내 용 4</th>
-				<th>정렬</th>
+				<th>정렬<br/>순서</th>
 				<th>사용여부</th>
 			</tr>
 		</thead>
 		<tbody>
 		{{#each codeDtls}}
 			<tr>
-				<td><a href="/ma/manage/operate/code/edit?mstCD={{mstCD}}&dtlCD={{dtlCD}}&jisaCD={{jisaCD}}" class="blue">{{dtlCD }}</a></td>
+				<td><a href="/ma/manage/operate/code/edit?mstCD={{mstCD}}&dtlCD={{dtlCD}}&jisaCD={{jisaCD}}&pageNum={{../pageInfo.pageNum}}" class="blue">{{dtlCD }}</a></td>
 				<td class="left">{{dtlCDNM }}</td>
 				<td class="left">{{dtlCDNMK}}</td>
 				<td class="left">{{dtlCDNME }}</td>

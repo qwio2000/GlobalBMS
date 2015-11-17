@@ -90,11 +90,18 @@ $(function(){
 		$.getCodeDtls();
 	});
 	
+	var pageNum = $("#pageNum").val();
+	var mstCD = $("#mstCD").val();
+	var jisaCD = $("#jisaCD").val();
+	if(pageNum != '' && mstCD != '' && jisaCD != '' && window.location.pathname == '/ma/manage/operate/code'){
+		$.getCodeDtls();
+	}
 	
 });
 
 function addNewCodeDtl(){
 	var mstCD = $("#mstCD").val();
 	var jisaCD = $("#jisaCD").val();
-	location.href = "/ma/manage/operate/code/new?mstCD="+mstCD+"&jisaCD="+jisaCD;
+	var pageNum = $("#pageNum").val();
+	location.href = "/ma/manage/operate/code/new?mstCD="+mstCD+"&jisaCD="+jisaCD+"&pageNum="+pageNum;
 }

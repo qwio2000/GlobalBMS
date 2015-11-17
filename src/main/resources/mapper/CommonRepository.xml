@@ -4,15 +4,14 @@
 	<select id="findCodeDtl" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeDtl">
 		SELECT *
 		FROM globalbiz.CodeDtl
-		WHERE mstCD = #{mstCD} AND dtlCD = #{dtlCD} AND jisaCD = #{jisaCD} AND useYN = 'Y'
+		WHERE mstCD = #{mstCD} AND dtlCD = #{dtlCD} AND jisaCD = #{jisaCD} 
+			AND useYN = CASE #{useYN} WHEN '' THEN useYN ELSE #{useYN} END
 	</select>
 	<select id="findCodeDtls" parameterType="hashMap" resultType="com.jeiglobal.domain.CodeDtl">
 		SELECT *
 		FROM globalbiz.CodeDtl
 		WHERE mstCD = #{mstCD} AND jisaCD = #{jisaCD}
-		<if test="useVal != null and useVal == 'Y'.toString()">
-			AND useYN = #{useVal}
-		</if> 
+			AND useYN = CASE #{useVal} WHEN '' THEN useYN ELSE #{useVal} END
 		<choose>
 			<when test="sortVal == 1">
 				ORDER BY sortVal1 

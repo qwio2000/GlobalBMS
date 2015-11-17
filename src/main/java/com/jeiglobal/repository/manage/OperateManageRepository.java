@@ -36,4 +36,10 @@ public interface OperateManageRepository {
 
 	public List<CodeDtl> findCodeDtlsByMstCD(Map<String, Object> param);
 
+	public void updateCodeDtl(Map<String, Object> param);
+
+	public void insertCodeDtl(Map<String, Object> param);
+
+	public String selectLatestCloseReason(String jisaCD);
+
 }

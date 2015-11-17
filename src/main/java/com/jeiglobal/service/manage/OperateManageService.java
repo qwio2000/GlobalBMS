@@ -139,5 +139,41 @@ public class OperateManageService {
 		return operateManageRepository.findCodeDtlsByMstCD(param);
 	}
 
+	/**
+	 * 코드 수정
+	 * @param codeDtl 
+	 * @param beforeCodeDtl 
+	 * @param workId 
+	 */
+	public void setCodeDtl(CodeDtl codeDtl, String beforeDtlCD, String workId) {
+		param.clear();
+		param.put("codeDtl", codeDtl);
+		param.put("beforeDtlCD", beforeDtlCD);
+		param.put("workId", workId);
+		operateManageRepository.updateCodeDtl(param);
+		
+	}
+
+	/**
+	 * 코드 등록
+	 * @param codeDtl
+	 * @param workId
+	 */
+	public void addCodeDtl(CodeDtl codeDtl, String workId) {
+		param.clear();
+		param.put("codeDtl", codeDtl);
+		param.put("workId", workId);
+		operateManageRepository.insertCodeDtl(param);
+	}
+
+	/**
+	 * 입회 불가 처리 전 최근 상태 가져오기
+	 * @param jisaCD
+	 * @return String
+	 */
+	public String getLatestCloseReason(String jisaCD) {
+		return operateManageRepository.selectLatestCloseReason(jisaCD);
+	}
+
 	
 }

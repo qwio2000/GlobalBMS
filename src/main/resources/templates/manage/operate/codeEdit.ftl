@@ -5,6 +5,10 @@
 	<div class="popup_content">
 		<div class="pop_jisa">
 			<form action="" name="codeForm" id="codeForm">
+			<input type="hidden" id="mstCD" name="mstCD" value="${codeDtl.mstCD }"/>
+			<input type="hidden" id="jisaCD" name="jisaCD" value="${codeDtl.jisaCD }"/>
+			<input type="hidden" id="pageNum" name="pageNum" value="${pageNum }"/>
+			<input type="hidden" id="beforeDtlCD" name="beforeDtlCD" value="${codeDtl.dtlCD }"/>
 			<ul class="list02">
 				<li>
 					<label for="mstCD" class="tit">업무분류</label>
@@ -44,12 +48,12 @@
 				</li>
 				<li>
 					<label for="useYN" class="tit">사용여부</label>
-					<span class="radio_wrap"><input type="radio" value="1" name="useYN" id="Active" <#if codeDtl.useYN == "Y"> checked</#if>><label class="radio_label" for="Active"> 사용가능</label></span>
-					<span class="radio_wrap"><input type="radio" value="0" name="useYN" id="Inactive"<#if codeDtl.useYN == "N"> checked</#if>><label class="radio_label" for="Inactive"> 사용불가</label></span>
+					<span class="radio_wrap"><input type="radio" value="Y" name="useYN" id="Active" <#if codeDtl.useYN == "Y"> checked</#if>><label class="radio_label" for="Active"> 사용가능</label></span>
+					<span class="radio_wrap"><input type="radio" value="N" name="useYN" id="Inactive"<#if codeDtl.useYN == "N"> checked</#if>><label class="radio_label" for="Inactive"> 사용안함</label></span>
 				</li>
 			</ul>
 			<div class="btnArea">
-				<a id="saveUserInfo" style="cursor: pointer;" ><span>Update Code Information</span></a>
+				<a id="editCodeInfo" style="cursor: pointer;" ><span>Update Code Information</span></a>
 				<a href="/ma/manage/operate/code?jisaCD=${codeDtl.jisaCD }&mstCD=${codeDtl.mstCD}&pageNum=${pageNum}"><span>List</span></a>
 			</div>
 			</form>

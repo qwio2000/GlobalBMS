@@ -69,6 +69,7 @@ $(function(){
 	});
 	
 	$("#goBtn").click(function(){
+		$("#pageNum").val("1");
 		var mstCD = $("#mstCD").val();
 		if(mstCD == ""){
 			alert('관리 코드를 선택해 주세요.');
@@ -97,6 +98,56 @@ $(function(){
 		$.getCodeDtls();
 	}
 	
+	
+	$("#editCodeInfo").click(function(){
+		var dtlCD = $("#dtlCD").val();
+		var dtlCDNM = $("#dtlCDNM").val();
+		var sortVal = $("#sortVal1").val();
+		if(!($.required("dtlCD","상세 코드"))){return;}
+		if(!($.required("dtlCDNM","내용 1"))){return;}
+		if(!($.required("sortVal1","정렬순서"))){return;}
+		var param = $("#codeForm").serialize();
+		var jisaCD = $("#jisaCD").val();
+		var mstCD = $("#mstCD").val();
+		var pageNum = $("#pageNum").val();
+		$.ajax({
+			url:"/ma/manage/operate/code/edit",
+			type:"POST",
+			cache: false,
+			dataType: "text",
+			data: param,
+			success: function(jsonData, textStatus, XMLHttpRequest) {
+				alert(jsonData);
+				location.href="/ma/manage/operate/code?jisaCD="+jisaCD+"&mstCD="+mstCD+"&pageNum="+pageNum;
+			},
+			error:function (xhr, ajaxOptions, thrownError){	
+				alert(thrownError);
+			}
+		});
+	});
+	$("#saveCodeInfo").click(function(){
+		var dtlCD = $("#dtlCD").val();
+		var dtlCDNM = $("#dtlCDNM").val();
+		if(!($.required("dtlCD","상세 코드"))){return;}
+		if(!($.required("dtlCDNM","내용 1"))){return;}
+		var param = $("#codeForm").serialize();
+		var jisaCD = $("#jisaCD").val();
+		var mstCD = $("#mstCD").val();
+		$.ajax({
+			url:"/ma/manage/operate/code",
+			type:"POST",
+			cache: false,
+			dataType: "text",
+			data: param,
+			success: function(jsonData, textStatus, XMLHttpRequest) {
+				alert(jsonData);
+				location.href="/ma/manage/operate/code?jisaCD="+jisaCD+"&mstCD="+mstCD+"&pageNum=1";
+			},
+			error:function (xhr, ajaxOptions, thrownError){	
+				alert(thrownError);
+			}
+		});
+	});
 });
 
 function addNewCodeDtl(){

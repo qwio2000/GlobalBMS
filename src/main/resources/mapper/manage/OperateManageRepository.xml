@@ -64,4 +64,25 @@
 		ORDER BY sortVal1
 		LIMIT #{startRow}, #{endRow}
 	</select>
+	<update id="updateCodeDtl" parameterType="hashMap">
+		UPDATE globalbiz.CodeDtl
+		SET dtlCD = #{codeDtl.dtlCD}, dtlCDNM = #{codeDtl.dtlCDNM}, dtlCDNMK = #{codeDtl.dtlCDNMK}, dtlCDNME = #{codeDtl.dtlCDNME}, dtlCDNMC = #{codeDtl.dtlCDNMC},
+			sortVal1 = #{codeDtl.sortVal1}, useYN = #{codeDtl.useYN}, updDate = NOW(), updID = #{workId}
+		WHERE jisaCD = #{codeDtl.jisaCD} AND mstCD = #{codeDtl.mstCD} AND dtlCD = #{beforeDtlCD}
+	</update>
+	<insert id="insertCodeDtl" parameterType="hashMap">
+		INSERT INTO globalbiz.CodeDtl
+			(mstCD, dtlCD, jisaCD, dtlCDNM, dtlCDNMK, dtlCDNME, dtlCDNMC, dtlCDDesc, sortVal1, sortVal2, sortVal3, useYN, regDate, regID, updDate, updID)
+		SELECT #{codeDtl.mstCD}, #{codeDtl.dtlCD}, #{codeDtl.jisaCD}, #{codeDtl.dtlCDNM}, #{codeDtl.dtlCDNMK}, #{codeDtl.dtlCDNME}, #{codeDtl.dtlCDNMC}, dtlCDDesc, MAX(sortVal1)+1, sortVal2, sortVal3, #{codeDtl.useYN}, NOW(), #{workId}, updDate, updID
+		FROM globalbiz.CodeDtl
+		WHERE mstCD = #{codeDtl.mstCD} AND jisaCD = #{codeDtl.jisaCD}
+		LIMIT 0,1
+	</insert>
+	<select id="selectLatestCloseReason" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT closeReason
+		FROM globalbiz.MemRegistClose
+		WHERE jisaCD = #{jisaCD} AND statusCD = '1'
+		ORDER BY updDate DESC, regDate DESC
+		LIMIT 0, 1
+	</select>
 </mapper>

@@ -30,13 +30,15 @@ public class CommonService {
 	 * @param mstCD
 	 * @param jisaCD
 	 * @param dtlCD
+	 * @param useYN : Y, N, 공백(전체)
 	 * @return CodeDtl
 	 */
-	public CodeDtl getCodeDtl(String mstCD, String jisaCD, String dtlCD){
+	public CodeDtl getCodeDtl(String mstCD, String jisaCD, String dtlCD, String useYN){
 		param.clear();
 		param.put("mstCD", mstCD);
 		param.put("jisaCD", jisaCD);
 		param.put("dtlCD", dtlCD);
+		param.put("useYN", useYN);
 		return commonRepository.findCodeDtl(param);
 	}
 	

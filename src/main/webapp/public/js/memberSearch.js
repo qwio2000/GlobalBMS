@@ -39,25 +39,6 @@ $(function(){
 			});
 		}
 	});
-	
-//	$("#hiddenPicker").datepicker({
-//		changeMonth: true,
-//		changeYear: true,
-//		yearRange: '1950:2015',
-//		dateFormat: 'yy-mm-dd',
-//		onSelect: function(dataText, inst){
-//			var today = new Date();
-//			var yy = dataText.split('-')[0];
-//			var mm = dataText.split('-')[1];
-//			var dd = dataText.split('-')[2];
-//			var dob = new Date(yy, mm-1, dd);
-//			if(today < dob){
-//				alert('생년월일이 오늘 날짜보다 클 수는 없습니다');
-//				return;
-//			}
-//			$("#birthYM").val(yy+'-'+mm);
-//		}
-//	});
 	$("#hiddenPicker").datepicker(
 		{
 			changeMonth: true,

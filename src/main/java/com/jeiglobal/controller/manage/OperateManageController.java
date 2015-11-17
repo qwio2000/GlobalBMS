@@ -2,6 +2,8 @@ package com.jeiglobal.controller.manage;
 
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import lombok.extern.slf4j.*;
 
 import org.springframework.beans.factory.annotation.*;
@@ -154,7 +156,7 @@ public class OperateManageController {
 	}
 	@RequestMapping(value="/ma/manage/operate/code/edit", method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getCodeEditPage(Model model, String mstCD, String jisaCD, String dtlCD, int pageNum){
-		CodeDtl codeDtl = commonService.getCodeDtl(mstCD, jisaCD, dtlCD);
+		CodeDtl codeDtl = commonService.getCodeDtl(mstCD, jisaCD, dtlCD, "");
 		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
 		List<String> headerScript = new ArrayList<>();
 		headerScript.add("codeManage");
@@ -167,4 +169,60 @@ public class OperateManageController {
 		return "manage/operate/codeEdit";
 	}
 	
+	@RequestMapping(value="/ma/manage/operate/code/edit", method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String setCodeDtlJson(CodeDtl codeDtl, String beforeDtlCD, HttpServletRequest request){
+		log.debug("Setting CodeDtl : mstCD = {}, dtlCD = {}", codeDtl.getMstCD(), beforeDtlCD);
+		List<CodeDtl> codeDtls = commonService.getCodeDtls(codeDtl.getMstCD(), codeDtl.getJisaCD(), 1, "");
+		for (CodeDtl item : codeDtls) {
+			if(item.getDtlCD().equals(codeDtl.getDtlCD()) && !beforeDtlCD.equals(item.getDtlCD())){
+				return msa.getMessage("manage.operate.code.update.alreadyexist");
+			}
+		}
+		String workId = CommonUtils.getWorkId(request);
+		operateManageService.setCodeDtl(codeDtl, beforeDtlCD, workId);
+		return msa.getMessage("manage.operate.code.update.success");
+	}
+	
+	@RequestMapping(value="/ma/manage/operate/code", method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String addCodeDtlJson(CodeDtl codeDtl, HttpServletRequest request){
+		log.debug("Adding CodeDtl : codeDtl = {}", codeDtl.toString());
+		List<CodeDtl> codeDtls = commonService.getCodeDtls(codeDtl.getMstCD(), codeDtl.getJisaCD(), 1, "");
+		for (CodeDtl item : codeDtls) {
+			if(item.getDtlCD().equals(codeDtl.getDtlCD())){
+				return msa.getMessage("manage.operate.code.regist.alreadyexist");
+			}
+		}
+		String workId = CommonUtils.getWorkId(request);
+		operateManageService.addCodeDtl(codeDtl, workId);
+		return msa.getMessage("manage.operate.code.regist.success");
+	}
+	@RequestMapping(value="/ma/manage/operate/closeregist", method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getRegistClosePage(Model model){
+		List<CodeDtl> jisaCDs = commonService.getCodeDtls("0001", "08", 1, "Y");
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("registCloseManage");
+		log.debug("Getting Regist Close Manage Page");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("jisaCDs", jisaCDs);
+		return "manage/operate/registClose";
+	}
+	@RequestMapping(value="/ma/manage/operate/closeRegist", method = {RequestMethod.POST}, produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String addCloseRegistJson(String jisaCD, String statusCD, String closeReason, HttpServletRequest request){
+		log.debug("Adding closeRegist : jisaCD = {}, statusCD = {}, closeReason = {}", jisaCD, statusCD, closeReason);
+		String workId = CommonUtils.getWorkId(request);
+		if("1".equals(statusCD)){//입회 불가 처리
+			String getCloseReason = operateManageService.getLatestCloseReason(jisaCD);
+			if(getCloseReason == null || "".equals(getCloseReason)){
+				return msa.getMessage("manage.operate.closeregist.alreadyexist");
+			}
+			
+		}else{//입회 가능 처리
+			
+		}
+//		operateManageService.addCodeDtl(codeDtl, workId);
+		return msa.getMessage("manage.operate.code.regist.success");
+	}
 }

@@ -124,6 +124,9 @@ function openMagamDatePop(){
 function openCodeManagePop(){
 	$.openPop("/ma/manage/operate/code", "operate", "menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=900,height=800");
 }
+function openRegistClosePop(){
+	$.openPop("/ma/manage/operate/closeregist", "operate", "menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=600,height=300");
+}
 
 function editMagamDate(mgMonth){
 	var mgMonthDate = new Date(mgMonth);

@@ -51,7 +51,7 @@
 				</li>
 			</ul>
 			<div class="btnArea">
-				<a id="saveUserInfo" style="cursor: pointer;" ><span>Save Code Information</span></a>
+				<a id="saveCodeInfo" style="cursor: pointer;" ><span>Save Code Information</span></a>
 				<a href="/ma/manage/operate/code?jisaCD=${jisaCD }&mstCD=${mstCD}&pageNum=${pageNum}"><span>List</span></a>
 			</div>
 			</form>

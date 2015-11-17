@@ -39,7 +39,7 @@
 					<td>변동사항 발생 시</td>
 					<td>
 						<div class="btnArea_icon2" style="width:40px;">
-							<a href="javascript:" class="btn_info " title="수정">수정</a>
+							<a href="javascript:openRegistClosePop();" class="btn_info " title="수정">수정</a>
 						</div>
 					</td>
 				</tr>

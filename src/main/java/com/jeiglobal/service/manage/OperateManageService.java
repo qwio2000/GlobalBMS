@@ -175,5 +175,38 @@ public class OperateManageService {
 		return operateManageRepository.selectLatestCloseReason(jisaCD);
 	}
 
+	/**
+	 * 입회 불가 처리 Insert
+	 * @param jisaCD
+	 * @param statusCD
+	 * @param closeReason
+	 * @param workId
+	 */
+	public void addMemRegistClose(String jisaCD, String statusCD,
+			String closeReason, String workId) {
+		param.clear();
+		param.put("jisaCD", jisaCD);
+		param.put("statusCD", statusCD);
+		param.put("closeReason", closeReason);
+		param.put("workId", workId);
+		operateManageRepository.insertMemRegistClose(param);
+	}
+
+	/**
+	 * 입회 가능 하도록 Update
+	 * @param jisaCD
+	 * @param statusCD
+	 * @param closeReason
+	 * @param workId
+	 */
+	public void setMemRegistClose(String jisaCD, String statusCD, String workId) {
+		param.clear();
+		param.put("jisaCD", jisaCD);
+		param.put("statusCD", statusCD);
+		param.put("workId", workId);
+		operateManageRepository.updateMemRegistClose(param);
+		
+	}
+
 	
 }

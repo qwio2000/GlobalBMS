@@ -85,4 +85,15 @@
 		ORDER BY updDate DESC, regDate DESC
 		LIMIT 0, 1
 	</select>
+	<insert id="insertMemRegistClose" parameterType="hashMap">
+		INSERT INTO globalbiz.MemRegistClose
+			(jisaCD, statusCD, closeReason, regDate, regID, updID)
+		VALUES
+			(#{jisaCD}, #{statusCD}, #{closeReason}, NOW(), #{workId}, '')
+	</insert>
+	<update id="updateMemRegistClose" parameterType="hashMap">
+		UPDATE globalbiz.MemRegistClose
+		SET statusCD = #{statusCD}, updDate = NOW(), updID = #{workId}
+		WHERE jisaCD = #{jisaCD}
+	</update>
 </mapper>

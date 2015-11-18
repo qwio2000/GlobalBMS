@@ -215,14 +215,13 @@ public class OperateManageController {
 		String workId = CommonUtils.getWorkId(request);
 		if("1".equals(statusCD)){//입회 불가 처리
 			String getCloseReason = operateManageService.getLatestCloseReason(jisaCD);
-			if(getCloseReason == null || "".equals(getCloseReason)){
+			if(getCloseReason != null && !"".equals(getCloseReason)){
 				return msa.getMessage("manage.operate.closeregist.alreadyexist");
 			}
-			
+			operateManageService.addMemRegistClose(jisaCD, statusCD, closeReason, workId);
 		}else{//입회 가능 처리
-			
+			operateManageService.setMemRegistClose(jisaCD, statusCD, workId);
 		}
-//		operateManageService.addCodeDtl(codeDtl, workId);
-		return msa.getMessage("manage.operate.code.regist.success");
+		return msa.getMessage("manage.operate.closeregist.success");
 	}
 }

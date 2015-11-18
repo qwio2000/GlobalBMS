@@ -42,4 +42,8 @@ public interface OperateManageRepository {
 
 	public String selectLatestCloseReason(String jisaCD);
 
+	public void insertMemRegistClose(Map<String, Object> param);
+
+	public void updateMemRegistClose(Map<String, Object> param);
+
 }

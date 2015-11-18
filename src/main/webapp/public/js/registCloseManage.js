@@ -3,9 +3,6 @@ $(function(){
 		
 	});
 	
-	
-	
-	
 	$("#saveBtn").click(function(){
 		var jisaCD = $("#jisaCD").val();
 		var statusCD = $("#statusCD").val();
@@ -32,29 +29,7 @@ $(function(){
 			}
 		});
 	});
-	$("#saveCodeInfo").click(function(){
-		var dtlCD = $("#dtlCD").val();
-		var dtlCDNM = $("#dtlCDNM").val();
-		if(!($.required("dtlCD","상세 코드"))){return;}
-		if(!($.required("dtlCDNM","내용 1"))){return;}
-		var param = $("#codeForm").serialize();
-		var jisaCD = $("#jisaCD").val();
-		var mstCD = $("#mstCD").val();
-		$.ajax({
-			url:"/ma/manage/operate/code",
-			type:"POST",
-			cache: false,
-			dataType: "text",
-			data: param,
-			success: function(jsonData, textStatus, XMLHttpRequest) {
-				alert(jsonData);
-				location.href="/ma/manage/operate/code?jisaCD="+jisaCD+"&mstCD="+mstCD+"&pageNum=1";
-			},
-			error:function (xhr, ajaxOptions, thrownError){	
-				alert(thrownError);
-			}
-		});
-	});
+	
 	$("#statusCD").change(function(){
 		var statusCD = $(this).val();
 		if(statusCD == "2"){

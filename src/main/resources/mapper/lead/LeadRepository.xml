@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeiglobal.repository.lead.LeadRepository">
+	<select id="findLeads" parameterType="hashMap" resultType="com.jeiglobal.domain.lead.CenterLeads">
+		SELECT a.idx, DATE_FORMAT(a.leadYMD, '%m/%d/%Y') AS leadYMD, a.contactFstName, a.contactLstName, a.contactEmail, a.partnerFstName, a.partnerLstName, a.partnerEmail, a.phone, a.cellPhone, a.city, 
+			a.stateCD, IFNULL(b.stateName,'') AS stateName, a.zip, a.addr, a.country, a.howHear, globalbiz.FuncCodeDtlNM(a.jisaCD, '0321', a.howHear, '', 'Y') AS howHearName, a.howHearMore, a.areaInterested, a.notes, a.statusCD, globalbiz.FuncCodeDtlNM('08', '0320', a.statusCD, '', 'Y') AS statusName, DATE_FORMAT(a.lastContactYMD, '%m/%d/%Y') AS lastContactYMD, a.jisaCD, a.regDate, a.regID, a.updDate, a.updID
+		FROM globalbiz.CenterLeads AS a
+			LEFT JOIN globalbiz.StateInfo AS b ON a.stateCD = b.stateCD
+		<trim prefix="ORDER BY"> 
+			<choose>
+				<when test="orderBy == 'contactName'"> CONCAT(a.contactFstName, a.contactLstName) ${ord} </when>
+				<when test="orderBy == 'status'"> a.statusCD ${ord} </when>
+				<when test="orderBy == 'leadYMD'"> a.leadYMD ${ord} </when>
+				<otherwise> a.leadYMD DESC </otherwise>
+			</choose>
+		</trim> 
+		LIMIT #{startRow}, #{endRow}
+	</select>
+	<select id="findLeadsCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(1)
+		FROM globalbiz.CenterLeads AS a
+			LEFT JOIN globalbiz.StateInfo AS b ON a.stateCD = b.stateCD
+		<if test="contactName != ''">
+			AND CONCAT(a.contactFstName, a.contactLstName) like CONCAT('%',#{contactName},'%')
+		</if>
+		<if test="statusCD != ''">
+			AND a.statusCD = #{statusCD}
+		</if>
+	</select>
+	<select id="findCenterLeadByIdx" parameterType="int" resultType="com.jeiglobal.domain.lead.CenterLeads">
+		SELECT a.idx, DATE_FORMAT(a.leadYMD, '%m/%d/%Y') AS leadYMD, a.contactFstName, a.contactLstName, a.contactEmail, a.partnerFstName, a.partnerLstName, a.partnerEmail, a.phone, a.cellPhone, a.city, 
+			a.stateCD, IFNULL(b.stateName, '') AS stateName, a.zip, a.addr, a.country, a.howHear, globalbiz.FuncCodeDtlNM(a.jisaCD, '0321', a.howHear, '', 'Y') AS howHearName, a.howHearMore, a.areaInterested, a.notes, a.statusCD, globalbiz.FuncCodeDtlNM('08', '0320', a.statusCD, '', 'Y') AS statusName, DATE_FORMAT(a.lastContactYMD, '%m/%d/%Y') AS lastContactYMD, a.jisaCD, a.regDate, a.regID, a.updDate, a.updID
+		FROM globalbiz.CenterLeads AS a
+			LEFT JOIN globalbiz.StateInfo AS b ON a.stateCD = b.stateCD
+		WHERE idx = #{idx}
+	</select>
+	<select id="findLeadNotesByIdx" parameterType="int" resultType="com.jeiglobal.domain.lead.CenterLeadsNote">
+		SELECT idx, clIdx, DATE_FORMAT(regDate, '%m/%d/%Y %h:%i %p') AS noteDate, notes, jisaCD, regDate, regID
+		FROM globalbiz.CenterLeadsNote 
+		WHERE clIdx = #{idx}
+		ORDER BY regDate DESC 
+	</select>
+</mapper>

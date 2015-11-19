@@ -59,7 +59,7 @@ public class LeadController {
 	public Map<String, Object> getLeadResultJson(Model model, @PathVariable int pageNum,
 			String contactName, String statusCD, String orderBy, String ord,
 			@ModelAttribute LoginInfo loginInfo){
-		log.debug("Getting Leads Result :zz contactName : {}, statusCD : {}, orderBy : {}, ord : {}", contactName, statusCD, orderBy, ord);
+		log.debug("Getting Leads Result : contactName : {}, statusCD : {}, orderBy : {}, ord : {}", contactName, statusCD, orderBy, ord);
 		PageUtil pageInfo = new PageUtil(pageNum, leadService.getLeadsCount(contactName, statusCD, orderBy, ord), blockSize, pageSize);
 		Map<String, Object> map = new HashMap<>();
 		if(pageInfo.getTotalRowCnt() > 0){

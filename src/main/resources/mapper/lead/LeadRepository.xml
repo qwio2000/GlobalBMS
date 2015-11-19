@@ -6,6 +6,14 @@
 			a.stateCD, IFNULL(b.stateName,'') AS stateName, a.zip, a.addr, a.country, a.howHear, globalbiz.FuncCodeDtlNM(a.jisaCD, '0321', a.howHear, '', 'Y') AS howHearName, a.howHearMore, a.areaInterested, a.notes, a.statusCD, globalbiz.FuncCodeDtlNM('08', '0320', a.statusCD, '', 'Y') AS statusName, DATE_FORMAT(a.lastContactYMD, '%m/%d/%Y') AS lastContactYMD, a.jisaCD, a.regDate, a.regID, a.updDate, a.updID
 		FROM globalbiz.CenterLeads AS a
 			LEFT JOIN globalbiz.StateInfo AS b ON a.stateCD = b.stateCD
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="contactName != ''">
+				AND CONCAT(a.contactFstName, a.contactLstName) like CONCAT('%',#{contactName},'%')
+			</if>
+			<if test="statusCD != ''">
+				AND a.statusCD = #{statusCD}
+			</if>
+		</trim>
 		<trim prefix="ORDER BY"> 
 			<choose>
 				<when test="orderBy == 'contactName'"> CONCAT(a.contactFstName, a.contactLstName) ${ord} </when>
@@ -20,12 +28,14 @@
 		SELECT COUNT(1)
 		FROM globalbiz.CenterLeads AS a
 			LEFT JOIN globalbiz.StateInfo AS b ON a.stateCD = b.stateCD
-		<if test="contactName != ''">
-			AND CONCAT(a.contactFstName, a.contactLstName) like CONCAT('%',#{contactName},'%')
-		</if>
-		<if test="statusCD != ''">
-			AND a.statusCD = #{statusCD}
-		</if>
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="contactName != ''">
+				AND CONCAT(a.contactFstName, a.contactLstName) like CONCAT('%',#{contactName},'%')
+			</if>
+			<if test="statusCD != ''">
+				AND a.statusCD = #{statusCD}
+			</if>
+		</trim>
 	</select>
 	<select id="findCenterLeadByIdx" parameterType="int" resultType="com.jeiglobal.domain.lead.CenterLeads">
 		SELECT a.idx, DATE_FORMAT(a.leadYMD, '%m/%d/%Y') AS leadYMD, a.contactFstName, a.contactLstName, a.contactEmail, a.partnerFstName, a.partnerLstName, a.partnerEmail, a.phone, a.cellPhone, a.city, 

@@ -1,7 +1,7 @@
 <#include "/include/header.ftl">
 <!-- Main Content -->
 <div class="content">
-	<h2 class="conTit">가맹점 희망자 List</h2>
+	<h2 class="conTit">가맹점 희망자 List </h2>
 	<div class="list02 pt20 clearfix">
 		<div class="float_l">
 			<input type="hidden" id="pageNum" name="pageNum" value="1"/>

@@ -409,6 +409,7 @@
 	.tbl_report .chk_s01 input[type="checkbox"] + label{padding-left:25px}
 	.tbl01 .tbl_btn_area{padding-left:10px}
 	.tbl01 .txt_area{display:inline-block;line-height:26px;}
+	.tbl01 .f_small{font-size:12px;font-weight:normal;}
 	.tbl01 .btn_qty{display:inline-block;width:34px;overflow:hidden;}
 
 	.tbl_status thead th{width:70px}
@@ -523,6 +524,7 @@
 	.event_calender{clear:both;padding-top:54px}
 	.event_calender .conTit{margin-bottom:25px;margin-top:0}
 	.amnounce{float:left;width:456px;padding-left:24px;}
+	.amnounce.all{float:none;width:auto;padding-left:0}
 
 	/*memSearch*/
 	.memSearch {margin:30px 0 0 0;}
@@ -678,7 +680,14 @@
 
 	/* popup */
 	.popup{min-width:600px;}
-	.btn_popup_close{text-indent:-99999px;position:absolute;z-index:10;top:21px;right:30px;width:17px;height:17px;background:url(../img/btn_popup_close.gif) no-repeat}
+	.btn_popup_close{text-indent:-99999px;position:absolute;z-index:10;top:21px;right:30px;width:17px;height:17px;background:url(../img/btn_popup_close.png) no-repeat}
+	.popup_main{height:100%;position:relative;z-index:30;}
+	.popup_main .btn_popup_close{background:url(../img/btn_popup_close2.png) no-repeat}
+	.popup_main .popup_top{background:#fc9d0b}
+	.popup_main .popup_content{position:absolute;z-index:35;top:58px;bottom:35px;left:0;right:0;overflow-y:auto}
+	.popup_main .popup_bottom{position:absolute;text-align:right;z-index:40;bottom:0;left:0;right:0;height:35px;background:#f7f7f7;padding:0 30px}
+	.popup_main .tbl01 td.col_con{vertical-align:top;padding:20px;height:200px}
+	.popup_main .btn_popup_close2{display:inline-block;line-height:22px;vertical-align:middle}
 	.popup_top{position:relative;z-index:1;background:#486577;color:#fff;height:57px;}
 	.popup_top h1{font-size:20px;padding-left:30px;font-weight:normal;line-height:28px}
 	.popup_content .conTit{margin-top:0}
@@ -693,6 +702,7 @@
 	.btn_wrap a{display:block;color:#333;font-weight:bold;font-size:17px;width:50%;margin-left:-1px;border-left:1px solid #fff;float:left;line-height:61px;background:#f0f0f0;text-align:center;}
 	.ie7 .btn_wrap a{margin-left:-2px}
 	.btn_wrap a:hover{background:#e4e4e4}
+	.popup_main .pop_jisa{position:relative;z-index:30}
 
 	/* survey popup */
 	.pop_survey{padding:50px 30px}

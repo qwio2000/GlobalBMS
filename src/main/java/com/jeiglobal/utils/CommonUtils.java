@@ -77,13 +77,15 @@ public class CommonUtils {
 	 */
 	public static void removeCookie(String cookieName, String cookieDomain,
 			HttpServletResponse response) {
-		Cookie cookie = new Cookie(cookieName, "");
-		cookie.setPath("/");
-		cookie.setMaxAge(0);
-		if (!"localhost".contains(cookieDomain)) {// localhost는 적용 안됨,
-			cookie.setDomain(cookieDomain);
+		if(!"mainPop".equals(cookieName)){
+			Cookie cookie = new Cookie(cookieName, "");
+			cookie.setPath("/");
+			cookie.setMaxAge(0);
+			if (!"localhost".contains(cookieDomain)) {// localhost는 적용 안됨,
+				cookie.setDomain(cookieDomain);
+			}
+			response.addCookie(cookie);
 		}
-		response.addCookie(cookie);
 	}
 
 	public static List<String> weekCalendar(String day) throws ParseException {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeiglobal.repository.sales.SalesRepository">
+	<select id="dailySales" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesDaily">
+		CALL globalmagam.SPSalesDaily(#{salesYMD},#{subj},#{jobFlag}); 
+	</select>
+	<select id="dailySalesPop" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesDailyPop">
+		CALL globalmagam.SPSalesDailyPop(#{jisaCD},#{salesYMD},#{subj},#{jobFlag});
+	</select>
+	<select id="dailySalesPopTot" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesDailyPopTot">
+		CALL globalmagam.SPSalesDailyPopTot(#{jisaCD},#{salesYMD},#{subj},#{jobFlag});
+	</select>	
+	<select id="monthlySales" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMonthly">
+		CALL globalmagam.SPSalesMonthly(#{mgYY},#{mgMM},#{subj},#{jobFlag}); 
+	</select>
+	<select id="monthlySalesPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMonthlyPop">
+		CALL globalmagam.SPSalesMonthlyPop(#{jisaCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
+	</select>
+	<select id="monthlySalesPopTot" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMonthlyPopTot">
+		CALL globalmagam.SPSalesMonthlyPopTot(#{jisaCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
+	</select>	
+</mapper>

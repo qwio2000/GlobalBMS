@@ -72,22 +72,28 @@
 				</tr>
 			</thead>
 			<tbody>
+				<#list statMultiSubj as list >
 				<tr class="line2">
-					<td class="no_line"><a href="javascript:$.openStatMultiSubj('08','','');">홍콩</a></td>
-					<td>3,266</td>
-					<td><a href="">3,509</a></td>
-					<td>87.79</td>
-					<td><a href="">392</a></td>
-					<td>9.81</td>
-					<td><a href="">84</a></td>
-					<td>2.10</td>
-					<td><a href="">12</a></td>
-					<td>0.30</td>
-					<td><a href="">0</a></td>
-					<td>0.00</td>
-					<td><a href="">0</a></td>
-					<td>0.00</td>
+					<td class="no_line">${list.deptName }</td>
+					<td>${list.memEnd }</td>
+					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','1','${list.deptName }');">${list.multi1 }</a></td>
+					<td>${list.multi1Rate }</td>
+					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','2','${list.deptName }');">${list.multi2 }</a></td>
+					<td>${list.multi2Rate }</td>
+					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','3','${list.deptName }');">${list.multi3 }</a></td>
+					<td>${list.multi3Rate }</td>
+					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','4','${list.deptName }');">${list.multi4 }</a></td>
+					<td>${list.multi4Rate }</td>
+					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','5','${list.deptName }');">${list.multi5 }</a></td>
+					<td>${list.multi5Rate }</td>
+					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','6','${list.deptName }');">${list.multi6 }</a></td>
+					<td>${list.multi6Rate }</td>
 				</tr>
+				<#else >
+				<tr class="line2">
+					<td class="no_line" colspan="14">내용이 없습니다.</td>
+				</tr>				
+				</#list >
 			</tbody>
 		</table>
 	</div>

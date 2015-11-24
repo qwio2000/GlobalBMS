@@ -20,6 +20,7 @@ public class StatMembersByMultiSubj {
 	private String jisaCD;
 	private String deptCD;
 	private String subj;
+	private int memEnd;
 	private int multi1;
 	private int multi2;
 	private int multi3;

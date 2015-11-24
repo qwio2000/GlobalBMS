@@ -11,8 +11,8 @@ $(function(){
 			$.openPop(url, "monthlySalesPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
 		},
 		//복수과목 현황 팝업
-		openStatMultiSubj:function(jisaCD,selYY,selMM,subj,deptName){
-			var url = "/ma/sales/statMultiSubjPop?jisaCD="+jisaCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
+		openStatMultiSubj:function(jisaCD,deptCD,selYY,selMM,subj,multiSubjCnt,deptName){
+			var url = "/ma/sales/statMultiSubjPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&multiSubjCnt="+multiSubjCnt+"&deptName="+deptName;
 			$.openPop(url, "statMultiSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
 		},		
 		//연령별 과목수 팝업

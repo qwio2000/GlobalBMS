@@ -11,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.jeiglobal.domain.sales.MemSubjMstKeep;
 import com.jeiglobal.domain.sales.SalesDaily;
 import com.jeiglobal.domain.sales.SalesDailyPop;
 import com.jeiglobal.domain.sales.SalesDailyPopTot;
 import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
+import com.jeiglobal.domain.sales.StatMembersByMultiSubj;
+import com.jeiglobal.domain.sales.StatSubjByAge;
+import com.jeiglobal.domain.sales.StatSubjByGrade;
 import com.jeiglobal.repository.sales.SalesRepository;
 
 /**
@@ -91,5 +95,90 @@ public class SalesService {
 		param.put("subj", subj);
 		param.put("jobFlag", jobFlag);
 		return salesRepository.monthlySalesPopTot(param);
+	}	
+	
+	/**
+	 * 조직 찾기
+	 */
+	public List<Map<String, Object>> getDeptSearchPop(String jisaCD){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);		
+		return salesRepository.deptSearchPop(param);
+	}	
+	
+	/**
+	 * 등급별 과목수 
+	 */
+	public List<StatSubjByGrade> getStatSubjByGrade(String jisaCD, String deptCD, String mgYY, String mgMM, String subj, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statSubjByGrade(param);
+	}	
+	public List<MemSubjMstKeep> getStatSubjByGradePop(String jisaCD, String deptCD, String mgYY, String mgMM, String subj,String wbGrade, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("wbGrade", wbGrade);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statSubjByGradePop(param);
+	}	
+	
+	/**
+	 * 연령별 과목수
+	 */
+	public List<StatSubjByAge> getStatSubjByAge(String jisaCD, String deptCD, String mgYY, String mgMM, String subj, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statSubjByAge(param);
 	}		
+	public List<MemSubjMstKeep> getStatSubjByAgePop(String jisaCD, String deptCD, String mgYY, String mgMM, String subj,String ageCD, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("ageCD", ageCD);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statSubjByAgePop(param);
+	}		
+	
+	/**
+	 * 복수과목 회원현황
+	 */
+	public List<StatMembersByMultiSubj> getStatMembersByMultiSubj(String jisaCD, String deptCD, String mgYY, String mgMM, String subj, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statMembersByMultiSubj(param);
+	}		
+	public List<MemSubjMstKeep> getStatMembersByMultiSubjPop(String jisaCD, String deptCD, String mgYY, String mgMM, String subj,int multiSubjCnt, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("multiSubjCnt", multiSubjCnt);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statMembersByMultiSubjPop(param);
+	}			
+	
 }

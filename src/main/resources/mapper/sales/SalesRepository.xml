@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jeiglobal.repository.sales.SalesRepository">
+	<!-- 일일 실적 -->
 	<select id="dailySales" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesDaily">
 		CALL globalmagam.SPSalesDaily(#{salesYMD},#{subj},#{jobFlag}); 
 	</select>
@@ -10,6 +11,8 @@
 	<select id="dailySalesPopTot" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesDailyPopTot">
 		CALL globalmagam.SPSalesDailyPopTot(#{jisaCD},#{salesYMD},#{subj},#{jobFlag});
 	</select>	
+	
+	<!--  월별 실적 -->
 	<select id="monthlySales" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMonthly">
 		CALL globalmagam.SPSalesMonthly(#{mgYY},#{mgMM},#{subj},#{jobFlag}); 
 	</select>
@@ -19,4 +22,37 @@
 	<select id="monthlySalesPopTot" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMonthlyPopTot">
 		CALL globalmagam.SPSalesMonthlyPopTot(#{jisaCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
 	</select>	
+	
+	<!-- 조직 찾기 -->
+	<select id="deptSearchPop" statementType="CALLABLE" parameterType="hashMap" resultType="hashMap">
+		SELECT jisaCD,deptCD,deptName,stateName
+		FROM globalbiz.ViewsDeptMst
+		WHERE jisaCD=#{jisaCD} AND statusCD='1' AND deptCD!='00000'
+		ORDER BY stateName,deptName;
+	</select>
+	
+	<!-- 등급별 과목수 -->
+	<select id="statSubjByGrade" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.StatSubjByGrade">
+		CALL globalmagam.SPStatSubjByGrade(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
+	</select>	
+	<select id="statSubjByGradePop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.MemSubjMstKeep">
+		CALL globalmagam.SPStatSubjByGradePop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{wbGrade},#{jobFlag});
+	</select>
+
+	<!-- 연령별 과목수 -->
+	<select id="statSubjByAge" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.StatSubjByAge">
+		CALL globalmagam.SPStatSubjByAge(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
+	</select>	
+	<select id="statSubjByAgePop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.MemSubjMstKeep">
+		CALL globalmagam.SPStatSubjByAgePop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{ageCD},#{jobFlag});
+	</select>
+	
+	<!--  복수과목 회원현황 -->
+	<select id="statMembersByMultiSubj" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.StatMembersByMultiSubj">
+		CALL globalmagam.SPStatMembersByMultiSubj(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
+	</select>	
+	<select id="statMembersByMultiSubjPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.MemSubjMstKeep">
+		CALL globalmagam.SPStatMembersByMultiSubjPop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{ageCD},#{jobFlag});
+	</select>	
+	
 </mapper>

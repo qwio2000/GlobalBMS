@@ -71,7 +71,29 @@
 							</#if>							
 						</tr>						
 						</#list>
-
+						<tr class="line2 total">
+							<td class="no_line">합계</td>
+							<td>${monthlySalesPopTot.subjBegin }</td>
+							<td>${monthlySalesPopTot.subjNew }</td>
+							<td>${monthlySalesPopTot.subjNewPrev }</td>
+							<td>${monthlySalesPopTot.subjDrop }</td>
+							<td>${monthlySalesPopTot.subjNet }</td>
+							<td>${monthlySalesPopTot.subjEnd }</td>
+							<#if selSubj=="">
+							<td>${monthlySalesPopTot.subjKM }</td>
+							<td>${monthlySalesPopTot.subjKK }</td>
+							<td>${monthlySalesPopTot.subjKG }</td>
+							<td>${monthlySalesPopTot.subjEM }</td>
+							<td>${monthlySalesPopTot.subjEE }</td>
+							<td>${monthlySalesPopTot.subjKP }</td>
+							<td>${monthlySalesPopTot.subjKS }</td>
+							<td>${monthlySalesPopTot.subjPS }</td>
+							<td>${monthlySalesPopTot.subjER }</td>
+							<td>${monthlySalesPopTot.subjCP }</td>
+							<td>${monthlySalesPopTot.subjCL }</td>
+							<td>${monthlySalesPopTot.subjEP }</td>
+							</#if>							
+						</tr>
 					</tbody>
 				</table>
 			</div>

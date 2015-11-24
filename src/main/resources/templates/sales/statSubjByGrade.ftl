@@ -3,33 +3,43 @@
 <!-- Main Content -->		
 <div class="content">
 	<h2 class="conTit">등급별 과목 수</h2>
+	<form id="searchForm" name="searchForm" action="" method="">	
 	<ul class="memSearch">
 		<li>
-			<label for="">조직찾기</label>
-			<input type="text" class="searchInput" style="width:230px" />
+			<label for=""><a href="javascript:;" onClick="$.openDeptSearch();">조직찾기</a></label>
+			<input type="text" name="deptName" id="deptName" value="${deptName }" class="searchInput" style="width:230px" onClick="$.openDeptSearch();" readOnly />
+			<input type="hidden" name="jisaCD" id="jisaCD" value="${jisaCD }"> 
+			<input type="hidden" name="deptCD" id="deptCD" value="${deptCD }">
 		</li>
 		<li>
 			<label for="">검색기간</label>
-
-			<select name="" id="" style="width:120px">
-				<option value="">2015</option>
-			</select>
+			<select name="selYY" id="selYY" style="width:105px">
+				<#list currentYear?number..currentYear?number-2 as i>
+					<option value="${i?c }" <#if i == currentYear?number>selected</#if>>${i?c }</option>
+				</#list>				
+			</select>	
 			년 &nbsp;
-			<select name="" id="" style="width:90px">
-				<option value="">03</option>
+			<select name="selMM" id="selMM" style="width:105px">
+				<#list monthList as list>
+				<option value="${list.dtlCD }" <#if list.dtlCD == selMM> selected</#if> >${list.dtlCD }</option>				
+				</#list>					
 			</select>
 			월
 		</li>
 		<li>
 			<label for="">과목</label>
-			<select name="" id="" style="width:240px">
-				<option value="">중문영어</option>
-			</select>
+			<select name="selSubj" id="selSubj" style="width:240px">
+				<#list subjList as list>
+				<option value="${list.dtlCD }" <#if list.dtlCD == selSubj> selected</#if> >${list.dtlCDNM }</option>				
+				</#list>								
+			</select>	
 		</li>
 	</ul>
 	<div class="btnArea">
-		<a href=""><span>검색</span></a>
-	</div>
+		<a id="statSubjByGradeSearchSubmit" href="javascript:;"><span>검색</span></a>
+		<a id="statSubjByGradeSearchInit" href="javascript:;"><span style="width:110px">Reset</span></a>
+	</div>	
+	</form>
 	<div class="tbl01">
 		<table>
 			<colgroup>
@@ -50,30 +60,26 @@
 				</tr>
 			</thead>
 			<tbody>
+				<#if totCnt != 0 >
 				<tr class="total line2">
 					<td class="no_line"></td>
-					<td><a href="javascript:$.openStatSubjByGrade('08','','');">합계</a></td>
-					<td>3,266</td>
-					<td>100</td>
+					<td>합계</td>
+					<td><a href="javascript:$.openStatSubjByGrade('${jisaCD }','${deptCD }','${selSubj }','','${selYY }','${selMM }','${deptName }');">${totSubjCnt }</a></td>
+					<td>${totSubjRate }</td>
 				</tr>
+				</#if >
+				<#list statSubjByGrade as list>
 				<tr class="line2">
-					<td class="no_line">1</td>
-					<td>A</td>
-					<td><a href="">162</a></td>
-					<td>5</td>
+					<td class="no_line">${list_index + 1 }</td>
+					<td>${list.wbGrade }</td>
+					<td><a href="javascript:$.openStatSubjByGrade('${list.jisaCD }','${list.deptCD }','${list.subj }','${list.wbGrade }','${list.mgYY }','${list.mgMM }','${deptName }');">${list.subjCnt }</a></td>
+					<td>${list.subjRate }</td>
 				</tr>
+				<#else>
 				<tr class="line2">
-					<td class="no_line">2</td>
-					<td>B</td>
-					<td><a href="">375</a></td>
-					<td>5</td>
-				</tr>
-				<tr class="line2">
-					<td class="no_line">10</td>
-					<td>B</td>
-					<td><a href="">375</a></td>
-					<td>5</td>
-				</tr>
+					<td class="no_line" colspan="4">내용이 없습니다</td>
+				</tr>				
+				</#list>
 			</tbody>
 		</table>
 	</div>

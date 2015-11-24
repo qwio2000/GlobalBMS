@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeiglobal.domain.auth.LoginInfo;
+import com.jeiglobal.domain.sales.MemSubjMstKeep;
 import com.jeiglobal.domain.sales.SalesDaily;
 import com.jeiglobal.domain.sales.SalesDailyPop;
 import com.jeiglobal.domain.sales.SalesDailyPopTot;
 import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
+import com.jeiglobal.domain.sales.StatMembersByMultiSubj;
+import com.jeiglobal.domain.sales.StatSubjByAge;
+import com.jeiglobal.domain.sales.StatSubjByGrade;
 import com.jeiglobal.service.CommonService;
 import com.jeiglobal.service.sales.SalesService;
 import com.jeiglobal.utils.MessageSourceAccessor;
@@ -171,11 +176,29 @@ public class SalesController {
 		return "sales/monthlySalesPop";
 	}	
 	/**
+	 * 조직찾기
+	 */
+	@RequestMapping(value={"/ma/sales/deptSearchPop"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getDeptSearchPop(Model model, @ModelAttribute LoginInfo loginInfo,
+			@RequestParam(defaultValue="08") String jisaCD ) {
+		List<Map<String, Object>> dataDeptSearchPop = salesService.getDeptSearchPop(jisaCD);
+		log.debug("Getting 조직찾기 팝업 Page, dataDeptSearchPop : {}", dataDeptSearchPop);
+		
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("sales");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("deptSearchPop", dataDeptSearchPop);
+		return "sales/deptSearchPop";
+	}		
+	
+	/**
 	 * 복수과목 현황
 	 */
 	@RequestMapping(value={"/ma/sales/statMultiSubj"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatMultiSubj(Model model, @ModelAttribute LoginInfo loginInfo, 
-			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
+			@RequestParam(defaultValue="08") String jisaCD, @RequestParam(defaultValue="00000") String deptCD,
+			@RequestParam(defaultValue="Hong Kong") String deptName,
+			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM,
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
@@ -189,44 +212,53 @@ public class SalesController {
 			selMM=currentMonth;
 		}		
 
+		List<StatMembersByMultiSubj> dataStatMultiSubj = salesService.getStatMembersByMultiSubj(jisaCD,deptCD,selYY, selMM, selSubj, "");
+		int totCnt = 0;
+		if(dataStatMultiSubj.size()>0){
+			totCnt = dataStatMultiSubj.size();
+		}
+		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("subjList", commonService.getCodeDtls("0002", loginInfo.getJisaCD(), 1, "Y"));
+		model.addAttribute("monthList", commonService.getCodeDtls("0207", loginInfo.getJisaCD(), 1, "Y"));
+		model.addAttribute("statMultiSubj", dataStatMultiSubj);
+		model.addAttribute("totCnt", totCnt);		
+		model.addAttribute("jisaCD", jisaCD);
+		model.addAttribute("deptCD", deptCD);
+		model.addAttribute("deptName", deptName);
 		model.addAttribute("selYY", selYY);
 		model.addAttribute("selMM", selMM);
 		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("currentYear", currentYear);	
 		return "sales/statMultiSubj";
 	}	
 	@RequestMapping(value={"/ma/sales/statMultiSubjPop"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatMultiSubjPop(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
+			@RequestParam(defaultValue="") String selSubj, @RequestParam(defaultValue="1") int multiSubjCnt,
 			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
-			@RequestParam(defaultValue="") String selSubj) throws ParseException{
+			@RequestParam(defaultValue="") String deptName) throws ParseException{
 		
-		Calendar cal = Calendar.getInstance();
-		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
-		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
-
-		if("".equals(selYY)){
-			selYY=currentYear;
-		}
-		if("".equals(selMM)){
-			selMM=currentMonth;
-		}		
-
+		List<MemSubjMstKeep> dataStatMultiSubjPop = salesService.getStatMembersByMultiSubjPop(jisaCD,deptCD,selYY, selMM, selSubj, multiSubjCnt, "");
+		log.debug("Getting 복수과목 회원현황>상세 팝업 Page, dataStatMultiSubjPop : {}", dataStatMultiSubjPop);
+		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
-		model.addAttribute("selYY", selYY);
-		model.addAttribute("selMM", selMM);
-		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("statMultiSubjPop", dataStatMultiSubjPop);
+		model.addAttribute("deptName", deptName);
 		return "sales/statMultiSubjPop";
-	}
+	}		
 	/**
 	 * 연령별 과목수
 	 */
 	@RequestMapping(value={"/ma/sales/statSubjByAge"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatSubjByAge(Model model, @ModelAttribute LoginInfo loginInfo, 
-			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
+			@RequestParam(defaultValue="08") String jisaCD, @RequestParam(defaultValue="00000") String deptCD,
+			@RequestParam(defaultValue="Hong Kong") String deptName,
+			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM,
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
@@ -240,36 +272,49 @@ public class SalesController {
 			selMM=currentMonth;
 		}		
 
+		List<StatSubjByAge> dataStatSubjByAge = salesService.getStatSubjByAge(jisaCD,deptCD,selYY, selMM, selSubj, "");
+		int totCnt = 0;
+		int totSubjCnt = 0;
+		double totSubjRate = 0;
+		if(dataStatSubjByAge.size()>0){
+			totCnt = dataStatSubjByAge.size();
+			totSubjCnt = dataStatSubjByAge.get(0).getTotSubjCnt();
+			totSubjRate = dataStatSubjByAge.get(0).getTotSubjRate();
+		}
+		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("subjList", commonService.getCodeDtls("0002", loginInfo.getJisaCD(), 1, "Y"));
+		model.addAttribute("monthList", commonService.getCodeDtls("0207", loginInfo.getJisaCD(), 1, "Y"));
+		model.addAttribute("statSubjByAge", dataStatSubjByAge);
+		model.addAttribute("totCnt", totCnt);
+		model.addAttribute("totSubjCnt", totSubjCnt);
+		model.addAttribute("totSubjRate", totSubjRate);		
+		model.addAttribute("jisaCD", jisaCD);
+		model.addAttribute("deptCD", deptCD);
+		model.addAttribute("deptName", deptName);
 		model.addAttribute("selYY", selYY);
 		model.addAttribute("selMM", selMM);
 		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("currentYear", currentYear);	
 		return "sales/statSubjByAge";
-	}	
+	}		
 	@RequestMapping(value={"/ma/sales/statSubjByAgePop"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatSubjByAgePop(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
+			@RequestParam(defaultValue="") String selSubj, @RequestParam(defaultValue="") String ageCD,
 			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
-			@RequestParam(defaultValue="") String selSubj) throws ParseException{
+			@RequestParam(defaultValue="") String deptName) throws ParseException{
 		
-		Calendar cal = Calendar.getInstance();
-		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
-		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
-
-		if("".equals(selYY)){
-			selYY=currentYear;
-		}
-		if("".equals(selMM)){
-			selMM=currentMonth;
-		}		
-
+		List<MemSubjMstKeep> dataStatSubjByAgePop = salesService.getStatSubjByAgePop(jisaCD,deptCD,selYY, selMM, selSubj, ageCD, "");
+		log.debug("Getting 연령별 과목수>상세 팝업 Page, dataStatSubjByGradePop : {}", dataStatSubjByAgePop);
+		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
-		model.addAttribute("selYY", selYY);
-		model.addAttribute("selMM", selMM);
-		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("statSubjByAgePop", dataStatSubjByAgePop);
+		model.addAttribute("deptName", deptName);
 		return "sales/statSubjByAgePop";
 	}	
 	/**
@@ -277,6 +322,8 @@ public class SalesController {
 	 */
 	@RequestMapping(value={"/ma/sales/statSubjByGrade"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatSubjByGrade(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="08") String jisaCD, @RequestParam(defaultValue="00000") String deptCD,
+			 @RequestParam(defaultValue="Hong Kong") String deptName,
 			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
@@ -291,36 +338,49 @@ public class SalesController {
 			selMM=currentMonth;
 		}		
 
+		List<StatSubjByGrade> dataStatSubjByGrade = salesService.getStatSubjByGrade(jisaCD,deptCD,selYY, selMM, selSubj, "");
+		int totCnt = 0;
+		int totSubjCnt = 0;
+		double totSubjRate = 0;
+		if(dataStatSubjByGrade.size()>0){
+			totCnt = dataStatSubjByGrade.size();
+			totSubjCnt = dataStatSubjByGrade.get(0).getTotSubjCnt();
+			totSubjRate = dataStatSubjByGrade.get(0).getTotSubjRate();
+		}
+		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("subjList", commonService.getCodeDtls("0002", loginInfo.getJisaCD(), 1, "Y"));
+		model.addAttribute("monthList", commonService.getCodeDtls("0207", loginInfo.getJisaCD(), 1, "Y"));
+		model.addAttribute("statSubjByGrade", dataStatSubjByGrade);
+		model.addAttribute("totCnt", totCnt);
+		model.addAttribute("totSubjCnt", totSubjCnt);
+		model.addAttribute("totSubjRate", totSubjRate);		
+		model.addAttribute("jisaCD", jisaCD);
+		model.addAttribute("deptCD", deptCD);
+		model.addAttribute("deptName", deptName);
 		model.addAttribute("selYY", selYY);
 		model.addAttribute("selMM", selMM);
 		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("currentYear", currentYear);	
 		return "sales/statSubjByGrade";
 	}	
 	@RequestMapping(value={"/ma/sales/statSubjByGradePop"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatSubjByGradePop(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
+			@RequestParam(defaultValue="") String selSubj, @RequestParam(defaultValue="") String wbGrade,
 			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
-			@RequestParam(defaultValue="") String selSubj) throws ParseException{
+			@RequestParam(defaultValue="") String deptName) throws ParseException{
 		
-		Calendar cal = Calendar.getInstance();
-		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
-		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
-
-		if("".equals(selYY)){
-			selYY=currentYear;
-		}
-		if("".equals(selMM)){
-			selMM=currentMonth;
-		}		
-
+		List<MemSubjMstKeep> dataStatSubjByGradePop = salesService.getStatSubjByGradePop(jisaCD,deptCD,selYY, selMM, selSubj, wbGrade, "");
+		log.debug("Getting 등급별 과목수>상세 팝업 Page, dataStatSubjByGradePop : {}", dataStatSubjByGradePop);
+		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
-		model.addAttribute("selYY", selYY);
-		model.addAttribute("selMM", selMM);
-		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("statSubjByGradePop", dataStatSubjByGradePop);
+		model.addAttribute("deptName", deptName);
 		return "sales/statSubjByGradePop";
 	}	
 	/**

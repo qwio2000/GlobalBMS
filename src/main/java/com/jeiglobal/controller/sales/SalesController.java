@@ -23,6 +23,8 @@ import com.jeiglobal.domain.sales.MemSubjMstKeep;
 import com.jeiglobal.domain.sales.SalesDaily;
 import com.jeiglobal.domain.sales.SalesDailyPop;
 import com.jeiglobal.domain.sales.SalesDailyPopTot;
+import com.jeiglobal.domain.sales.SalesMemSubjDrop;
+import com.jeiglobal.domain.sales.SalesMemSubjRegist;
 import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
@@ -156,13 +158,13 @@ public class SalesController {
 		return "sales/monthlySalesPop";
 	}
 	@RequestMapping(value={"/ma/sales/salesMemSubjPop"},method = {RequestMethod.GET, RequestMethod.HEAD})
-	public String getMonthlySalesPop(Model model, @ModelAttribute LoginInfo loginInfo, 
+	public String getSalesMemSubjPop(Model model, @ModelAttribute LoginInfo loginInfo, 
 			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
 			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
 			@RequestParam(defaultValue="") String selSubj,@RequestParam(defaultValue="") String deptName) throws ParseException{
 						
 		List<MemSubjMstKeep> dataSalesMemSubjPop = salesService.getSalesMemSubjPop(jisaCD,deptCD,selYY, selMM, selSubj, "");
-		log.debug("Getting 월별실적>마감회원수 팝업 Page, dataSalesMemSubjPop : {}", dataSalesMemSubjPop);
+		log.debug("Getting 월별실적>마감과목 팝업 Page, dataSalesMemSubjPop : {}", dataSalesMemSubjPop);
 		
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
@@ -171,6 +173,38 @@ public class SalesController {
 		model.addAttribute("deptName", deptName);
 		return "sales/salesMemSubjPop";
 	}	
+	@RequestMapping(value={"/ma/sales/salesMemSubjRegistPop"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getSalesMemSubjRegistPop(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
+			@RequestParam(defaultValue="") String selDate,@RequestParam(defaultValue="") String selSubj,
+			@RequestParam(defaultValue="") String deptName,@RequestParam(defaultValue="") String jobFlag) throws ParseException{
+						
+		List<SalesMemSubjRegist> dataSalesMemSubjRegistPop = salesService.getSalesMemSubjRegistPop(jisaCD,deptCD,selDate, selSubj, jobFlag);
+		log.debug("Getting 실적>입회과목 팝업 Page, dataSalesMemSubjRegistPop : {}", dataSalesMemSubjRegistPop);
+		
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("sales");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("salesMemSubjRegistPop", dataSalesMemSubjRegistPop);
+		model.addAttribute("deptName", deptName);
+		return "sales/salesMemSubjRegistPop";
+	}	
+	@RequestMapping(value={"/ma/sales/salesMemSubjDropPop"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getSalesMemSubjDropPop(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
+			@RequestParam(defaultValue="") String selDate, @RequestParam(defaultValue="") String selSubj,
+			@RequestParam(defaultValue="") String deptName,@RequestParam(defaultValue="") String jobFlag) throws ParseException{
+						
+		List<SalesMemSubjDrop> dataSalesMemSubjDropPop = salesService.getSalesMemSubjDropPop(jisaCD,deptCD,selDate, selSubj, jobFlag);
+		log.debug("Getting 실적>퇴회과목 팝업 Page, dataSalesMemSubjDropPop : {}", dataSalesMemSubjDropPop);
+		
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("sales");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("salesMemSubjDropPop", dataSalesMemSubjDropPop);
+		model.addAttribute("deptName", deptName);
+		return "sales/salesMemSubjDropPop";
+	}		
 	
 	/**
 	 * 조직찾기

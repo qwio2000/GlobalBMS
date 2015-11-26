@@ -25,6 +25,12 @@
 	<select id="salesMemSubjPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.MemSubjMstKeep">
 		CALL globalmagam.SPSalesMemSubjPop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
 	</select>		
+	<select id="salesMemSubjRegistPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMemSubjRegist">
+		CALL globalmagam.SPSalesMemSubjRegistPop(#{jisaCD},#{deptCD},#{salesDate},#{subj},#{jobFlag});
+	</select>
+	<select id="salesMemSubjDropPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMemSubjDrop">
+		CALL globalmagam.SPSalesMemSubjDropPop(#{jisaCD},#{deptCD},#{salesDate},#{subj},#{jobFlag});
+	</select>		
 	
 	<!-- 조직 찾기 -->
 	<select id="deptSearchPop" statementType="CALLABLE" parameterType="hashMap" resultType="hashMap">

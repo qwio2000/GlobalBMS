@@ -40,4 +40,5 @@ public class SalesMonthlyPop {
 	private int subjEP;
 	private String mgYY;
 	private String mgMM;
+	private String mgYYMM;
 }

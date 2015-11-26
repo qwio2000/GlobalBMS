@@ -37,5 +37,7 @@ public class SalesDailyPop {
 	private int subjCP;
 	private int subjCL;
 	private int subjEP;
+	private String salesYMD;
+	private String subj;	
 	
 }

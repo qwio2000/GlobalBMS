@@ -28,4 +28,5 @@ public class SalesMonthly {
 	private int subjEnd;	
 	private String mgYY;
 	private String mgMM;
+	private String mgYYMM;
 }

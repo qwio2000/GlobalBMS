@@ -42,9 +42,9 @@
 						<tr class="line2">
 							<td class="no_line left">${list.deptName }</td>
 							<td>${list.subjBegin }</td>
-							<td>${list.subjNew }</td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubjRegist('${list.jisaCD}','${list.deptCD }','${list.salesYMD}','${list.subj}','${list.deptName}','daily');">${list.subjNew }</a></td>
 							<td>${list.subjNewPrev }</td>
-							<td>${list.subjDrop }</td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubjDrop('${list.jisaCD}','${list.deptCD }','${list.salesYMD}','${list.subj}','${list.deptName}','daily');">${list.subjDrop }</a></td>
 							<td>${list.subjNet }</td>
 							<td>${list.subjEnd }</td>
 							<#if selSubj=="">

@@ -12,35 +12,31 @@
 							<th>회원번호</th>
 							<th>회원명</th>
 							<th>과목</th>							
-							<th>최초<br />입회일</th>
-							<th>복회일</th>
-							<th>퇴회일</th>
-							<th>유지<br />개월수</th>
+							<th>입복회일</th>
+							<th>입회구분</th>
 							<th>관리<br />요일</th>
-							<th>진행<br />등급</th>																																			
+							<th>첫관리방문일</th>																																			
 							<th>도시/주</th>
 							<th>교육원</th>														
 						</tr>
 					</thead>
 					<tbody>
-						<#list salesMemSubjPop as list>
+						<#list salesMemSubjRegistPop as list>
 						<tr class="line2">
 							<td class="no_line">${(list_index + 1)?c}</td>
 							<td>${list.memKey }</td>
 							<td>${list.memName }</td>							
 							<td>${list.subj }</td>
-							<td>${list.registFstYMD }</td>
-							<td>${list.registFnlYMD }</td>
-							<td>${list.dropFnlYMD }</td>
-							<td>${list.studyMonth }</td>
+							<td>${list.registYMD }</td>
+							<td>${list.registGubunName }</td>
 							<td>${list.yoilName }</td>		
-							<td>${list.wbGrade }</td>
+							<td>${list.fstVisitYMD }</td>
 							<td>${list.stateName }</td>
 							<td>${list.deptName }</td>
 						</tr>
 						<#else>
 						<tr class="line2">
-							<td class="no_line" colspan="12">내용이 없습니다.</td>
+							<td class="no_line" colspan="10">내용이 없습니다.</td>
 						</tr>						
 						</#list>
 					</tbody>

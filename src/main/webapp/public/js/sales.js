@@ -16,14 +16,14 @@ $(function(){
 			$.openPop(url, "salesMemSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
 		},	
 		// 월별실적 > 입회과목수 팝업
-		openSalesMemSubjRegist:function(jisaCD,deptCD,selYY,selMM,subj,deptName){
-			var url = "/ma/sales/salesMemSubjRegistPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
-			$.openPop(url, "salesMemSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
+		openSalesMemSubjRegist:function(jisaCD,deptCD,selDate,subj,deptName,jobFlag){
+			var url = "/ma/sales/salesMemSubjRegistPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selDate="+selDate+"&selSubj="+subj+"&deptName="+deptName+"&jobFlag="+jobFlag;
+			$.openPop(url, "salesMemSubjRegistPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
 		},	
 		// 월별실적 > 퇴회과목수 팝업
-		openSalesMemSubjDrop:function(jisaCD,deptCD,selYY,selMM,subj,deptName){
-			var url = "/ma/sales/salesMemSubjDropPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
-			$.openPop(url, "salesMemSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
+		openSalesMemSubjDrop:function(jisaCD,deptCD,selDate,subj,deptName,jobFlag){
+			var url = "/ma/sales/salesMemSubjDropPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selDate="+selDate+"&selSubj="+subj+"&deptName="+deptName+"&jobFlag="+jobFlag;
+			$.openPop(url, "salesMemSubjDropPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
 		},	
 		//복수과목 현황 팝업
 		openStatMultiSubj:function(jisaCD,deptCD,selYY,selMM,subj,multiSubjCnt,deptName){

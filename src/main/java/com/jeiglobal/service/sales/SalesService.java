@@ -15,6 +15,8 @@ import com.jeiglobal.domain.sales.MemSubjMstKeep;
 import com.jeiglobal.domain.sales.SalesDaily;
 import com.jeiglobal.domain.sales.SalesDailyPop;
 import com.jeiglobal.domain.sales.SalesDailyPopTot;
+import com.jeiglobal.domain.sales.SalesMemSubjDrop;
+import com.jeiglobal.domain.sales.SalesMemSubjRegist;
 import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
@@ -107,7 +109,24 @@ public class SalesService {
 		param.put("jobFlag", jobFlag);		
 		return salesRepository.salesMemSubjPop(param);
 	}	
-		
+	public List<SalesMemSubjRegist> getSalesMemSubjRegistPop(String jisaCD, String deptCD, String salesDate, String subj, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("salesDate", salesDate);
+		param.put("subj", subj);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.salesMemSubjRegistPop(param);
+	}	
+	public List<SalesMemSubjDrop> getSalesMemSubjDropPop(String jisaCD, String deptCD, String salesDate, String subj, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("salesDate", salesDate);
+		param.put("subj", subj);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.salesMemSubjDropPop(param);
+	}	
 	
 	
 	/**

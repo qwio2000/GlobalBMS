@@ -10,6 +10,8 @@ import com.jeiglobal.domain.sales.MemSubjMstKeep;
 import com.jeiglobal.domain.sales.SalesDaily;
 import com.jeiglobal.domain.sales.SalesDailyPop;
 import com.jeiglobal.domain.sales.SalesDailyPopTot;
+import com.jeiglobal.domain.sales.SalesMemSubjDrop;
+import com.jeiglobal.domain.sales.SalesMemSubjRegist;
 import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
@@ -45,6 +47,9 @@ public interface SalesRepository {
 	public List<SalesMonthlyPop> monthlySalesPop(Map<String, Object> param);
 	public SalesMonthlyPopTot monthlySalesPopTot(Map<String, Object> param);
 	public List<MemSubjMstKeep> salesMemSubjPop(Map<String, Object> parm);
+	public List<SalesMemSubjRegist> salesMemSubjRegistPop(Map<String, Object> parm);
+	public List<SalesMemSubjDrop> salesMemSubjDropPop(Map<String, Object> parm);
+	
 	
 	/**
 	 * 조직찾기

@@ -57,9 +57,9 @@
 				<tr class="line2">
 					<td class="no_line"><a href="javascript:;" onClick="$.openMonthlySales('${list.jisaCD}','${list.mgYY}','${list.mgMM}','${list.subj}','${list.deptName}');">${list.deptName }</a></td>
 					<td>${list.subjBegin }</td>
-					<td>${list.subjNew }</td>
+					<td><a href="javascript:;" onClick="$.openSalesMemSubjRegist('${list.jisaCD}','','${list.mgYYMM}','${list.subj}','${list.deptName}','monthly');">${list.subjNew }</a></td>
 					<td>${list.subjNewPrev }</td>
-					<td>${list.subjDrop }</td>
+					<td><a href="javascript:;" onClick="$.openSalesMemSubjDrop('${list.jisaCD}','','${list.mgYYMM}','${list.subj}','${list.deptName}','monthly');">${list.subjDrop }</a></td>
 					<td>${list.subjNet }</td>
 					<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','','${list.mgYY}','${list.mgMM}','${list.subj}','${list.deptName}');">${list.subjEnd }</a></td>					
 				</tr>

@@ -26,10 +26,10 @@ public class MemSubjMstKeep {
 	private int studyNum;
 	private int bookNum;
 	private String wbGrade;
-	private int registFstYMD;
-	private int registFnlYMD;
-	private int dropFnlYMD;
-	private int expireYMD;
+	private String registFstYMD;
+	private String registFnlYMD;
+	private String dropFnlYMD;
+	private String expireYMD;
 	private int studyMonth;
 	private int multiSubjCnt;
 	private String multiSubj;
@@ -38,4 +38,5 @@ public class MemSubjMstKeep {
 	private String mgYY;
 	private String mgMM;
 	private String ageName;
+	private String yoilName;
 }

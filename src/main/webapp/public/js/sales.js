@@ -10,6 +10,21 @@ $(function(){
 			var url = "/ma/sales/monthlySalesPop?jisaCD="+jisaCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
 			$.openPop(url, "monthlySalesPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
 		},
+		// 월별실적 > 마감과목수 팝업
+		openSalesMemSubj:function(jisaCD,deptCD,selYY,selMM,subj,deptName){
+			var url = "/ma/sales/salesMemSubjPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
+			$.openPop(url, "salesMemSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
+		},	
+		// 월별실적 > 입회과목수 팝업
+		openSalesMemSubjRegist:function(jisaCD,deptCD,selYY,selMM,subj,deptName){
+			var url = "/ma/sales/salesMemSubjRegistPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
+			$.openPop(url, "salesMemSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
+		},	
+		// 월별실적 > 퇴회과목수 팝업
+		openSalesMemSubjDrop:function(jisaCD,deptCD,selYY,selMM,subj,deptName){
+			var url = "/ma/sales/salesMemSubjDropPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&deptName="+deptName;
+			$.openPop(url, "salesMemSubjPop","menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes,width=1000,height=700");			
+		},	
 		//복수과목 현황 팝업
 		openStatMultiSubj:function(jisaCD,deptCD,selYY,selMM,subj,multiSubjCnt,deptName){
 			var url = "/ma/sales/statMultiSubjPop?jisaCD="+jisaCD+"&deptCD="+deptCD+"&selYY="+selYY+"&selMM="+selMM+"&selSubj="+subj+"&multiSubjCnt="+multiSubjCnt+"&deptName="+deptName;
@@ -100,5 +115,12 @@ $(function(){
 	$("#statMultiSubjSearchSubmit").on("click", function() {
 		location.href = "/ma/sales/statMultiSubj?deptName="+$("#deptName").val()+"&jisaCD="+$("#jisaCD").val()+"&deptCD="+$("#deptCD").val()+"&selYY="+$("#selYY > option:selected").val()+"&selMM="+$("#selMM > option:selected").val()+"&selSubj="+$("#selSubj > option:selected").val();
 	});		
-	
+	// 상품별 추이
+	$("#statProgBySubjSearchInit").on("click", function() {
+		$('#selYY').getSetSSValue($.toDay().split("-")[0]);
+		location.href = "/ma/sales/statProgBySubj";
+	});	
+	$("#statProgBySubjSearchSubmit").on("click", function() {
+		location.href = "/ma/sales/statProgBySubj?deptName="+$("#deptName").val()+"&jisaCD="+$("#jisaCD").val()+"&deptCD="+$("#deptCD").val()+"&selYY="+$("#selYY > option:selected").val();
+	});		
 });

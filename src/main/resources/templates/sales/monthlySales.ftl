@@ -10,7 +10,7 @@
 			<label for="">검색기간</label>
 			<select name="selYY" id="selYY" style="width:105px">
 				<#list currentYear?number..currentYear?number-2 as i>
-					<option value="${i?c }" <#if i == currentYear?number>selected</#if>>${i?c }</option>
+					<option value="${i?c }" <#if i == selYY?number>selected</#if>>${i?c }</option>
 				</#list>				
 			</select>			
 			년 &nbsp;
@@ -61,7 +61,7 @@
 					<td>${list.subjNewPrev }</td>
 					<td>${list.subjDrop }</td>
 					<td>${list.subjNet }</td>
-					<td>${list.subjEnd }</td>					
+					<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','','${list.mgYY}','${list.mgMM}','${list.subj}','${list.deptName}');">${list.subjEnd }</a></td>					
 				</tr>
 				<#else>
 				<tr class="line2">

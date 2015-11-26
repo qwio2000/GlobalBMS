@@ -18,6 +18,7 @@ import lombok.Getter;
 public class SalesMonthlyPop {
 	private String jisaCD;	
 	private String deptCD;	
+	private String subj;
 	private String deptName;
 	private int subjBegin;
 	private int subjNew;

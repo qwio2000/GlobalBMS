@@ -14,6 +14,7 @@ import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
 import com.jeiglobal.domain.sales.StatMembersByMultiSubj;
+import com.jeiglobal.domain.sales.StatProgBySubj;
 import com.jeiglobal.domain.sales.StatSubjByAge;
 import com.jeiglobal.domain.sales.StatSubjByGrade;
 import com.jeiglobal.repository.PrimaryRepositoryAnnoInterface;
@@ -43,6 +44,7 @@ public interface SalesRepository {
 	public List<SalesMonthly> monthlySales(Map<String, Object> param);
 	public List<SalesMonthlyPop> monthlySalesPop(Map<String, Object> param);
 	public SalesMonthlyPopTot monthlySalesPopTot(Map<String, Object> param);
+	public List<MemSubjMstKeep> salesMemSubjPop(Map<String, Object> parm);
 	
 	/**
 	 * 조직찾기
@@ -68,4 +70,8 @@ public interface SalesRepository {
 	public List<StatMembersByMultiSubj> statMembersByMultiSubj(Map<String, Object> parm);
 	public List<MemSubjMstKeep> statMembersByMultiSubjPop(Map<String, Object> parm);	
 	
+	/**
+	 * 상품별 추이
+	 */
+	public List<StatProgBySubj> statProgBySubj(Map<String, Object> parm);
 }

@@ -27,11 +27,11 @@ import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
 import com.jeiglobal.domain.sales.StatMembersByMultiSubj;
+import com.jeiglobal.domain.sales.StatProgBySubj;
 import com.jeiglobal.domain.sales.StatSubjByAge;
 import com.jeiglobal.domain.sales.StatSubjByGrade;
 import com.jeiglobal.service.CommonService;
 import com.jeiglobal.service.sales.SalesService;
-import com.jeiglobal.utils.MessageSourceAccessor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,15 +42,13 @@ import lombok.extern.slf4j.Slf4j;
  *
  * 작성자 : 노윤희(IT지원팀)
  * 
- * 설명
+ * 설명 : 실적조회
  */
 @Slf4j
 @Controller
 public class SalesController {
 	
-	@Autowired
-	private MessageSourceAccessor messageSource;
-	
+
 	@Autowired
 	private CommonService commonService;
 	
@@ -87,13 +85,6 @@ public class SalesController {
 	public String getDailySalesPop(Model model, @ModelAttribute LoginInfo loginInfo, 
 			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String selYMD, 
 			@RequestParam(defaultValue="") String selSubj,@RequestParam(defaultValue="") String deptName) throws ParseException{
-		
-		Calendar cal = Calendar.getInstance();
-		String currentDay = new SimpleDateFormat("YYYY-MM-DD").format(cal.getTime());
-
-		if("".equals(selYMD)){
-			selYMD=currentDay;
-		}
 
 		List<SalesDailyPop> dataDailySalesPop = salesService.getDailySalesPop(jisaCD,selYMD, selSubj, "");
 		SalesDailyPopTot dataDailySalesPopTot = salesService.getDailySalesPopTot(jisaCD,selYMD, selSubj, "");
@@ -118,9 +109,10 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
+		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
-
+		
 		if("".equals(selYY)){
 			selYY=currentYear;
 		}
@@ -146,17 +138,7 @@ public class SalesController {
 	public String getMonthlySalesPop(Model model, @ModelAttribute LoginInfo loginInfo, 
 			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
 			@RequestParam(defaultValue="") String selSubj,@RequestParam(defaultValue="") String deptName) throws ParseException{
-		
-		Calendar cal = Calendar.getInstance();
-		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
-		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
-
-		if("".equals(selYY)){
-			selYY=currentYear;
-		}
-		if("".equals(selMM)){
-			selMM=currentMonth;
-		}		
+			
 		if("TT".equals(selSubj)){
 			selSubj="";
 		}				
@@ -169,12 +151,27 @@ public class SalesController {
 		model.addAttribute("headerScript", headerScript);
 		model.addAttribute("monthlySalesPop", dataMonthlySalesPop);
 		model.addAttribute("monthlySalesPopTot", dataMonthlySalesPopTot);
-		model.addAttribute("selYY", selYY);
-		model.addAttribute("selMM", selMM);
 		model.addAttribute("selSubj", selSubj);
 		model.addAttribute("deptName", deptName);
 		return "sales/monthlySalesPop";
+	}
+	@RequestMapping(value={"/ma/sales/salesMemSubjPop"},method = {RequestMethod.GET, RequestMethod.HEAD})
+	public String getMonthlySalesPop(Model model, @ModelAttribute LoginInfo loginInfo, 
+			@RequestParam(defaultValue="") String jisaCD, @RequestParam(defaultValue="") String deptCD,
+			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
+			@RequestParam(defaultValue="") String selSubj,@RequestParam(defaultValue="") String deptName) throws ParseException{
+						
+		List<MemSubjMstKeep> dataSalesMemSubjPop = salesService.getSalesMemSubjPop(jisaCD,deptCD,selYY, selMM, selSubj, "");
+		log.debug("Getting 월별실적>마감회원수 팝업 Page, dataSalesMemSubjPop : {}", dataSalesMemSubjPop);
+		
+		List<String> headerScript = new ArrayList<String>();
+		headerScript.add("sales");
+		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("salesMemSubjPop", dataSalesMemSubjPop);
+		model.addAttribute("deptName", deptName);
+		return "sales/salesMemSubjPop";
 	}	
+	
 	/**
 	 * 조직찾기
 	 */
@@ -202,6 +199,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
+		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로		
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 
@@ -262,6 +260,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
+		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로		
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 
@@ -328,6 +327,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
+		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로		
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 
@@ -388,26 +388,31 @@ public class SalesController {
 	 */
 	@RequestMapping(value={"/ma/sales/statProgBySubj"},method = {RequestMethod.GET, RequestMethod.HEAD})
 	public String getStatProgBySubj(Model model, @ModelAttribute LoginInfo loginInfo, 
-			@RequestParam(defaultValue="") String selYY, @RequestParam(defaultValue="") String selMM, 
-			@RequestParam(defaultValue="") String selSubj) throws ParseException{
+			@RequestParam(defaultValue="08") String jisaCD, @RequestParam(defaultValue="00000") String deptCD,
+			@RequestParam(defaultValue="Hong Kong") String deptName,			
+			@RequestParam(defaultValue="") String selYY) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
-		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
-
+		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());		
 		if("".equals(selYY)){
 			selYY=currentYear;
 		}
-		if("".equals(selMM)){
-			selMM=currentMonth;
-		}		
-
+		int prevSelYY = Integer.parseInt(selYY.toString()) - 1 ;
+		List<StatProgBySubj> dataStatProgBySubj = salesService.getStatProgBySubj(jisaCD,deptCD,selYY, "");
+		log.debug("Getting 상품별 추이 Page, dataStatProgBySubj : {}", dataStatProgBySubj);
+				
 		List<String> headerScript = new ArrayList<String>();
 		headerScript.add("sales");
 		model.addAttribute("headerScript", headerScript);
+		model.addAttribute("statProgBySubj", dataStatProgBySubj);
+		model.addAttribute("jisaCD", jisaCD);
+		model.addAttribute("deptCD", deptCD);
+		model.addAttribute("deptName", deptName);
 		model.addAttribute("selYY", selYY);
-		model.addAttribute("selMM", selMM);
-		model.addAttribute("selSubj", selSubj);
+		model.addAttribute("prevSelYY", prevSelYY);
+		model.addAttribute("currentYear", currentYear);		
+		model.addAttribute("currentMonth", currentMonth);
 		return "sales/statProgBySubj";
 	}		
 	

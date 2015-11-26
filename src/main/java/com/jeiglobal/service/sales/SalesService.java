@@ -19,6 +19,7 @@ import com.jeiglobal.domain.sales.SalesMonthly;
 import com.jeiglobal.domain.sales.SalesMonthlyPop;
 import com.jeiglobal.domain.sales.SalesMonthlyPopTot;
 import com.jeiglobal.domain.sales.StatMembersByMultiSubj;
+import com.jeiglobal.domain.sales.StatProgBySubj;
 import com.jeiglobal.domain.sales.StatSubjByAge;
 import com.jeiglobal.domain.sales.StatSubjByGrade;
 import com.jeiglobal.repository.sales.SalesRepository;
@@ -95,7 +96,19 @@ public class SalesService {
 		param.put("subj", subj);
 		param.put("jobFlag", jobFlag);
 		return salesRepository.monthlySalesPopTot(param);
+	}
+	public List<MemSubjMstKeep> getSalesMemSubjPop(String jisaCD, String deptCD, String mgYY, String mgMM, String subj, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("mgMM", mgMM);
+		param.put("subj", subj);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.salesMemSubjPop(param);
 	}	
+		
+	
 	
 	/**
 	 * 조직 찾기
@@ -179,6 +192,17 @@ public class SalesService {
 		param.put("multiSubjCnt", multiSubjCnt);
 		param.put("jobFlag", jobFlag);		
 		return salesRepository.statMembersByMultiSubjPop(param);
-	}			
+	}	
+	/**
+	 * 상품별 추이
+	 */
+	public List<StatProgBySubj> getStatProgBySubj(String jisaCD, String deptCD, String mgYY, String jobFlag){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("deptCD", deptCD);
+		param.put("mgYY", mgYY);
+		param.put("jobFlag", jobFlag);		
+		return salesRepository.statProgBySubj(param);
+	}	
 	
 }

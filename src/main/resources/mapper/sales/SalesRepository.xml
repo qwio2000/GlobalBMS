@@ -22,6 +22,9 @@
 	<select id="monthlySalesPopTot" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.SalesMonthlyPopTot">
 		CALL globalmagam.SPSalesMonthlyPopTot(#{jisaCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
 	</select>	
+	<select id="salesMemSubjPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.MemSubjMstKeep">
+		CALL globalmagam.SPSalesMemSubjPop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
+	</select>		
 	
 	<!-- 조직 찾기 -->
 	<select id="deptSearchPop" statementType="CALLABLE" parameterType="hashMap" resultType="hashMap">
@@ -52,7 +55,12 @@
 		CALL globalmagam.SPStatMembersByMultiSubj(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{jobFlag});
 	</select>	
 	<select id="statMembersByMultiSubjPop" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.MemSubjMstKeep">
-		CALL globalmagam.SPStatMembersByMultiSubjPop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{ageCD},#{jobFlag});
+		CALL globalmagam.SPStatMembersByMultiSubjPop(#{jisaCD},#{deptCD},#{mgYY},#{mgMM},#{subj},#{multiSubjCnt},#{jobFlag});
 	</select>	
+	
+	<!-- 상품별 추이 -->
+	<select id="statProgBySubj" statementType="CALLABLE" parameterType="hashMap" resultType="com.jeiglobal.domain.sales.StatProgBySubj">
+		CALL globalmagam.SPStatProgBySubj(#{jisaCD},#{deptCD},#{mgYY},#{jobFlag});
+	</select>		
 	
 </mapper>

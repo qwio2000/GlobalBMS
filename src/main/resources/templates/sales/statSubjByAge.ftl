@@ -15,7 +15,7 @@
 			<label for="">검색기간</label>
 			<select name="selYY" id="selYY" style="width:105px">
 				<#list currentYear?number..currentYear?number-2 as i>
-					<option value="${i?c }" <#if i == currentYear?number>selected</#if>>${i?c }</option>
+					<option value="${i?c }" <#if i == selYY?number>selected</#if>>${i?c }</option>
 				</#list>				
 			</select>	
 			년 &nbsp;

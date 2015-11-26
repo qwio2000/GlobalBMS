@@ -13,7 +13,7 @@
 							<th colspan="2">입회</th>
 							<th rowspan="2">퇴회</th>
 							<th rowspan="2">순증</th>
-							<th rowspan="2">현재</th>
+							<th rowspan="2">마감</th>
 							<#if selSubj=="">
 							<th colspan="12">상품별실적</th>
 							</#if>
@@ -46,20 +46,20 @@
 							<td>${list.subjNewPrev }</td>
 							<td>${list.subjDrop }</td>
 							<td>${list.subjNet }</td>
-							<td>${list.subjEnd }</td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','${list.subj}','${list.deptName}');">${list.subjEnd }</a></td>
 							<#if selSubj=="">
-							<td>${list.subjKM }</td>
-							<td>${list.subjKK }</td>
-							<td>${list.subjKG }</td>
-							<td>${list.subjEM }</td>
-							<td>${list.subjEE }</td>
-							<td>${list.subjKP }</td>
-							<td>${list.subjKS }</td>
-							<td>${list.subjPS }</td>
-							<td>${list.subjER }</td>
-							<td>${list.subjCP }</td>
-							<td>${list.subjCL }</td>
-							<td>${list.subjEP }</td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','KM','${list.deptName}');">${list.subjKM }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','KK','${list.deptName}');">${list.subjKK }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','KG','${list.deptName}');">${list.subjKG }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','EM','${list.deptName}');">${list.subjEM }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','EE','${list.deptName}');">${list.subjEE }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','KP','${list.deptName}');">${list.subjKP }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','KS','${list.deptName}');">${list.subjKS }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','PS','${list.deptName}');">${list.subjPS }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','ER','${list.deptName}');">${list.subjER }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','CP','${list.deptName}');">${list.subjCP }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','CL','${list.deptName}');">${list.subjCL }</a></td>
+							<td><a href="javascript:;" onClick="$.openSalesMemSubj('${list.jisaCD}','${list.deptCD}','${list.mgYY}','${list.mgMM}','EP','${list.deptName}');">${list.subjEP }</a></td>
 							</#if>							
 						</tr>
 						<#else>

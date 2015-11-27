@@ -12,13 +12,7 @@
 			<tbody>
 				<tr>
 					<th>Current status</th>
-					<td class="left">
-						<select name="statusCD" id="statusCD" style="width:314px">
-							<#list leadStatus as status>
-								<option value="${status.dtlCD }" <#if status.dtlCD == centerLead.statusCD> selected </#if>>${status.dtlCDNM }</option>
-							</#list>
-						</select>
-					</td>
+					<td class="left">${centerLead.statusName }</td>
 				</tr>
 				<tr>
 					<th>Name</th>

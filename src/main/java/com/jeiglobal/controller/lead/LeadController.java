@@ -77,7 +77,6 @@ public class LeadController {
 		headerScript.add("lead");
 		model.addAttribute("headerScript", headerScript);
 		model.addAttribute("centerLead", leadService.getCenterLeadByIdx(idx));
-		model.addAttribute("leadStatus", commonService.getCodeDtls("0320", loginInfo.getJisaCD(), 1, "Y"));
 		return "lead/view";
 	}
 	

@@ -111,7 +111,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로
+		cal.add(Calendar.MONTH, -1); // 1개월전을 디폴트로
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 		
@@ -233,7 +233,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로		
+		cal.add(Calendar.MONTH, -1); // 1개월전을 디폴트로		
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 
@@ -294,7 +294,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로		
+		cal.add(Calendar.MONTH, -1); // 1개월전을 디폴트로		
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 
@@ -361,7 +361,7 @@ public class SalesController {
 			@RequestParam(defaultValue="") String selSubj) throws ParseException{
 		
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH, -1); // 1개월전을 디폴트로		
+		cal.add(Calendar.MONTH, -1); // 1개월전을 디폴트로		
 		String currentYear = new SimpleDateFormat("YYYY").format(cal.getTime());
 		String currentMonth = new SimpleDateFormat("MM").format(cal.getTime());
 

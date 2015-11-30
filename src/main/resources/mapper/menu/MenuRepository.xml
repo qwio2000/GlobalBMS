@@ -14,7 +14,7 @@
 		FROM globalbiz.MenuInfo AS a
 		LEFT JOIN globalbiz.MenuAuthority AS b ON a.mIdx = b.mIdx
 		WHERE mParentIdx = #{mIdx} AND mJisaCD = #{mJisaCD}
-			AND mUserType = #{mUserType} AND mUserLevel = #{mUserLevel} AND mStatusCD = #{mStatusCD} 
+			AND mUserType = #{mUserType} AND mUserLevel = #{mUserLevel}
 		<if test="userId != 'all'">
 			AND (a.mAuthType = 0 OR (a.mAuthType = 1 AND b.userId = #{userId}))
 		</if>

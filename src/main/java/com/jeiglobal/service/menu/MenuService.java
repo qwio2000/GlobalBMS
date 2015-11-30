@@ -373,7 +373,7 @@ public class MenuService {
 				gmList.addAll(searchCnt(ji.getMIdx(),mJisaCD,mUserType,mUserLevel,mStatusCD, userId));//HeaderMenu
 			}
 		} else {
-			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mUserType,mUserLevel,mStatusCD, userId);
+			gmMenuList = findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(mIdx,mJisaCD,mUserType,mUserLevel,userId);
 			if(gmMenuList != null){
 				int cnt = gmMenuList.size();
 				
@@ -402,13 +402,12 @@ public class MenuService {
 		return menuRepository.findOneByMParentIdx(mIdx);
 	}
 	
-	private List<GlobalMenu> findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String mStatusCD, String userId){
+	private List<GlobalMenu> findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(long mIdx,String mJisaCD,String mUserType,String mUserLevel,String userId){
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mIdx",mIdx);
 		map.put("mJisaCD",mJisaCD);
 		map.put("mUserType",mUserType);
 		map.put("mUserLevel",mUserLevel);
-		map.put("mStatusCD",mStatusCD);
 		map.put("userId", userId);
 		List<GlobalMenu> gmMenuList = menuRepository.findByMParentIdxAndJisaCDAndEmpKeyLvCDAndDepMngCD(map);
 		

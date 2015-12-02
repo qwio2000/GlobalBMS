@@ -77,17 +77,17 @@
 					<td class="no_line">${list.deptName }</td>
 					<td>${list.memEnd }</td>
 					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','1','${list.deptName }');">${list.multi1 }</a></td>
-					<td>${list.multi1Rate }</td>
+					<td>${list.multi1Rate?string("##0.00") }</td>
 					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','2','${list.deptName }');">${list.multi2 }</a></td>
-					<td>${list.multi2Rate }</td>
+					<td>${list.multi2Rate?string("##0.00") }</td>
 					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','3','${list.deptName }');">${list.multi3 }</a></td>
-					<td>${list.multi3Rate }</td>
+					<td>${list.multi3Rate?string("##0.00") }</td>
 					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','4','${list.deptName }');">${list.multi4 }</a></td>
-					<td>${list.multi4Rate }</td>
+					<td>${list.multi4Rate?string("##0.00") }</td>
 					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','5','${list.deptName }');">${list.multi5 }</a></td>
-					<td>${list.multi5Rate }</td>
+					<td>${list.multi5Rate?string("##0.00") }</td>
 					<td><a href="javascript:$.openStatMultiSubj('${list.jisaCD }','${list.deptCD }','${list.mgYY }','${list.mgMM }','${list.subj}','6','${list.deptName }');">${list.multi6 }</a></td>
-					<td>${list.multi6Rate }</td>
+					<td>${list.multi6Rate?string("##0.00") }</td>
 				</tr>
 				<#else >
 				<tr class="line2">

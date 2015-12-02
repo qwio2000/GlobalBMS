@@ -65,7 +65,7 @@
 					<td class="no_line"></td>
 					<td>합계</td>
 					<td><a href="javascript:$.openStatSubjByGrade('${jisaCD }','${deptCD }','${selSubj }','','${selYY }','${selMM }','${deptName }');">${totSubjCnt }</a></td>
-					<td>${totSubjRate }</td>
+					<td>${totSubjRate?string("##0.00") }</td>
 				</tr>
 				</#if >
 				<#list statSubjByGrade as list>
@@ -73,7 +73,7 @@
 					<td class="no_line">${list_index + 1 }</td>
 					<td>${list.wbGrade }</td>
 					<td><a href="javascript:$.openStatSubjByGrade('${list.jisaCD }','${list.deptCD }','${list.subj }','${list.wbGrade }','${list.mgYY }','${list.mgMM }','${deptName }');">${list.subjCnt }</a></td>
-					<td>${list.subjRate }</td>
+					<td>${list.subjRate?string("##0.00") }</td>
 				</tr>
 				<#else>
 				<tr class="line2">

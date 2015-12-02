@@ -37,13 +37,13 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 		if(loginFormPath == null || loginFormPath.isEmpty()){
 			setLoginFormPath("/login");
 		}
-		String redirectUrl = UrlUtils.buildRequestUrl(request);
-		String encodedUrl = response.encodeRedirectURL(redirectUrl);
-		if("/".equals(encodedUrl)){
+//		String redirectUrl = UrlUtils.buildRequestUrl(request);
+//		String encodedUrl = response.encodeRedirectURL(redirectUrl);
+		//if("/".equals(encodedUrl)){
 			response.sendRedirect(globalbmsUrl+loginFormPath);
-		}else{
-			response.sendRedirect(globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
-		}
+//		}else{
+//			response.sendRedirect(globalbmsUrl+loginFormPath+"?returl="+encodedUrl);
+//		}
 	}
 
 	public void setLoginFormPath(String loginFormPath) {

@@ -4,7 +4,7 @@ multipart:
     maxRequestSize: 10240KB
     
 uploadpath:
-        announcements: C:\upload\jeiglobal\hk\announcements
+        announcements: C:\upload\jeiglobal\hk\announcements # 게시판 업로드 경로
         
 server:
     port: 8081
@@ -33,7 +33,7 @@ multipart:
     maxRequestSize: 10240KB
     
 uploadpath:
-        announcements: /home/devhk/upload/announcements
+        announcements: /home/devhk/upload/announcements  # 게시판 업로드 경로
         
 spring:
     resources:
@@ -58,7 +58,7 @@ multipart:
     maxRequestSize: 10240KB
     
 uploadpath:
-        announcements: /home/devhk/upload/announcements
+        announcements: /home/devhk/upload/announcements  # 게시판 업로드 경로
         
 serverurl:
      hongkong: http://hk.jei-global.com

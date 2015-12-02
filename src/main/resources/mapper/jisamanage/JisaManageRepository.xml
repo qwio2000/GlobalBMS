@@ -103,7 +103,7 @@
 		INSERT INTO globalbiz.DeptSubjInfo
 			(jisaCD, deptCD, subj, studyNum, bookNum, monthNum, digYN, sortCD, useYN)
 		VALUES
-			(#{jisaCD}, '00000', #{subj}, #{studyNum}, #{bookNum}, #{monthNum}, #{digYN}, #{sortVal}, #{useYN})
+			(#{jisaCD}, '00000', #{subj}, 1, 1, 1, #{digYN}, #{sortVal}, #{useYN})
 	</insert>
 	<update id="updateDeptSubjInfo" parameterType="hashMap">
 		UPDATE globalbiz.DeptSubjInfo

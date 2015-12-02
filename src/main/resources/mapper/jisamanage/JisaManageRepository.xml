@@ -94,9 +94,24 @@
 			updDate = NOW(), updID = #{updID}
 		WHERE jisaCD = #{jisaCD} AND deptType = #{deptType} AND feeType = #{feeType} AND subj = 'TT' AND bookNum = 1
 	</update>
-	<update id="updateDeptSubjInfo" parameterType="hashMap">
+	<update id="updateDeptSubjInfoSaleStop" parameterType="hashMap">
 		UPDATE globalbiz.DeptSubjInfo
 		SET useYN = 'N'
 		WHERE jisaCD = #{jisaCD} AND subj = #{subj}
 	</update>
+	<insert id="insertDeptSubjInfo" parameterType="com.jeiglobal.domain.manage.SubjInfo">
+		INSERT INTO globalbiz.DeptSubjInfo
+			(jisaCD, deptCD, subj, studyNum, bookNum, monthNum, digYN, sortCD, useYN)
+		VALUES
+			(#{jisaCD}, '00000', #{subj}, #{studyNum}, #{bookNum}, #{monthNum}, #{digYN}, #{sortVal}, #{useYN})
+	</insert>
+	<update id="updateDeptSubjInfo" parameterType="hashMap">
+		UPDATE globalbiz.DeptSubjInfo
+		SET subj = #{subjInfo.subj}, digYN = #{subjInfo.digYN}, sortCD = #{subjInfo.sortVal}, 
+			useYN = #{subjInfo.useYN}
+		WHERE jisaCD = #{subjInfo.jisaCD} AND deptCD = '00000' AND subj = #{beforeSubj}
+	</update>
+	<delete id="deleteDeptSubjInfo" parameterType="hashMap">
+		DELETE FROM globalbiz.DeptSubjInfo WHERE jisaCD = #{jisaCD} AND deptCD = '00000' AND subj = #{subj}
+	</delete>
 </mapper>

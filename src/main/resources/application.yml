@@ -60,6 +60,10 @@ multipart:
 uploadpath:
         announcements: /home/devhk/upload/announcements
         
+serverurl:
+     hongkong: http://hk.jei-global.com
+     globalbms: http://bms.jei-global.com
+     
 spring:
     resources:
         cache-period:31556926

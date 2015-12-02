@@ -243,8 +243,38 @@ public class JisaManageService {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("jisaCD", jisaCD);
 		param.put("subj", subj);
-		jisaManageRepository.updateDeptSubjInfo(param);
+		jisaManageRepository.updateDeptSubjInfoSaleStop(param);
 		
+	}
+
+	/**
+	 * DeptSubjInfo 추가
+	 * @param subjInfo void
+	 */
+	public void addDeptSubjInfo(SubjInfo subjInfo) {
+		jisaManageRepository.insertDeptSubjInfo(subjInfo);
+	}
+
+	/**
+	 * @param subjInfo
+	 * @param beforeSubj void
+	 */
+	public void setDeptSubjInfo(SubjInfo subjInfo, String beforeSubj) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("subjInfo", subjInfo);
+		param.put("beforeSubj", beforeSubj);
+		jisaManageRepository.updateDeptSubjInfo(param);
+	}
+
+	/**
+	 * @param subj
+	 * @param jisaCD void
+	 */
+	public void removeDeptSubjInfo(String subj, String jisaCD) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("subj", subj);
+		jisaManageRepository.deleteDeptSubjInfo(param);
 	}
 
 

@@ -114,6 +114,7 @@ public class JisaManageController {
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.addSubjInfo(subjInfo, workId);
 		jisaManageService.addCodeDtl(subjInfo, workId);
+		jisaManageService.addDeptSubjInfo(subjInfo);
 		return msa.getMessage("jisamanage.subj.regist.success");
 	}
 	
@@ -124,6 +125,7 @@ public class JisaManageController {
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.setSubjInfo(subjInfo, workId, beforeSubj);
 		jisaManageService.setSubjInfoToCodeDtl(subjInfo, workId, beforeSubj);
+		jisaManageService.setDeptSubjInfo(subjInfo, beforeSubj);
 		if(subjInfo.getDeptCnt() > 0 && !"".equals(subjInfo.getStopDate())){
 			jisaManageService.setDeptSubjInfo(subjInfo.getSubj(), subjInfo.getJisaCD());
 		}
@@ -147,6 +149,7 @@ public class JisaManageController {
 	public String removeSubjInfo(String subj, String jisaCD, int deptCnt){
 		jisaManageService.removeSubjInfo(subj, jisaCD);
 		jisaManageService.removeSubjInfoToCodeDtl(subj, jisaCD);
+		jisaManageService.removeDeptSubjInfo(subj, jisaCD);
 		if(deptCnt > 0){
 			jisaManageService.setDeptSubjInfo(subj, jisaCD);
 		}

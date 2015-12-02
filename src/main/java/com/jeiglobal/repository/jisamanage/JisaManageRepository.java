@@ -48,7 +48,13 @@ public interface JisaManageRepository {
 
 	public void updateJisaTuitionInfo(SubjTuitionInfo tuition);
 
+	public void updateDeptSubjInfoSaleStop(Map<String, Object> param);
+
+	public void insertDeptSubjInfo(SubjInfo subjInfo);
+
 	public void updateDeptSubjInfo(Map<String, Object> param);
+
+	public void deleteDeptSubjInfo(Map<String, Object> param);
 	
 	
 

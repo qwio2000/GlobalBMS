@@ -277,6 +277,19 @@ public class JisaManageService {
 		jisaManageRepository.deleteDeptSubjInfo(param);
 	}
 
+	/**
+	 * @param subj
+	 * @param jisaCD
+	 * @param workId void
+	 */
+	public void setCodeDtlInfo(String subj, String jisaCD, String workId) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("jisaCD", jisaCD);
+		param.put("subj", subj);
+		param.put("workId", workId);
+		jisaManageRepository.updateCodeDtlByStopDate(param);
+	}
+
 
 	
 }

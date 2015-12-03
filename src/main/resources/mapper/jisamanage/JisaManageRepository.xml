@@ -61,7 +61,7 @@
 	</update>
 	<update id="updateSubjInfoStopDate" parameterType="hashMap">
 		UPDATE globalbiz.SubjInfo
-		SET stopDate = #{stopDate}, updDate = NOW(), updID = #{workId}
+		SET stopDate = #{stopDate}, useYN = 'N', updDate = NOW(), updID = #{workId}
 		WHERE jisaCD = #{jisaCD} AND subj = #{subj}
 	</update>
 	<update id="updateSubjInfoToCodeDtl" parameterType="hashMap">
@@ -114,4 +114,9 @@
 	<delete id="deleteDeptSubjInfo" parameterType="hashMap">
 		DELETE FROM globalbiz.DeptSubjInfo WHERE jisaCD = #{jisaCD} AND deptCD = '00000' AND subj = #{subj}
 	</delete>
+	<update id="updateCodeDtlByStopDate" parameterType="hashMap">
+		UPDATE globalbiz.CodeDtl
+		SET useYN = 'N', updDate = NOW(), updID = #{workId}
+		WHERE mstCD = '0002' AND jisaCD = #{jisaCD} AND dtlCD = #{subj}
+	</update>
 </mapper>

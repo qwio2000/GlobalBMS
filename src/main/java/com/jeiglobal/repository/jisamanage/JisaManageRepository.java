@@ -55,6 +55,8 @@ public interface JisaManageRepository {
 	public void updateDeptSubjInfo(Map<String, Object> param);
 
 	public void deleteDeptSubjInfo(Map<String, Object> param);
+
+	public void updateCodeDtlByStopDate(Map<String, Object> param);
 	
 	
 

@@ -138,6 +138,7 @@ public class JisaManageController {
 		log.debug("deptCnt : {}", deptCnt);
 		String workId = CommonUtils.getWorkId(request);
 		jisaManageService.setSubjInfoStopDate(subj, jisaCD, stopDate, workId);
+		jisaManageService.setCodeDtlInfo(subj, jisaCD, workId);
 		if(deptCnt > 0 && !"".equals(stopDate)){
 			jisaManageService.setDeptSubjInfo(subj, jisaCD);
 		}

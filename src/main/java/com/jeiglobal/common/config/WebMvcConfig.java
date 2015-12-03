@@ -79,10 +79,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	/**
 	 * 메뉴 인터셉터 Bean 설정
-	 * @return MenuIntercepter
+	 * @return MenuInterceptor
 	 */
 	@Bean
-	public MenuIntercepter menuIntercepter(){ return new MenuIntercepter(); }
+	public MenuInterceptor menuIntercepter(){ return new MenuInterceptor(); }
 	
 	//Interceptor 등록
 	@Override

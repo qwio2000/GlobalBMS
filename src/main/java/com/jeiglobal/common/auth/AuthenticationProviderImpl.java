@@ -19,13 +19,11 @@ import com.jeiglobal.service.auth.*;
  * 
  * 로그인 인증을 처리(성공시 AuthenticationSuccessHandlerImpl, 실패시 AuthenticationFailureHandlerImpl)
  * 
- * 1. 사용자가 입력한 ID, PW 정보로 globalbiz.ComLoginInfo에 존재하는지 여부를 체크
+ * 1. 사용자가 입력한 ID, PW 정보로 globalbiz.Users에 존재하는지 여부를 체크
  * 	1-1. 존재하지 않을 경우 UsernameNotFoundException을 발생
- * 2. 사용자가 입력한 PW 값을 MSSQL에 SECURE DB에서 SHA256으로 암호화
- * 3. 암호화한 값과 DB에 암호화된 값을 비교 
- * 	3-1. 입력한 PW와 DB값과 같지 않은 경우 BadCredentialsException을 발생
- * 4. 해당 사용자의 권한 정보를 DB에서 가져옴
- * 5. 사용자 정보와 권한 정보를 UsernamePasswordAuthenticationToken 객체에 담아서 리턴
+ * 2. 사용자가 입력한 PW 값과 BCryptPasswordEncoder 객체를 이용해 DB에 암호화 된 값을 비교 
+ * 	2-1. 입력한 PW와 DB값과 같지 않은 경우 BadCredentialsException을 발생
+ * 3. 사용자 정보와 권한 정보를 UsernamePasswordAuthenticationToken 객체에 담아서 리턴
  */
 @Component
 public class AuthenticationProviderImpl implements AuthenticationProvider {

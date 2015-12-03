@@ -28,11 +28,13 @@ import com.jeiglobal.utils.*;
  * 
  * 시큐리티 Context를 만들고 Context에 Authentication 정보 주입
  * 
- * 1. 컨텍스트 객체를 로드한 후 Authentication이 없는 경우 2~5를 진행, 있으면 그대로 반환
- * 2. 쿠키 값에 AUTHId라는 이름으로 된 값과 AUTHKey로 된 값을 load
- * 3. 읽어온 값으로 globalbiz.ComLoginInfo 테이블에 일치하는 계정이 있는지 확인
- * 4. 있으면 해당 계정의 정보와 권한을 얻어온다.
- * 5. 계정의 정보와 권한으로 Authentication 객체를 생성 후 SecurityContext에 저장 
+ * 1. 컨텍스트 객체를 로드
+ * 2. Cookie 값 로드
+ * 3. Cookie 가 있으면 4, 없으면 Authentication 정보 null로 세팅 후 반환
+ * 4. Cookie가 가지고 있는 AUTHKey와 DB에 저장된 encodeCookie가 동일한 지 검사
+ * 4-1. 동일할 경우 Authentication이 null인지 판단
+ * 4-1-1. Authentication이 null인 경우 globalbiz.Users 테이블에서 회원 정보 가져온 후 인증 정보에 셋팅
+ * 4-2. 쿠키 정보 삭제 후 Authentication에 null로 세팅 후 반환 
  */
 @Component
 public class SecurityContextRepositoryImpl implements SecurityContextRepository{

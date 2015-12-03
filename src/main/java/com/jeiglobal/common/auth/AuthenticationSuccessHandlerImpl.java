@@ -24,7 +24,7 @@ import com.jeiglobal.utils.*;
  * 
  * 1. globalbiz.Users 테이블에 로그인 내역을 업데이트 후 globalbiz.UsersLoginHis에 Insert
  * 2. Auth 정보 쿠키를 생성한다.
- * 3. 사용자가 이전에 요청한 Url이 있었으면 그 Url로 연결, 없었으면 메인페이지로 연결
+ * 3. 로그인 요청한 사용자 계층에 맞는 메인페이지로 연결
  */
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {

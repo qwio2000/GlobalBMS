@@ -8,7 +8,6 @@ import javax.servlet.http.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.web.*;
-import org.springframework.security.web.util.*;
 import org.springframework.stereotype.*;
 /**
  * 
@@ -18,9 +17,8 @@ import org.springframework.stereotype.*;
  *
  * 작성자 : 전승엽(IT지원팀)
  * 
- * 1. loginForm 경로 설정
- * 2. 사용자가 요청한 Url 경로를 encoding
- * 3. 요청한 경로가 "/" 이면 returl을 붙이지 않고 그 외에는 returl이라는 파라미터를 붙인 후 Redirect를 진행
+ * 1. login 페이지 경로 설정
+ * 2. login 페이지로 Redirect
  */
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {

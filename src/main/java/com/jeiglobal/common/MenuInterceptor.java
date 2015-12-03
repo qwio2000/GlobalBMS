@@ -28,9 +28,18 @@ import com.jeiglobal.utils.*;
  * 작성자 : 전승엽(IT지원팀)
  * 
  * 컨트롤러에 가기 전 메뉴에 관련된 정보를 처리하는 인터셉터
+ * 
+ * 1. Authentication에 저장 된 사용자 정보 로드
+ * 2. 현재 사용자가 요청한 URI정보 로드
+ * 3. 사용자 정보로 메뉴 리스트 가져오기
+ * 3-1. 메뉴 리스트가 null 이면 false 리턴
+ * 3-2. 메뉴 리스트가 null이 아니면 사용자가 요청한 URI와 매칭이 되는 메뉴 정보 추출하고 depth가 1인 메뉴들을 따로 리스트로 만듬(헤더메뉴)
+ * 4. 3-2에서 만든 헤더메뉴 정렬
+ * 5. 사용자가 요청한 URI와 매칭이 되는 메뉴 코드가 비어 있지 않거나 허용되는 URL인 경우 출력하기 좋게 컬렉션에 담는다.
+ * 5-1. 메뉴코드가 없거나 허용되는 URL이 아닌 경우 올바르지 않은 URL이라는 알럿창을 출력 후 Back
  */
 @Slf4j
-public class MenuIntercepter extends HandlerInterceptorAdapter{
+public class MenuInterceptor extends HandlerInterceptorAdapter{
 	
 	@Autowired
 	private MenuService menuService;

@@ -29,7 +29,7 @@ public class DataSourceConfig{
 	
 	/**
 	 * Mysql DataSource
-	 * @return
+	 * @return DataSource
 	 */
 	public DataSource getPrimaryDataSource() {
 		final BasicDataSource basicDataSource = new BasicDataSource();
@@ -54,9 +54,10 @@ public class DataSourceConfig{
 		basicDataSource.setNumTestsPerEvictionRun(-1);
 		return basicDataSource;
 	}
+	
 	/**
 	 * Mssql DataSource
-	 * @return
+	 * @return DataSource
 	 */
 	public DataSource getAnotherDataSource() {
 		final BasicDataSource basicDataSource = new BasicDataSource();
@@ -81,25 +82,28 @@ public class DataSourceConfig{
 		basicDataSource.setNumTestsPerEvictionRun(-1);
 		return basicDataSource;
 	}
+	
 	/**
 	 * Mysql TransactionManager
-	 * @return
+	 * @return PlatformTransactionManager
 	 */
 	@Bean
 	public PlatformTransactionManager primaryTransactionManager() {
 		return new DataSourceTransactionManager(getPrimaryDataSource());
 	}
+	
 	/**
 	 * Mssql TransactionManager
-	 * @return
+	 * @return PlatformTransactionManager
 	 */
 	@Bean
 	public PlatformTransactionManager anotherTransactionManager() {
 		return new DataSourceTransactionManager(getAnotherDataSource());
 	}
+	
 	/**
 	 * Mysql SqlSession
-	 * @return
+	 * @return SqlSessionFactory
 	 */
 	@Bean(name="mySqlSession")
 	public SqlSessionFactory getSqlSessionFactory() throws Exception {
@@ -110,9 +114,10 @@ public class DataSourceConfig{
 		
 		return sqlSessionFactoryBean.getObject();
 	}
+	
 	/**
 	 * Mssql SqlSession
-	 * @return
+	 * @return SqlSessionFactory
 	 */
 	@Bean(name="myAnotherSqlSession")
 	public SqlSessionFactory getAnotherSqlSessionFactory() throws Exception {
@@ -123,9 +128,10 @@ public class DataSourceConfig{
 		
 		return sqlSessionFactoryBean.getObject();
 	}
+	
 	/**
 	 * Mysql MapperScannerConfigurer
-	 * @return
+	 * @return MapperScannerConfigurer
 	 */
 	@Bean
 	public MapperScannerConfigurer setPrimaryMapperScannerConfigurer(){
@@ -137,9 +143,10 @@ public class DataSourceConfig{
 		
 		return primaryMapperScanConfigurer;
 	}
+	
 	/**
 	 * Mssql MapperScannerConfigurer
-	 * @return
+	 * @return MapperScannerConfigurer
 	 */
 	@Bean
 	public MapperScannerConfigurer setAnotherMapperScannerConfigurer(){

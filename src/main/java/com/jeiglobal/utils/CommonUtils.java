@@ -25,7 +25,6 @@ public class CommonUtils {
 
 	/**
 	 * 파일 확장자만 추출
-	 * 
 	 * @param originalFilename
 	 * @return String
 	 */
@@ -36,7 +35,6 @@ public class CommonUtils {
 
 	/**
 	 * 서버에 저장할 고유한 파일명 생성
-	 * 
 	 * @param originalFilename
 	 * @return String
 	 */
@@ -47,7 +45,6 @@ public class CommonUtils {
 
 	/**
 	 * 쿠키 추가
-	 * 
 	 * @param cookieName
 	 * @param cookieValue
 	 * @param cookieDomain
@@ -70,7 +67,6 @@ public class CommonUtils {
 
 	/**
 	 * 쿠키 삭제
-	 * 
 	 * @param cookieName
 	 * @param cookieDomain
 	 * @param response
@@ -88,6 +84,12 @@ public class CommonUtils {
 		}
 	}
 
+	/**
+	 * 현재 날짜 주차 중 시작 주와 끝 주 가져오기
+	 * @param day
+	 * @return List<String>
+	 * @throws ParseException
+	 */
 	public static List<String> weekCalendar(String day) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar cal = Calendar.getInstance();

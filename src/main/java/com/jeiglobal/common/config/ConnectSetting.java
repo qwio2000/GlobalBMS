@@ -45,8 +45,10 @@ static private ConnectSetting connectSetting = new ConnectSetting();
 			dbActive = env.getDefaultProfiles()[0];
 		}
 		context.close();
+		
 		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
 		yaml.setResources(new ClassPathResource("dbInfo/db_"+dbActive+".yml"));
+		
 		Properties proper = yaml.getObject();
 		mysqlDriverClassName = proper.getProperty("db.mysqlDriverClassName");
 		mysqlUrl = proper.getProperty("db.mysqlUrl");
